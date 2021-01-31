@@ -25,25 +25,25 @@ The docs/ folder contains a user guide and a description of the file format for 
 Folders are organised as follows:
 
 * <root> the Lazarus project files, licence and .gitignore
- * lac/core/ LaCoGen core files (LaCoGen is built with LaCoGen!)
-  * deployment_parser_module.pas - A utility parser and lexer that can load .lacobj files from file, resource or stream. Include this code with your application that uses LaCoGen
-  * deployment_parser_types.pas - Some types defined for you to reference in your own application
-  * lacogen10.lac - The grammar file to describe LaCoGen version 1.0
-  * lacogen10.lacobj - The compiled grammar file containing the DFA and LALR items created from lacogen10.lac
-  * lacogen10_setliteral.lac - The grammar file to define set literals - there is a parser within a parser for efficiency
-  * lacogen10_setliteral.lacobj - The compiled grammar for set literals
-  * security_save/ folder containing known good copies of the above. If you mess up with any of the files above, you won't be able to recompile Lazarus
- * test/ - Random stuff used to test the software, can be used to get to learn how it works
-  * 6502/ - Grammar for a 6502 macro assembler which I wrote
-  * ansi_c/ - Grammar for ANSI C - this was taken from the C grammar for the Gold Parser at http://www.goldparser.org/grammars/index.htm and converted into LaCoGen
-  * errors/ - A bunch of bad grammars which deliberately induce faults such as Shift/Reduce and Reduce/Reduce errors
-  * expr/ - A complete Lazarus application for an expression evaluator - use this to learn how to create your own application
-  * literal/ - Test grammar for literals and escape sequences
-  * misc/ - Miscellaneous grammars used for testing purposes
-  * terminals/ - Test grammars for terminals including the MIXED() function for handling mixed case
-  * unused_rule/ - Grammar which deliberately creates unused rules to test if the software flags this up
-  * utf8/ - Grammer to check if UTF8 characters are correctly handled
- * units/ - The PASCAL units which make up the core of the software. Most give a description in the header
+  * lac/core/ LaCoGen core files (LaCoGen is built with LaCoGen!)
+    * deployment_parser_module.pas - A utility parser and lexer that can load .lacobj files from file, resource or stream. Include this code with your application that uses LaCoGen
+    * deployment_parser_types.pas - Some types defined for you to reference in your own application
+    * lacogen10.lac - The grammar file to describe LaCoGen version 1.0
+    * lacogen10.lacobj - The compiled grammar file containing the DFA and LALR items created from lacogen10.lac
+    * lacogen10_setliteral.lac - The grammar file to define set literals - there is a parser within a parser for efficiency
+    * lacogen10_setliteral.lacobj - The compiled grammar for set literals
+    * security_save/ folder containing known good copies of the above. If you mess up with any of the files above, you won't be able to recompile Lazarus
+  * test/ - Random stuff used to test the software, can be used to get to learn how it works
+    * 6502/ - Grammar for a 6502 macro assembler which I wrote
+    * ansi_c/ - Grammar for ANSI C - this was taken from the C grammar for the Gold Parser at http://www.goldparser.org/grammars/index.htm and converted into LaCoGen
+    * errors/ - A bunch of bad grammars which deliberately induce faults such as Shift/Reduce and Reduce/Reduce errors
+    * expr/ - A complete Lazarus application for an expression evaluator - use this to learn how to create your own application
+    * literal/ - Test grammar for literals and escape sequences
+    * misc/ - Miscellaneous grammars used for testing purposes
+    * terminals/ - Test grammars for terminals including the MIXED() function for handling mixed case
+    * unused_rule/ - Grammar which deliberately creates unused rules to test if the software flags this up
+    * utf8/ - Grammer to check if UTF8 characters are correctly handled
+  * units/ - The PASCAL units which make up the core of the software. Most give a description in the header
 
 #### Software Ecosystem
 
