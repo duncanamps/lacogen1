@@ -8,13 +8,15 @@ LaCoGen is a command line tool in the style of the LEX and YACC programs used in
 * .txt dump file which contains detailed descriptions of the DFA and LALR(1) items and how they were arrived at
 * .xml dump file containing the DFA and LALR(1) tables
 
+The .lacobj file can be read by the included lexer/parser code to form a complete working module. The included code is written in Lazarus (Free Pascal Compiler) however there is no reason it cannot be ported to C, C++, Java, Python, etc.
+
 #### Development Status
 This is very much experimental and was developed by the author as a learning tool for how compiler generation tools worked in general.
-Please don't use this for anything serious that you would object to losing. Whilst having been extensively testing, and coming with 
-working examples, there is no guarantee that it will work correctly with all grammers.
+Please don't use this for anything serious that you would object to losing. Whilst having been extensively tested, and coming with 
+working examples, there is no guarantee that it will work correctly with all grammars.
 
 #### Development Requirements
-To compile this software, you will need Lazarus 2.10 or later. It has been tested on Windows, Linux and Mac. As it is
+To compile this software, you will need Lazarus 2.10 or later. It has been tested on Windows. As it is
 only a simple text and file based application, it should be relatively easy to recompile on other hosts which are
 supported by the Lazarus ecosystem.
 
@@ -45,9 +47,6 @@ Folders are organised as follows:
     * utf8/ - Grammer to check if UTF8 characters are correctly handled
   * units/ - The PASCAL units which make up the core of the software. Most give a description in the header
 
-#### Software Ecosystem
-
- 
 #### Known Issues 
 * LaCoGen dabbled back and forth between 8 bit and 32 bit characters during its early life. It has now settled on 8 bit characters as UTF8 is handled correctly so multi-byte sequences are OK. There may be parts of the code that are battle damaged by the continual changes, for example large chunks of commented out code
 * As part of the 32bit or 8bit journey, the software generates character ranges as DFA records. So instead of 0,1,2,3,4,... it could be 0-5,6,7... Not sure if this is needed now but it's in there anyway
