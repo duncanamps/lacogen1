@@ -1,0 +1,49 @@
+/*-----------------------------------------------------------------------------------
+
+  LaCoGen - Test bad literal entry
+
+  05/04/2020
+
+-----------------------------------------------------------------------------------*/
+  
+%title        = "LaCoGen Test bad literal entry";
+%version      = "0";
+%author       = "Duncan Munro";
+%codeprefix   = "LIT";
+%start        = <Expression>;
+
+
+// ====================================================================
+// Predefined Character sets
+// ====================================================================
+
+{digits}	= [0-9\\];		// ***** BAD LITERAL *****
+
+                                  
+// ====================================================================
+// Terminals
+// ====================================================================
+
+number = {digits}+;
+
+
+// ====================================================================
+// Rules
+// ====================================================================
+
+<Expression>    : <Expression> "<<" <AddOp>     # procshl
+                | <Expression> ">>" <AddOp>     # procshr
+                | <AddOp>                       # proccopy
+                ;
+                
+<AddOp> 	: <AddOp> "+" <Mulop>               # procadd
+			| <AddOp> "-" <Mulop>	            # procsub
+			| <Mulop>					        # proccopy
+            ;
+
+<Mulop>	: <Mulop> "*" number				# procmult
+		| <Mulop> "/" number				# procdiv
+		| number							# proccopy
+        | "(" <Expression> ")"              # procbrackets
+		;
+		

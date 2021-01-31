@@ -1,0 +1,82 @@
+//-----------------------------------------------------------------------------------
+//
+// LaCoGen - Grammar definition for set literals
+//
+//
+// Examples are:
+//
+//   [0123456789]  // The digits
+//   [0-9]         // Digits done a different way
+//   [^0-9]        // Anything but digits
+//   [A-Za-z]      // Letters
+//   [\t]          // Tab
+//   [\n]          // Newline
+//   [\r]          // Carriage return
+//   [\x00]        // Character 0 (hex)
+//   [\x20]        // Space character
+//   [\x30-\x39]   // Digits done another different way
+//   [\x20ac]      // 16 bit character
+//   [\x01f7e6]	   // 21 bit character - Emoji blue square
+//   [\\]          // Backslash character
+//   [\]]          // Closing square bracket
+//   [\-]          // Hyphen character
+//   [\^]          // Caret character
+//
+// 23/04/2020 - Amended to include 5 digit hex values
+//
+// -----------------------------------------------------------------------------------
+  
+%title        = "LaCoGen Grammar - Set literal definition";
+%version      = "0";
+%author       = "Duncan Munro";
+%codeprefix   = "LCG_LITERAL";
+%start        = <Grammar>;
+
+
+// ====================================================================
+// Predefined Character sets
+// ====================================================================
+
+{Printable} = [ -\xff];
+{Number}    = [0-9];
+
+// ====================================================================
+// Character sets
+// ====================================================================
+
+{EscapedControl} = [\\\-] + [\[\]];
+{EscapedSingles} = [tnr];
+{EscapedAll}     = {EscapedControl} + {EscapedSingles};
+{NonEscaped}     = {Printable} - {EscapedControl};
+{HexDigit}       = {Number} + [ABCDEFabcdef];
+                                  
+// ====================================================================
+// Terminals
+// ====================================================================
+
+CharHex			= "\x" {HexDigit} {HexDigit};      
+CharNonEscaped	= {NonEscaped};
+CharEscaped		= "\" {EscapedAll};
+
+
+// ====================================================================
+// Rules
+// ====================================================================
+
+<Grammar>		: "[" <LiteralDefs> "]"			# ActLitSetDefs
+				| "[]"							# ActLitSetEmpty
+				|								# ActLitIgnore
+				;
+
+<LiteralDefs>	: <LiteralDefs> <LiteralDef>	# ActLitIgnore
+				| <LiteralDef>					# ActLitIgnore
+				;
+
+<LiteralDef>	: <Character> "-" <Character>	# ActLitLiteralRange
+				| <Character>					# ActLitLiteralSingle
+				;
+                           
+<Character>		: CharNonEscaped				# ActLitCharNonEscaped
+				| CharHex						# ActLitCharHex
+				| CharEscaped					# ActLitCharEscaped
+				;

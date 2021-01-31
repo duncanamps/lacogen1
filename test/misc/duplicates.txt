@@ -1,0 +1,360 @@
+PARAMETER LIST
+==============
+%COMMENTNESTED = TRUE
+%AUTHOR        = Duncan Munro
+%CODEPREFIX    = TEST
+%COPYRIGHT     = 
+%LICENSE       = 
+%TITLE         = LaCoGen Test Multiple Keywords
+%UNITLEXER     = 
+%UNITPARSER    = 
+%VERSION       = 1.0
+%LEXERBUFFER   = 4096
+%LEXERTAB      = 4
+%PARSERBUFFER  = 1024
+%START         = <Content>
+
+CHARACTER SETS
+==============
+{WSChar} = [{HT}-{LF}{CR}{SP}]
+
+Terminals - Special
+===================
+    0: [-,-] (Error)
+    1: [-,-] (EOF)
+    2: [-,-] (Comment)
+
+Terminals - Normal
+==================
+
+Terminals - Ignored
+===================
+    5: [57,58] WhiteSpace = ([{HT}-{LF}{CR}{SP}])+
+
+Terminals - Keywords
+====================
+    3: [5,24] KTrue = T|t&R|r&U|u&E|e
+    4: [29,54] *UNUSED* KFalse = F|f&A|a&L|l&S|s&E|e
+
+Terminals - Symbols
+===================
+
+Terminals - Virtual
+===================
+
+Terminals - Non-Terminals
+=========================
+    6: [-,-] <Content>
+
+FRAGMENTED CHARACTERS AND SETS
+==============================
+    9,    9
+   10,   10
+   13,   13
+   32,   32
+   65,   65
+   69,   69
+   70,   70
+   76,   76
+   82,   82
+   83,   83
+   84,   84
+   85,   85
+   97,   97
+  101,  101
+  102,  102
+  108,  108
+  114,  114
+  115,  115
+  116,  116
+  117,  117
+
+DUMP OF THE STATE LIST
+======================
+State no.      0 Epsilon -> 5
+                 Epsilon -> 29
+                 Epsilon -> 57
+
+State no.      1 Char "T" -> 2
+
+State no.      2 Epsilon -> 6
+
+State no.      3 Char "t" -> 4
+
+State no.      4 Epsilon -> 6
+
+State no.      5 Epsilon -> 1
+                 Epsilon -> 3
+
+State no.      6 Epsilon -> 11
+
+State no.      7 Char "R" -> 8
+
+State no.      8 Epsilon -> 12
+
+State no.      9 Char "r" -> 10
+
+State no.     10 Epsilon -> 12
+
+State no.     11 Epsilon -> 7
+                 Epsilon -> 9
+
+State no.     12 Epsilon -> 17
+
+State no.     13 Char "U" -> 14
+
+State no.     14 Epsilon -> 18
+
+State no.     15 Char "u" -> 16
+
+State no.     16 Epsilon -> 18
+
+State no.     17 Epsilon -> 13
+                 Epsilon -> 15
+
+State no.     18 Epsilon -> 23
+
+State no.     19 Char "E" -> 20
+
+State no.     20 Epsilon -> 24
+
+State no.     21 Char "e" -> 22
+
+State no.     22 Epsilon -> 24
+
+State no.     23 Epsilon -> 19
+                 Epsilon -> 21
+
+State no.     24 Accepting state with token 3 "KTrue"
+
+State no.     25 Char "F" -> 26
+
+State no.     26 Epsilon -> 30
+
+State no.     27 Char "f" -> 28
+
+State no.     28 Epsilon -> 30
+
+State no.     29 Epsilon -> 25
+                 Epsilon -> 27
+
+State no.     30 Epsilon -> 35
+
+State no.     31 Char "A" -> 32
+
+State no.     32 Epsilon -> 36
+
+State no.     33 Char "a" -> 34
+
+State no.     34 Epsilon -> 36
+
+State no.     35 Epsilon -> 31
+                 Epsilon -> 33
+
+State no.     36 Epsilon -> 41
+
+State no.     37 Char "L" -> 38
+
+State no.     38 Epsilon -> 42
+
+State no.     39 Char "l" -> 40
+
+State no.     40 Epsilon -> 42
+
+State no.     41 Epsilon -> 37
+                 Epsilon -> 39
+
+State no.     42 Epsilon -> 47
+
+State no.     43 Char "S" -> 44
+
+State no.     44 Epsilon -> 48
+
+State no.     45 Char "s" -> 46
+
+State no.     46 Epsilon -> 48
+
+State no.     47 Epsilon -> 43
+                 Epsilon -> 45
+
+State no.     48 Epsilon -> 53
+
+State no.     49 Char "E" -> 50
+
+State no.     50 Epsilon -> 54
+
+State no.     51 Char "e" -> 52
+
+State no.     52 Epsilon -> 54
+
+State no.     53 Epsilon -> 49
+                 Epsilon -> 51
+
+State no.     54 Accepting state with token 4 "KFalse"
+
+State no.     55 Char "{09}" -> 56
+                 Char "{0A}" -> 56
+                 Char "{0D}" -> 56
+                 Char "{20}" -> 56
+
+State no.     56 Epsilon -> 58
+                 Epsilon -> 55
+
+State no.     57 Epsilon -> 55
+
+State no.     58 Accepting state with token 5 "WhiteSpace"
+
+DICTIONARY
+==========
+Character {HT}
+Character {LF}
+Character {CR}
+Character {SP}
+Character A
+Character E
+Character F
+Character L
+Character R
+Character S
+Character T
+Character U
+Character a
+Character e
+Character f
+Character l
+Character r
+Character s
+Character t
+Character u
+
+NFA LIST
+========
+
+State Token  {HT}  {LF}  {CR}  {SP}     A     E     F     L     R     S     T     U     a     e     f     l     r     s     t     u Epsilons
+----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- --------
+    0                                                                                                                               0,1,3,5,25,27,29,55,57
+    1                                                                       2                                                       1
+    2                                                                                                                               2,6,7,9,11
+    3                                                                                                                       4       3
+    4                                                                                                                               4,6,7,9,11
+    5                                                                                                                               1,3,5
+    6                                                                                                                               6,7,9,11
+    7                                                           8                                                                   7
+    8                                                                                                                               8,12,13,15,17
+    9                                                                                                          10                   9
+   10                                                                                                                               10,12,13,15,17
+   11                                                                                                                               7,9,11
+   12                                                                                                                               12,13,15,17
+   13                                                                            14                                                 13
+   14                                                                                                                               14,18,19,21,23
+   15                                                                                                                            16 15
+   16                                                                                                                               16,18,19,21,23
+   17                                                                                                                               13,15,17
+   18                                                                                                                               18,19,21,23
+   19                                        20                                                                                     19
+   20                                                                                                                               20,24
+   21                                                                                        22                                     21
+   22                                                                                                                               22,24
+   23                                                                                                                               19,21,23
+(  24)    3                                                                                                                         24
+   25                                              26                                                                               25
+   26                                                                                                                               26,30,31,33,35
+   27                                                                                              28                               27
+   28                                                                                                                               28,30,31,33,35
+   29                                                                                                                               25,27,29
+   30                                                                                                                               30,31,33,35
+   31                                  32                                                                                           31
+   32                                                                                                                               32,36,37,39,41
+   33                                                                                  34                                           33
+   34                                                                                                                               34,36,37,39,41
+   35                                                                                                                               31,33,35
+   36                                                                                                                               36,37,39,41
+   37                                                    38                                                                         37
+   38                                                                                                                               38,42,43,45,47
+   39                                                                                                    40                         39
+   40                                                                                                                               40,42,43,45,47
+   41                                                                                                                               37,39,41
+   42                                                                                                                               42,43,45,47
+   43                                                                44                                                             43
+   44                                                                                                                               44,48,49,51,53
+   45                                                                                                                46             45
+   46                                                                                                                               46,48,49,51,53
+   47                                                                                                                               43,45,47
+   48                                                                                                                               48,49,51,53
+   49                                        50                                                                                     49
+   50                                                                                                                               50,54
+   51                                                                                        52                                     51
+   52                                                                                                                               52,54
+   53                                                                                                                               49,51,53
+(  54)    4                                                                                                                         54
+   55          56    56    56    56                                                                                                 55
+   56                                                                                                                               55,56,58
+   57                                                                                                                               55,57
+(  58)    5                                                                                                                         58
+
+DFA LIST (RENAMED)
+==================
+
+StateID ACCEPT {HT} {LF} {CR} {SP} A    E    F    L    R    S    T    U    a    e    f    l    r    s    t    u   
+------- ------ ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+0              1    1    1    1              2                   3                   2                   3        
+1            5 1    1    1    1                                                                                   
+2                                  4                                       4                                      
+3                                                      5                                       5                  
+4                                                 6                                       6                       
+5                                                                     7                                       7   
+6                                                           8                                       8             
+7                                       9                                       9                                 
+8                                       10                                      10                                
+9            3                                                                                                    
+10           4                                                                                                    
+
+RULES
+=====
+0: <Content> : KTrue # ActIgnore
+1: <$accept> : <Content> (EOF) # PROC__DOLLAR_ACCEPT_CONTENT___EOF__
+
+First Set
+=========
+<Content> -> KTrue
+<$accept> -> <Content> | KTrue
+
+Follow Set
+==========
+<Content> -> (EOF)
+KTrue -> (EOF)
+
+Last Set
+========
+<Content> -> KTrue
+<$accept> -> (EOF)
+
+Expanded Rule List
+==================
+    0: RuleNo=00001,Head=00007,Next=00006,Offs= 0,acc=n <$accept> : ● <Content> (EOF) 
+    1: RuleNo=00001,Head=00007,Next=00001,Offs= 1,acc=n <$accept> : <Content> ● (EOF) 
+    2: RuleNo=00001,Head=00007,Next=2147483647,Offs= 2,acc=Y <$accept> : <Content> (EOF) ● 
+    3: RuleNo=00000,Head=00006,Next=00003,Offs= 0,acc=n <Content> : ● KTrue 
+    4: RuleNo=00000,Head=00006,Next=2147483647,Offs= 1,acc=n <Content> : KTrue ● 
+
+Parser Table
+============
+
+Entry State Canon  Next ε Shift Reduc PGoto Accep Expan AsText
+----- ----- ----- ----- - ----- ----- ----- ----- ----- ------
+    0     0     0     6       -     -     2 False True  RuleNo=00001,Head=00007,Next=00006,Offs= 0,acc=n <$accept> : ● <Content> (EOF) 
+    1     0     3     3       1     -     - False True  RuleNo=00000,Head=00006,Next=00003,Offs= 0,acc=n <Content> : ● KTrue 
+    2     1     4     -       -     0     - False True  RuleNo=00000,Head=00006,Next=2147483647,Offs= 1,acc=n <Content> : KTrue ● 
+    3     2     1     1       3     -     - False True  RuleNo=00001,Head=00007,Next=00001,Offs= 1,acc=n <$accept> : <Content> ● (EOF) 
+    4     3     2     -       -     -     - True  True  RuleNo=00001,Head=00007,Next=2147483647,Offs= 2,acc=Y <$accept> : <Content> (EOF) ● 
+
+Output Table
+============
+
+State (Error)  (EOF) (Comment)  KTrue KFalse WhiteSpace <Content> <$accept>
+----- ------- ------ --------- ------ ------ ---------- --------- ---------
+    0       .      .         .     S1      .          .        G2         .
+    1       .     R0         .      .      .          .         .         .
+    2       .     S3         .      .      .          .         .         .
+    3     ACC    ACC       ACC    ACC    ACC        ACC       ACC       ACC
+

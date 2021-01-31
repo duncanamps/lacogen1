@@ -1,0 +1,100 @@
+object Form1: TForm1
+  Left = 316
+  Height = 538
+  Top = 161
+  Width = 835
+  Caption = 'Floating Point Test'
+  ClientHeight = 538
+  ClientWidth = 835
+  DesignTimePPI = 120
+  Font.Height = -18
+  Font.Name = 'Lucida Sans Typewriter'
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  LCLVersion = '2.0.10.0'
+  object edtInstruction: TEdit
+    Left = 152
+    Height = 29
+    Top = 22
+    Width = 591
+    Anchors = [akTop, akLeft, akRight]
+    Font.Height = -18
+    Font.Name = 'Lucida Sans Typewriter'
+    ParentFont = False
+    TabOrder = 0
+  end
+  object Label1: TLabel
+    Left = 8
+    Height = 21
+    Top = 24
+    Width = 121
+    Caption = 'Instruction'
+    Font.Height = -18
+    Font.Name = 'Lucida Sans Typewriter'
+    ParentColor = False
+    ParentFont = False
+  end
+  object btnGo: TButton
+    Left = 757
+    Height = 29
+    Top = 22
+    Width = 68
+    Anchors = [akTop, akRight]
+    Caption = 'Go'
+    Default = True
+    Font.Height = -18
+    Font.Name = 'Lucida Sans Typewriter'
+    OnClick = btnGoClick
+    ParentFont = False
+    TabOrder = 1
+  end
+  object Memo1: TMemo
+    Left = 12
+    Height = 462
+    Top = 68
+    Width = 505
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Font.Height = -18
+    Font.Name = 'Lucida Sans Typewriter'
+    Lines.Strings = (
+      'FP Expression Evaluator'
+      'Duncan Munro 06/04/2020'
+      ''
+      'Key in HELP <enter> for instructions'
+      ''
+      ''
+      ''
+    )
+    ParentFont = False
+    ScrollBars = ssAutoBoth
+    TabOrder = 2
+    WordWrap = False
+  end
+  object StringGrid1: TStringGrid
+    Left = 527
+    Height = 462
+    Top = 68
+    Width = 300
+    Anchors = [akTop, akRight, akBottom]
+    ColCount = 2
+    Columns = <    
+      item
+        Title.Caption = 'Title'
+        Width = 216
+      end>
+    Font.Height = -18
+    Font.Name = 'Lucida Sans Typewriter'
+    ParentFont = False
+    TabOrder = 3
+    ColWidths = (
+      80
+      216
+    )
+    Cells = (
+      1
+      0
+      0
+      'Var'
+    )
+  end
+end

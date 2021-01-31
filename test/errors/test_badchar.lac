@@ -1,0 +1,51 @@
+/*-----------------------------------------------------------------------------------
+
+  LaCoGen - Test bad characters in input for correct error response
+
+  08/04/2020
+
+-----------------------------------------------------------------------------------*/
+  
+%title        = "LaCoGen test bad characters";
+%version      = "0";
+%author       = "Duncan Munro";
+%codeprefix   = "TEST";
+%start        = <Command>;
+
+
+// ====================================================================
+// Predefined Character sets
+// ====================================================================
+
+{digits}		= [0-9];
+{eset}			= [Ee];
+{sign}			= [\-+];
+{alpha}			= [A-Za-z];
+{alphanumeric}	= {alpha} + {digits};
+{wschar}		= [\t\n\r \xa0];
+
+                                  
+// ====================================================================
+// Terminals
+// ====================================================================
+
+number 		= {digits}* "."? {digits}+ ({eset} {sign}? {digits}+)? ;
+id	   		= {alpha} {alphanumeric}* ;
+help		= [Hh] [Ee] [Ll] [Pp] keyword ;
+print  		= ([Pp] [Rr] [Ii] [Nn] [Tt]) | "?" keyword ;
+let    		= [Ll] [Ee] [Tt] keyword ;
+whitespace	= {wschar}+ ignore;
+
+// ====================================================================
+// Rules
+// ====================================================================
+
+<Command> 	: <PrintCommand>
+			| <AssignCommand>
+			;
+			
+<PrintCommand>	# print number		// Bad character # instead of :
+				;
+				
+<AssignCommand>	: let id "=" number
+				;

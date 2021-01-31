@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+<Lacogen>
+  <Parameters>
+    <Parameter><Name>%FASTLEXER</Name><Value>TRUE</Value></Parameter>
+    <Parameter><Name>%FASTPARSER</Name><Value>TRUE</Value></Parameter>
+    <Parameter><Name>%AUTHOR</Name><Value>Duncan Munro</Value></Parameter>
+    <Parameter><Name>%CODEPREFIX</Name><Value>EPS</Value></Parameter>
+    <Parameter><Name>%COPYRIGHT</Name><Value></Value></Parameter>
+    <Parameter><Name>%LICENSE</Name><Value></Value></Parameter>
+    <Parameter><Name>%TITLE</Name><Value>LaCoGen Test Epsilons</Value></Parameter>
+    <Parameter><Name>%UNITLEXER</Name><Value></Value></Parameter>
+    <Parameter><Name>%UNITPARSER</Name><Value></Value></Parameter>
+    <Parameter><Name>%VERSION</Name><Value>0.5</Value></Parameter>
+    <Parameter><Name>%LEXERBUFFER</Name><Value>4096</Value></Parameter>
+    <Parameter><Name>%LEXERTAB</Name><Value>4</Value></Parameter>
+    <Parameter><Name>%PARSERBUFFER</Name><Value>1024</Value></Parameter>
+    <Parameter><Name>%START</Name><Value>&lt;Content&gt;</Value></Parameter>
+  </Parameters>
+  <CharacterSets>
+    <CharacterSet><Name>{Alphanumeric}</Name><Value>[0-9A-Za-z]</Value></CharacterSet>
+    <CharacterSet><Name>{WS Char}</Name><Value>[\x09\x0A\x0D \xA0]</Value></CharacterSet>
+  </CharacterSets>
+  <Terminals>
+    <Terminal><Index>0</Index><Name>(Error)</Name><Type>Special</Type><Content></Content></Terminal>
+    <Terminal><Index>1</Index><Name>(EOF)</Name><Type>Special</Type><Content></Content></Terminal>
+    <Terminal><Index>2</Index><Name>crash</Name><Type>Keyword</Type><Content></Content></Terminal>
+    <Terminal><Index>3</Index><Name>bang</Name><Type>Keyword</Type><Content></Content></Terminal>
+    <Terminal><Index>4</Index><Name>wallop</Name><Type>Keyword</Type><Content></Content></Terminal>
+    <Terminal><Index>5</Index><Name>end</Name><Type>Keyword</Type><Content></Content></Terminal>
+    <Terminal><Index>6</Index><Name>whitespace</Name><Type>Terminal</Type><Content>([{TAB}{LF}{CR}{SPC}{160}])+</Content></Terminal>
+    <Terminal><Index>7</Index><Name>&lt;Content&gt;</Name><Type>Non terminal</Type><Content></Content></Terminal>
+    <Terminal><Index>8</Index><Name>&lt;Command&gt;</Name><Type>Non terminal</Type><Content></Content></Terminal>
+    <Terminal><Index>9</Index><Name>&lt;$accept&gt;</Name><Type>Accept</Type><Content>$</Content></Terminal>
+  </Terminals>
+  <NFA>
+    <NFArow><NFAstate>0</NFAstate><Accepting>No</Accepting><Token></Token><x09></x09><x0A></x0A><x0D></x0D><x20></x20><x61></x61><x62></x62><x63></x63><x64></x64><x65></x65><x67></x67><x68></x68><x6C></x6C><x6E></x6E><x6F></x6F><x70></x70><x72></x72><x73></x73><x77></x77><xA0></xA0><Epsilons>0,1,7,12,19,23,25</Epsilons></NFArow>
+    <NFArow><NFAstate>1</NFAstate><Accepting>No</Accepting><Token></Token><x09></x09><x0A></x0A><x0D></x0D><x20></x20><x61></x61><x62></x62><x63>2</x63><x64></x64><x65></x65><x67></x67><x68></x68><x6C></x6C><x6E></x6E><x6F></x6F><x70></x70><x72></x72><x73></x73><x77></x77><xA0></xA0><Epsilons>1</Epsilons></NFArow>
+    <NFArow><NFAstate>2</NFAstate><Accepting>No</Accepting><Token></Token><x09></x09><x0A></x0A><x0D></x0D><x20></x20><x61></x61><x62></x62><x63></x63><x64></x64><x65></x65><x67></x67><x68></x68><x6C></x6C><x6E></x6E><x6F></x6F><x70></x70><x72>3</x72><x73></x73><x77></x77><xA0></xA0><Epsilons>2</Epsilons></NFArow>
+    <NFArow><NFAstate>3</NFAstate><Accepting>No</Accepting><Token></Token><x09></x09><x0A></x0A><x0D></x0D><x20></x20><x61>4</x61><x62></x62><x63></x63><x64></x64><x65></x65><x67></x67><x68></x68><x6C></x6C><x6E></x6E><x6F></x6F><x70></x70><x72></x72><x73></x73><x77></x77><xA0></xA0><Epsilons>3</Epsilons></NFArow>
+    <NFArow><NFAstate>4</NFAstate><Accepting>No</Accepting><Token></Token><x09></x09><x0A></x0A><x0D></x0D><x20></x20><x61></x61><x62></x62><x63></x63><x64></x64><x65></x65><x67></x67><x68></x68><x6C></x6C><x6E></x6E><x6F></x6F><x70></x70><x72></x72><x73>5</x73><x77></x77><xA0></xA0><Epsilons>4</Epsilons></NFArow>
+    <NFArow><NFAstate>5</NFAstate><Accepting>No</Accepting><Token></Token><x09></x09><x0A></x0A><x0D></x0D><x20></x20><x61></x61><x62></x62><x63></x63><x64></x64><x65></x65><x67></x67><x68>6</x68><x6C></x6C><x6E></x6E><x6F></x6F><x70></x70><x72></x72><x73></x73><x77></x77><xA0></xA0><Epsilons>5</Epsilons></NFArow>
+    <NFArow><NFAstate>6</NFAstate><Accepting>Yes</Accepting><Token>2</Token><x09></x09><x0A></x0A><x0D></x0D><x20></x20><x61></x61><x62></x62><x63></x63><x64></x64><x65></x65><x67></x67><x68></x68><x6C></x6C><x6E></x6E><x6F></x6F><x70></x70><x72></x72><x73></x73><x77></x77><xA0></xA0><Epsilons>6</Epsilons></NFArow>
+    <NFArow><NFAstate>7</NFAstate><Accepting>No</Accepting><Token></Token><x09></x09><x0A></x0A><x0D></x0D><x20></x20><x61></x61><x62>8</x62><x63></x63><x64></x64><x65></x65><x67></x67><x68></x68><x6C></x6C><x6E></x6E><x6F></x6F><x70></x70><x72></x72><x73></x73><x77></x77><xA0></xA0><Epsilons>7</Epsilons></NFArow>
+    <NFArow><NFAstate>8</NFAstate><Accepting>No</Accepting><Token></Token><x09></x09><x0A></x0A><x0D></x0D><x20></x20><x61>9</x61><x62></x62><x63></x63><x64></x64><x65></x65><x67></x67><x68></x68><x6C></x6C><x6E></x6E><x6F></x6F><x70></x70><x72></x72><x73></x73><x77></x77><xA0></xA0><Epsilons>8</Epsilons></NFArow>
+    <NFArow><NFAstate>9</NFAstate><Accepting>No</Accepting><Token></Token><x09></x09><x0A></x0A><x0D></x0D><x20></x20><x61></x61><x62></x62><x63></x63><x64></x64><x65></x65><x67></x67><x68></x68><x6C></x6C><x6E>10</x6E><x6F></x6F><x70></x70><x72></x72><x73></x73><x77></x77><xA0></xA0><Epsilons>9</Epsilons></NFArow>
+    <NFArow><NFAstate>10</NFAstate><Accepting>No</Accepting><Token></Token><x09></x09><x0A></x0A><x0D></x0D><x20></x20><x61></x61><x62></x62><x63></x63><x64></x64><x65></x65><x67>11</x67><x68></x68><x6C></x6C><x6E></x6E><x6F></x6F><x70></x70><x72></x72><x73></x73><x77></x77><xA0></xA0><Epsilons>10</Epsilons></NFArow>
+    <NFArow><NFAstate>11</NFAstate><Accepting>Yes</Accepting><Token>3</Token><x09></x09><x0A></x0A><x0D></x0D><x20></x20><x61></x61><x62></x62><x63></x63><x64></x64><x65></x65><x67></x67><x68></x68><x6C></x6C><x6E></x6E><x6F></x6F><x70></x70><x72></x72><x73></x73><x77></x77><xA0></xA0><Epsilons>11</Epsilons></NFArow>
+    <NFArow><NFAstate>12</NFAstate><Accepting>No</Accepting><Token></Token><x09></x09><x0A></x0A><x0D></x0D><x20></x20><x61></x61><x62></x62><x63></x63><x64></x64><x65></x65><x67></x67><x68></x68><x6C></x6C><x6E></x6E><x6F></x6F><x70></x70><x72></x72><x73></x73><x77>13</x77><xA0></xA0><Epsilons>12</Epsilons></NFArow>
+    <NFArow><NFAstate>13</NFAstate><Accepting>No</Accepting><Token></Token><x09></x09><x0A></x0A><x0D></x0D><x20></x20><x61>14</x61><x62></x62><x63></x63><x64></x64><x65></x65><x67></x67><x68></x68><x6C></x6C><x6E></x6E><x6F></x6F><x70></x70><x72></x72><x73></x73><x77></x77><xA0></xA0><Epsilons>13</Epsilons></NFArow>
+    <NFArow><NFAstate>14</NFAstate><Accepting>No</Accepting><Token></Token><x09></x09><x0A></x0A><x0D></x0D><x20></x20><x61></x61><x62></x62><x63></x63><x64></x64><x65></x65><x67></x67><x68></x68><x6C>15</x6C><x6E></x6E><x6F></x6F><x70></x70><x72></x72><x73></x73><x77></x77><xA0></xA0><Epsilons>14</Epsilons></NFArow>
+    <NFArow><NFAstate>15</NFAstate><Accepting>No</Accepting><Token></Token><x09></x09><x0A></x0A><x0D></x0D><x20></x20><x61></x61><x62></x62><x63></x63><x64></x64><x65></x65><x67></x67><x68></x68><x6C>16</x6C><x6E></x6E><x6F></x6F><x70></x70><x72></x72><x73></x73><x77></x77><xA0></xA0><Epsilons>15</Epsilons></NFArow>
+    <NFArow><NFAstate>16</NFAstate><Accepting>No</Accepting><Token></Token><x09></x09><x0A></x0A><x0D></x0D><x20></x20><x61></x61><x62></x62><x63></x63><x64></x64><x65></x65><x67></x67><x68></x68><x6C></x6C><x6E></x6E><x6F>17</x6F><x70></x70><x72></x72><x73></x73><x77></x77><xA0></xA0><Epsilons>16</Epsilons></NFArow>
+    <NFArow><NFAstate>17</NFAstate><Accepting>No</Accepting><Token></Token><x09></x09><x0A></x0A><x0D></x0D><x20></x20><x61></x61><x62></x62><x63></x63><x64></x64><x65></x65><x67></x67><x68></x68><x6C></x6C><x6E></x6E><x6F></x6F><x70>18</x70><x72></x72><x73></x73><x77></x77><xA0></xA0><Epsilons>17</Epsilons></NFArow>
+    <NFArow><NFAstate>18</NFAstate><Accepting>Yes</Accepting><Token>4</Token><x09></x09><x0A></x0A><x0D></x0D><x20></x20><x61></x61><x62></x62><x63></x63><x64></x64><x65></x65><x67></x67><x68></x68><x6C></x6C><x6E></x6E><x6F></x6F><x70></x70><x72></x72><x73></x73><x77></x77><xA0></xA0><Epsilons>18</Epsilons></NFArow>
+    <NFArow><NFAstate>19</NFAstate><Accepting>No</Accepting><Token></Token><x09></x09><x0A></x0A><x0D></x0D><x20></x20><x61></x61><x62></x62><x63></x63><x64></x64><x65>20</x65><x67></x67><x68></x68><x6C></x6C><x6E></x6E><x6F></x6F><x70></x70><x72></x72><x73></x73><x77></x77><xA0></xA0><Epsilons>19</Epsilons></NFArow>
+    <NFArow><NFAstate>20</NFAstate><Accepting>No</Accepting><Token></Token><x09></x09><x0A></x0A><x0D></x0D><x20></x20><x61></x61><x62></x62><x63></x63><x64></x64><x65></x65><x67></x67><x68></x68><x6C></x6C><x6E>21</x6E><x6F></x6F><x70></x70><x72></x72><x73></x73><x77></x77><xA0></xA0><Epsilons>20</Epsilons></NFArow>
+    <NFArow><NFAstate>21</NFAstate><Accepting>No</Accepting><Token></Token><x09></x09><x0A></x0A><x0D></x0D><x20></x20><x61></x61><x62></x62><x63></x63><x64>22</x64><x65></x65><x67></x67><x68></x68><x6C></x6C><x6E></x6E><x6F></x6F><x70></x70><x72></x72><x73></x73><x77></x77><xA0></xA0><Epsilons>21</Epsilons></NFArow>
+    <NFArow><NFAstate>22</NFAstate><Accepting>Yes</Accepting><Token>5</Token><x09></x09><x0A></x0A><x0D></x0D><x20></x20><x61></x61><x62></x62><x63></x63><x64></x64><x65></x65><x67></x67><x68></x68><x6C></x6C><x6E></x6E><x6F></x6F><x70></x70><x72></x72><x73></x73><x77></x77><xA0></xA0><Epsilons>22</Epsilons></NFArow>
+    <NFArow><NFAstate>23</NFAstate><Accepting>No</Accepting><Token></Token><x09>24</x09><x0A>24</x0A><x0D>24</x0D><x20>24</x20><x61></x61><x62></x62><x63></x63><x64></x64><x65></x65><x67></x67><x68></x68><x6C></x6C><x6E></x6E><x6F></x6F><x70></x70><x72></x72><x73></x73><x77></x77><xA0>24</xA0><Epsilons>23</Epsilons></NFArow>
+    <NFArow><NFAstate>24</NFAstate><Accepting>No</Accepting><Token></Token><x09></x09><x0A></x0A><x0D></x0D><x20></x20><x61></x61><x62></x62><x63></x63><x64></x64><x65></x65><x67></x67><x68></x68><x6C></x6C><x6E></x6E><x6F></x6F><x70></x70><x72></x72><x73></x73><x77></x77><xA0></xA0><Epsilons>23,24,26</Epsilons></NFArow>
+    <NFArow><NFAstate>25</NFAstate><Accepting>No</Accepting><Token></Token><x09></x09><x0A></x0A><x0D></x0D><x20></x20><x61></x61><x62></x62><x63></x63><x64></x64><x65></x65><x67></x67><x68></x68><x6C></x6C><x6E></x6E><x6F></x6F><x70></x70><x72></x72><x73></x73><x77></x77><xA0></xA0><Epsilons>23,25</Epsilons></NFArow>
+    <NFArow><NFAstate>26</NFAstate><Accepting>Yes</Accepting><Token>6</Token><x09></x09><x0A></x0A><x0D></x0D><x20></x20><x61></x61><x62></x62><x63></x63><x64></x64><x65></x65><x67></x67><x68></x68><x6C></x6C><x6E></x6E><x6F></x6F><x70></x70><x72></x72><x73></x73><x77></x77><xA0></xA0><Epsilons>26</Epsilons></NFArow>
+  </NFA>
+  <DFA>
+    <DFArow><StateID>0</StateID><Accept></Accept></DFArow>
+    <DFArow><StateID>1</StateID><Accept>6</Accept></DFArow>
+    <DFArow><StateID>2</StateID><Accept></Accept></DFArow>
+    <DFArow><StateID>3</StateID><Accept></Accept></DFArow>
+    <DFArow><StateID>4</StateID><Accept></Accept></DFArow>
+    <DFArow><StateID>5</StateID><Accept></Accept></DFArow>
+    <DFArow><StateID>6</StateID><Accept></Accept></DFArow>
+    <DFArow><StateID>7</StateID><Accept></Accept></DFArow>
+    <DFArow><StateID>8</StateID><Accept></Accept></DFArow>
+    <DFArow><StateID>9</StateID><Accept></Accept></DFArow>
+    <DFArow><StateID>10</StateID><Accept></Accept></DFArow>
+    <DFArow><StateID>11</StateID><Accept></Accept></DFArow>
+    <DFArow><StateID>12</StateID><Accept>5</Accept></DFArow>
+    <DFArow><StateID>13</StateID><Accept></Accept></DFArow>
+    <DFArow><StateID>14</StateID><Accept>3</Accept></DFArow>
+    <DFArow><StateID>15</StateID><Accept></Accept></DFArow>
+    <DFArow><StateID>16</StateID><Accept></Accept></DFArow>
+    <DFArow><StateID>17</StateID><Accept>2</Accept></DFArow>
+    <DFArow><StateID>18</StateID><Accept></Accept></DFArow>
+    <DFArow><StateID>19</StateID><Accept>4</Accept></DFArow>
+  </DFA>
+  <Rules>
+    <Rule><Index>0</Index><Content>&lt;Content&gt; : &lt;Command&gt; end # PROC_XCONTE_XCOMMA_END</Content></Rule>
+    <Rule><Index>1</Index><Content>&lt;Command&gt; : crash # PROC_XCOMMA_CRASH</Content></Rule>
+    <Rule><Index>2</Index><Content>&lt;Command&gt; : bang # PROC_XCOMMA_BANG</Content></Rule>
+    <Rule><Index>3</Index><Content>&lt;Command&gt; : wallop # PROC_XCOMMA_WALLOP</Content></Rule>
+    <Rule><Index>4</Index><Content>&lt;Command&gt; : # PROC_XCOMMA</Content></Rule>
+    <Rule><Index>5</Index><Content>&lt;$accept&gt; : &lt;Content&gt; (EOF) # PROC_XXACCE_XCONTE_XEOFX</Content></Rule>
+  </Rules>
+  <FirstSet>
+    <Entry><Index>0</Index><Set>&lt;Content&gt; -&gt; &lt;Command&gt; | crash | bang | wallop</Set></Entry>
+    <Entry><Index>1</Index><Set>&lt;Command&gt; -&gt; crash | bang | wallop</Set></Entry>
+    <Entry><Index>2</Index><Set>&lt;$accept&gt; -&gt; &lt;Content&gt; | &lt;Command&gt; | crash | bang | wallop</Set></Entry>
+  </FirstSet>
+  <FollowSet>
+    <Entry><Index>0</Index><Set>&lt;Command&gt; -&gt; end</Set></Entry>
+    <Entry><Index>1</Index><Set>&lt;Content&gt; -&gt; (EOF)</Set></Entry>
+    <Entry><Index>2</Index><Set>crash -&gt; end</Set></Entry>
+    <Entry><Index>3</Index><Set>bang -&gt; end</Set></Entry>
+    <Entry><Index>4</Index><Set>wallop -&gt; end</Set></Entry>
+    <Entry><Index>5</Index><Set>end -&gt; (EOF)</Set></Entry>
+  </FollowSet>
+  <LastSet>
+    <Entry><Index>0</Index><Set>&lt;Content&gt; -&gt; end</Set></Entry>
+    <Entry><Index>1</Index><Set>&lt;Command&gt; -&gt; crash | bang | wallop</Set></Entry>
+    <Entry><Index>2</Index><Set>&lt;$accept&gt; -&gt; (EOF)</Set></Entry>
+  </LastSet>
+  <ExpandedRules>
+    <Rule><Index>0</Index><RuleIndex>5</RuleIndex><Head>9</Head><Next>7</Next><Offset>0</Offset><Length>2</Length><Accept></Accept><Display>● &lt;Content&gt; (EOF) </Display></Rule>
+    <Rule><Index>1</Index><RuleIndex>5</RuleIndex><Head>9</Head><Next>1</Next><Offset>1</Offset><Length>2</Length><Accept></Accept><Display>&lt;Content&gt; ● (EOF) </Display></Rule>
+    <Rule><Index>2</Index><RuleIndex>5</RuleIndex><Head>9</Head><Next>2147483647</Next><Offset>2</Offset><Length>2</Length><Accept>Yes</Accept><Display>&lt;Content&gt; (EOF) ● </Display></Rule>
+    <Rule><Index>3</Index><RuleIndex>0</RuleIndex><Head>7</Head><Next>8</Next><Offset>0</Offset><Length>2</Length><Accept></Accept><Display>● &lt;Command&gt; end </Display></Rule>
+    <Rule><Index>4</Index><RuleIndex>0</RuleIndex><Head>7</Head><Next>5</Next><Offset>1</Offset><Length>2</Length><Accept></Accept><Display>&lt;Command&gt; ● end </Display></Rule>
+    <Rule><Index>5</Index><RuleIndex>0</RuleIndex><Head>7</Head><Next>2147483647</Next><Offset>2</Offset><Length>2</Length><Accept></Accept><Display>&lt;Command&gt; end ● </Display></Rule>
+    <Rule><Index>6</Index><RuleIndex>1</RuleIndex><Head>8</Head><Next>2</Next><Offset>0</Offset><Length>1</Length><Accept></Accept><Display>● crash </Display></Rule>
+    <Rule><Index>7</Index><RuleIndex>1</RuleIndex><Head>8</Head><Next>2147483647</Next><Offset>1</Offset><Length>1</Length><Accept></Accept><Display>crash ● </Display></Rule>
+    <Rule><Index>8</Index><RuleIndex>2</RuleIndex><Head>8</Head><Next>3</Next><Offset>0</Offset><Length>1</Length><Accept></Accept><Display>● bang </Display></Rule>
+    <Rule><Index>9</Index><RuleIndex>2</RuleIndex><Head>8</Head><Next>2147483647</Next><Offset>1</Offset><Length>1</Length><Accept></Accept><Display>bang ● </Display></Rule>
+    <Rule><Index>10</Index><RuleIndex>3</RuleIndex><Head>8</Head><Next>4</Next><Offset>0</Offset><Length>1</Length><Accept></Accept><Display>● wallop </Display></Rule>
+    <Rule><Index>11</Index><RuleIndex>3</RuleIndex><Head>8</Head><Next>2147483647</Next><Offset>1</Offset><Length>1</Length><Accept></Accept><Display>wallop ● </Display></Rule>
+    <Rule><Index>12</Index><RuleIndex>4</RuleIndex><Head>8</Head><Next>2147483647</Next><Offset>0</Offset><Length>0</Length><Accept></Accept><Display>● </Display></Rule>
+  </ExpandedRules>
+  <CanonicalList>
+    <Entry><Index>0</Index><State>0</State><IndexExp>0</IndexExp><Next>7</Next><IsEpsilon></IsEpsilon><Shift></Shift><Reduce></Reduce><Goto>4</Goto><Accept></Accept><Expanded>● &lt;Content&gt; (EOF) </Expanded></Entry>
+    <Entry><Index>1</Index><State>0</State><IndexExp>3</IndexExp><Next>8</Next><IsEpsilon></IsEpsilon><Shift></Shift><Reduce></Reduce><Goto>5</Goto><Accept></Accept><Expanded>● &lt;Command&gt; end </Expanded></Entry>
+    <Entry><Index>2</Index><State>0</State><IndexExp>6</IndexExp><Next>2</Next><IsEpsilon></IsEpsilon><Shift>1</Shift><Reduce></Reduce><Goto></Goto><Accept></Accept><Expanded>● crash </Expanded></Entry>
+    <Entry><Index>3</Index><State>0</State><IndexExp>8</IndexExp><Next>3</Next><IsEpsilon></IsEpsilon><Shift>2</Shift><Reduce></Reduce><Goto></Goto><Accept></Accept><Expanded>● bang </Expanded></Entry>
+    <Entry><Index>4</Index><State>0</State><IndexExp>10</IndexExp><Next>4</Next><IsEpsilon></IsEpsilon><Shift>3</Shift><Reduce></Reduce><Goto></Goto><Accept></Accept><Expanded>● wallop </Expanded></Entry>
+    <Entry><Index>5</Index><State>0</State><IndexExp>12</IndexExp><Next></Next><IsEpsilon>Y</IsEpsilon><Shift></Shift><Reduce>4</Reduce><Goto></Goto><Accept></Accept><Expanded>● </Expanded></Entry>
+    <Entry><Index>6</Index><State>1</State><IndexExp>7</IndexExp><Next></Next><IsEpsilon></IsEpsilon><Shift></Shift><Reduce>1</Reduce><Goto></Goto><Accept></Accept><Expanded>crash ● </Expanded></Entry>
+    <Entry><Index>7</Index><State>2</State><IndexExp>9</IndexExp><Next></Next><IsEpsilon></IsEpsilon><Shift></Shift><Reduce>2</Reduce><Goto></Goto><Accept></Accept><Expanded>bang ● </Expanded></Entry>
+    <Entry><Index>8</Index><State>3</State><IndexExp>11</IndexExp><Next></Next><IsEpsilon></IsEpsilon><Shift></Shift><Reduce>3</Reduce><Goto></Goto><Accept></Accept><Expanded>wallop ● </Expanded></Entry>
+    <Entry><Index>9</Index><State>4</State><IndexExp>1</IndexExp><Next>1</Next><IsEpsilon></IsEpsilon><Shift>6</Shift><Reduce></Reduce><Goto></Goto><Accept></Accept><Expanded>&lt;Content&gt; ● (EOF) </Expanded></Entry>
+    <Entry><Index>10</Index><State>5</State><IndexExp>4</IndexExp><Next>5</Next><IsEpsilon></IsEpsilon><Shift>7</Shift><Reduce></Reduce><Goto></Goto><Accept></Accept><Expanded>&lt;Command&gt; ● end </Expanded></Entry>
+    <Entry><Index>11</Index><State>6</State><IndexExp>2</IndexExp><Next></Next><IsEpsilon></IsEpsilon><Shift></Shift><Reduce></Reduce><Goto></Goto><Accept>Y</Accept><Expanded>&lt;Content&gt; (EOF) ● </Expanded></Entry>
+    <Entry><Index>12</Index><State>7</State><IndexExp>5</IndexExp><Next></Next><IsEpsilon></IsEpsilon><Shift></Shift><Reduce>0</Reduce><Goto></Goto><Accept></Accept><Expanded>&lt;Command&gt; end ● </Expanded></Entry>
+  </CanonicalList>
+  <ParserTable>
+    <Entry><State>0</State><__ERROR__>R4</__ERROR__><__EOF__>R4</__EOF__><crash>S1</crash><bang>S2</bang><wallop>S3</wallop><end>R4</end><whitespace>R4</whitespace><Content>G4</Content><Command>G5</Command></Entry>
+    <Entry><State>1</State><__ERROR__></__ERROR__><__EOF__></__EOF__><crash></crash><bang></bang><wallop></wallop><end>R1</end><whitespace></whitespace><Content></Content><Command></Command></Entry>
+    <Entry><State>2</State><__ERROR__></__ERROR__><__EOF__></__EOF__><crash></crash><bang></bang><wallop></wallop><end>R2</end><whitespace></whitespace><Content></Content><Command></Command></Entry>
+    <Entry><State>3</State><__ERROR__></__ERROR__><__EOF__></__EOF__><crash></crash><bang></bang><wallop></wallop><end>R3</end><whitespace></whitespace><Content></Content><Command></Command></Entry>
+    <Entry><State>4</State><__ERROR__></__ERROR__><__EOF__>S6</__EOF__><crash></crash><bang></bang><wallop></wallop><end></end><whitespace></whitespace><Content></Content><Command></Command></Entry>
+    <Entry><State>5</State><__ERROR__></__ERROR__><__EOF__></__EOF__><crash></crash><bang></bang><wallop></wallop><end>S7</end><whitespace></whitespace><Content></Content><Command></Command></Entry>
+    <Entry><State>6</State><__ERROR__>ACC</__ERROR__><__EOF__>ACC</__EOF__><crash>ACC</crash><bang>ACC</bang><wallop>ACC</wallop><end>ACC</end><whitespace>ACC</whitespace><Content>ACC</Content><Command>ACC</Command></Entry>
+    <Entry><State>7</State><__ERROR__></__ERROR__><__EOF__>R0</__EOF__><crash></crash><bang></bang><wallop></wallop><end></end><whitespace></whitespace><Content></Content><Command></Command></Entry>
+  </ParserTable>
+</Lacogen>

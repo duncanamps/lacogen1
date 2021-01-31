@@ -1,0 +1,69 @@
+/*-----------------------------------------------------------------------------------
+
+  LaCoGen - Test virtual terminals
+
+  14/04/2020
+
+-----------------------------------------------------------------------------------*/
+  
+%title        = "LaCoGen test virtual terminals";
+%version      = "0";
+%author       = "Duncan Munro";
+%codeprefix   = "VIR";
+%start        = <Content>;
+
+
+// ====================================================================
+// Predefined Character sets
+// ====================================================================
+
+{Alpha} 	= [A-Za-z];
+{Digits}	= [0-9];
+{WSChar}	= [\t\n\r \xa0];
+            
+			
+// ====================================================================
+// Terminals
+// ====================================================================
+
+Number		= {Digits}+;
+Word		= {Alpha}+;
+IndentPlus	virtual;
+IndentMinus	virtual;
+Whitespace 	= {WSChar}+ ignore;
+
+
+
+// ====================================================================
+// Rules
+// ====================================================================
+
+<Content>		: <Command>
+				| <Content> <Command>
+				;
+				
+<Command>		: "print" <Expression> ";" 
+				| "let" Word "=" <Expression> ";"
+				| "if" <Expression> "then" <Command>
+				| <Command Block>
+				;
+				
+<Command Block>	: IndentPlus <Command List> IndentMinus ;
+
+<Command List>	: <Command List> <Command>
+				| <Command>
+				;
+				
+<Expression>	: <Expression> "+" <AddOp>
+				| <Expression> "-" <AddOp>
+				| <AddOp>
+				;
+				
+<AddOp>			: <AddOp> "*" <MulOp>
+				| <AddOp> "/" <MulOp>
+				;
+				
+<MulOp>			: Number
+				| Word
+				| "(" <Expression> ")"
+				;

@@ -1,0 +1,80 @@
+/*-----------------------------------------------------------------------------------
+
+  LaCoGen - Test Expression Evaluator - Floating point version
+
+  05/04/2020
+
+-----------------------------------------------------------------------------------*/
+  
+%title        = "LaCoGen TEST Expression Evaluator (Floating Point)";
+%version      = "0";
+%author       = "Duncan Munro";
+%codeprefix   = "FP";
+%start        = <Command>;
+
+
+// ====================================================================
+// Predefined Character sets
+// ====================================================================
+
+{digits}		= [0-9];
+{alpha}			= [A-Za-z];
+{alphanumeric}	= {alpha} + {digits};
+{wschar}		= [\t\n\r ];
+
+                                  
+// ====================================================================
+// Terminals
+// ====================================================================
+
+number 		= {digits}* "."? {digits}+ (("E"|"e") ("+"|"-")? {digits}+)? ;
+id	   		= {alpha} {alphanumeric}* ;
+help		= MIXED("HELP") keyword ;
+print  		= MIXED("PRINT") | "?" keyword ;
+let    		= MIXED("LET") keyword ;
+whitespace	= {wschar}+ ignore;
+
+// ====================================================================
+// Rules
+// ====================================================================
+
+<Command> 	: <PrintCommand>								# procignore
+			| <AssignCommand>								# procignore
+			| <HelpCommand>									# procignore
+			;
+			
+<PrintCommand>	: print <Expression>						# procprint
+				;
+				
+<AssignCommand>	: let id "=" <Expression>					# proclet2
+				| id "=" <Expression>						# proclet1
+				;
+				
+<HelpCommand>	: help										# prochelp
+				;
+				
+<Expression>	: <Expression> "+" <AddOp>					# procadd
+				| <Expression> "-" <AddOp>					# procsub
+				| <AddOp>									# proccopy
+				;
+				
+<AddOp>			: <AddOp> "*" <MulOp>						# procmul
+				| <AddOp> "/" <MulOp>						# procdiv
+				| <MulOp>									# proccopy
+				;
+
+<MulOp>			: <PowerOp> "^" <MulOp>						# procpower		// Right associative
+				| <PowerOp>									# proccopy
+				;
+
+<PowerOp>		: "(" <Expression> ")"						# procbrackets
+				| id "(" <Expression> ")" 					# procfunc1
+				| id "(" <Expression> "," <Expression> ")"	# procfunc2
+				| <NumberVal>								# proccopy
+				| id										# procid
+				;
+				
+<NumberVal>		: "+" number								# procunaryplus
+				| "-" number								# procunaryminus
+				| number									# procnumber
+				;

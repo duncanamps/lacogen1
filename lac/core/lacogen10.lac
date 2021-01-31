@@ -1,0 +1,202 @@
+//-----------------------------------------------------------------------------------
+//
+//  LaCoGen V1.0 - Grammar definition
+//
+//  04/04/2020
+//
+//  Items over V0.5 grammar include:
+//
+//    Parameter definition keywords removed
+//    Block comments and line comments commands
+//
+//  Current list of parameters allowed with [default] if set:
+//
+//    Boolean		%COMMENTMATCH [True] +
+//					%COMMENTNESTED [True] +
+//					%COMMENTTOKENISE [True] +
+//					%GENERATEINDENTS [False] +
+//					
+//	  String		%AUTHOR
+//					%COMMENTBLOCK +#
+//					%COMMENTLINE +
+//					%COPYRIGHT
+//					%LICENSE
+//					%LICENSEURL +
+//					%TITLE
+//					%VERSION
+//
+//    Non-Terminal  %START
+//
+//  + Items new to version 1.0
+//  # has two string arguments, e.g. %COMMENTBLOCK "/*" "*/"
+//
+// -----------------------------------------------------------------------------------
+  
+%title          = "LaCoGen Grammar";
+%version        = "1.0";
+%author         = "Duncan Munro";
+%start          = <Content>;
+
+
+// ====================================================================
+// Predefined Character sets
+// ====================================================================
+
+{Alphanumeric}  = [0-9A-Za-z];
+{Letter}		= [A-Za-z];
+{Number}		= [0-9];
+{Printable}     = [ -\xff];
+{WSChar}        = [\t\r\n ];
+
+
+// ====================================================================
+// Character sets
+// ====================================================================
+
+{Escape}			= [\x5c];  // Backslash
+{Quote}				= ["];
+{EscapedChars}      = [tnrx\\\-\[\]]; 
+{NonTerminal Ch}    = {Alphanumeric} + [_\-.] + [ ];
+{Set Literal Ch}    = {Printable} - [\]] - {Escape};
+{Set Name Ch}       = {Printable} - [{}];
+{String Ch}         = {Printable} - {Quote};
+{Terminal St}       = {Letter};
+{Terminal Ch}		= {Alphanumeric} + [_\-.]; 
+{Zero}				= [0]; 
+{Nonzero Digit}		= {Number} - {Zero};
+
+{Compilable}		= {Printable} + {WSChar};
+{Non Asterisk}		= {Compilable} - [*];
+{Non SlashAst}		= {Compilable} - [*/];
+{Non Linebreak}		= {Compilable} - [\r\n];
+
+ 
+// ====================================================================
+// Terminals
+// ====================================================================
+
+TNonTerminal			= "<" {NonTerminal Ch}+ ">";
+Terminal				= {Terminal St} {Terminal Ch}*; 
+SetLiteral				= "[" ({Set Literal Ch} | ({Escape} {EscapedChars}) )* "]";
+SetName					= "{" {Set Name Ch}+ "}";
+StringLiteral			= ["] ({String Ch} | {Escape} {EscapedChars})* ["];
+Integer					= "-"? ({Zero} | {Nonzero Digit} {Number}*);
+ParameterName			= "%" {Terminal St} {Terminal Ch}*;
+KTrue					= ("T"|"t") ("R"|"r") ("U"|"u") ("E"|"e") keyword;
+KFalse					= ("F"|"f") ("A"|"a") ("L"|"l") ("S"|"s") ("E"|"e") keyword;
+F_MIXED					= ("M"|"m") ("I"|"i") ("X"|"x") ("E"|"e") ("D"|"d") "(" keyword ;
+
+BlockComment			= "/*" ( {Non Asterisk}* [*]+ {Non SlashAst} )* {Non Asterisk}* [*]+ "/" ignore;
+LineComment				= "//" {Non Linebreak}* ([\r] [\n] | [\r] | [\n]) ignore;
+WhiteSpace				= {WSChar}+ ignore;
+
+
+// ====================================================================
+// Rules
+// ====================================================================
+
+// High level rules
+
+<Content>			: <Content> <BoundedDefinition>				# ActIgnore
+					| <BoundedDefinition>						# ActIgnore
+					;
+
+<BoundedDefinition>	: <Definition> ";"							# ActIgnore
+					; 
+
+<Definition>		: <ParameterDef>							# ActIgnore
+					| <CharacterSetDef>							# ActIgnore
+					| <TerminalDef>								# ActIgnore
+					| <RuleDef>									# ActIgnore
+					;
+
+
+// Rules for Parameters
+
+<ParameterDef>		: ParameterName "=" <BooleanTerminal>		# ActParameterDefBoolean
+					| ParameterName "=" Integer					# ActParameterDefInteger
+					| ParameterName "=" StringLiteral StringLiteral	# ActParameterDefString2
+					| ParameterName "=" StringLiteral	    	# ActParameterDefString
+					| ParameterName "=" TNonTerminal	   		# ActParameterDefNonTerminal
+					;
+
+<BooleanTerminal>	: KTrue 									# ActCopy
+					| KFalse									# ActCopy
+					;
+ 
+
+// Rules for Character Sets
+
+<CharacterSetDef>	: SetName "=" <CSContent>					# ActSetDefine
+					;
+ 
+<CSContent>			: <CSContent> "+" <CSDef>					# ActSetAdd
+					| <CSContent> "-" <CSDef>					# ActSetSub
+					| <CSDef>									# ActSetUse
+					;
+ 
+<CSDef>				: SetName									# ActCopy
+					| SetLiteral								# ActSetLiteral
+					;
+
+
+// Rules for Terminals
+
+<TerminalDef>		: Terminal "=" <TerminalContent> "ignore"	# ActTerminalDefIgnore
+					| Terminal "=" <TerminalContent> "keyword"	# ActTerminalDefKeyword
+					| Terminal "=" <TerminalContent> "symbol"	# ActTerminalDefSymbol
+					| Terminal "=" <TerminalContent>			# ActTerminalDef
+					| Terminal "virtual"						# ActTerminalDefVirtual
+					;
+ 
+<TerminalContent>	: <TerminalContent> "|" <TerminalElement>	# ActTerminalOr
+					| <TerminalElement>							# ActCopy
+					;
+ 
+<TerminalElement>	: <TerminalElement> <TerminalClosed>		# ActTerminalConcatenate
+					| <TerminalClosed>							# ActCopy
+					;
+ 
+<TerminalClosed>	: <TerminalBracketed> "?"					# ActTerminalClosedBracketedOpt
+					| <TerminalBracketed> "+"					# ActTerminalClosedBracketedPlus
+					| <TerminalBracketed> "*"					# ActTerminalClosedBracketedStar
+					| <TerminalBracketed>						# ActCopy
+					;
+ 
+<TerminalBracketed>	: "(" <TerminalContent> ")"					# ActTerminalBracketBracket
+					| F_MIXED StringLiteral ")"					# ActTerminalBracketMixed
+					| Terminal									# ActTerminalBracketTerminal
+					| StringLiteral								# ActTerminalStringLiteral
+					| SetName									# ActTerminalBracketSetName
+					| SetLiteral								# ActTerminalBracketSetLiteral
+					;
+
+
+// Main rules
+
+<RuleDef>			: <NonTerminal> ":" <RuleList> 				# ActRuleDef
+					;
+
+<RuleList>			: <RuleList> "|" <Rule>						# ActRuleListOrRule
+					| <RuleList> "|" <OptProc>					# ActRuleListOrOptProc
+					| <Rule>									# ActCopy
+					;
+
+<Rule> 				: <RuleBody> <OptProc> 						# ActRuleRuleBodyOptProc
+					;
+ 
+<RuleBody> 			: <RuleBody> <RuleAtom>						# ActRuleBodyRuleAtom
+					| <RuleAtom>								# ActCopy
+					;
+
+<RuleAtom> 			: <NonTerminal>								# ActCopy
+					| Terminal									# ActRuleAtomTerminal
+					| StringLiteral								# ActRuleAtomStringLiteral
+					;
+
+<NonTerminal> 		: TNonTerminal 								# ActRuleAtomNonTerminal
+					;
+ 
+<OptProc> 			: "#" Terminal								# ActOptProcHashTerminal
+					|											# ActIgnore
+					;

@@ -1,0 +1,366 @@
+//======================================================================
+//
+//  6502 Macro Assembler Grammar
+//
+//  Duncan Munro
+//  20/12/2019
+//
+//======================================================================
+
+%title		= "6502 Macro Assembler Grammar";
+%version	= "0.1";
+%author		= "Duncan Munro";  
+%start		= <assembler line>;
+           
+
+//
+// Predefined sets
+//
+
+{Tab} 			= [\t];
+{Space}			= [ ];
+{Digit} 		= [0-9];
+{Letter} 		= [A-Za-z];
+{Whitespace} 	= {Space} + {Tab};
+{Printable}		= [\x20-\x7e];
+
+     
+//
+// Character set definitions
+//
+
+{DigitBin}		= [01];
+{DigitHex}		= {Digit} + [ABCDEFabcdef];
+{DigitNonZero}	= [123456789];
+{DigitOct}		= [01234567];
+{Backslash}     = [\x5c];
+{Escaped}       = [\x5c\x22tnr];
+{DQuote}		= [\x22];
+{StringChar}	= {Printable} - {DQuote} - {Backslash} + {Tab};
+{CommentChar}	= {Printable} + {Tab};
+{NonCurlyChar}	= {Printable} + {Tab} - [}];
+
+{SymbolStart}	= {Letter} + [_];
+{SymbolMid}		= {SymbolStart} + {Digit};                                    
+              
+
+//
+// Terminal definitions
+//
+
+// Opcodes
+
+OPCODE	= MIXED("ADC")
+		| MIXED("AND")
+		| MIXED("ASL")
+		| MIXED("BCC")
+		| MIXED("BCS")
+		| MIXED("BEQ")
+		| MIXED("BIT")
+		| MIXED("BMI")
+		| MIXED("BNE")
+		| MIXED("BPL")
+		| MIXED("BRK")
+		| MIXED("BVC")
+		| MIXED("BVS")
+		| MIXED("CLC")
+		| MIXED("CLD")
+		| MIXED("CLI")
+		| MIXED("CLV")
+		| MIXED("CMP")
+		| MIXED("CPX")
+		| MIXED("CPY")
+		| MIXED("DEC")
+		| MIXED("DEX")
+		| MIXED("DEY")
+		| MIXED("EOR")
+		| MIXED("INC")
+		| MIXED("INX")
+		| MIXED("INY")
+		| MIXED("JMP")
+		| MIXED("JSR")
+		| MIXED("LDA")
+		| MIXED("LDX")
+		| MIXED("LDY")
+		| MIXED("LSR")
+		| MIXED("NOP")
+		| MIXED("ORA")
+		| MIXED("PHA")
+		| MIXED("PHP")
+		| MIXED("PLA")
+		| MIXED("PLP")
+		| MIXED("ROL")
+		| MIXED("ROR")
+		| MIXED("RTI")
+		| MIXED("RTS")
+		| MIXED("SBC")
+		| MIXED("SEC")
+		| MIXED("SED")
+		| MIXED("SEI")
+		| MIXED("STA")
+		| MIXED("STX")
+		| MIXED("STY")
+		| MIXED("TAX")
+		| MIXED("TAY")
+		| MIXED("TSX")
+		| MIXED("TXA")
+		| MIXED("TXS")
+		| MIXED("TYA") keyword ;
+
+// Binary
+
+BinAnd           = "&"	symbol ;
+BinNot           = "~"	symbol ;                 
+BinOr            = "|"	symbol ;
+BinXor           = "^"	symbol ;                                  
+LeftShift        = "<<"	symbol ;
+Modulo           = "%"	symbol ;
+RightShift       = ">>"	symbol ;
+                                                   
+// Comparison
+
+Equal            = "=="	symbol ;
+GreaterThan      = ">"	symbol ;
+GreaterEqual     = ">="	symbol ;
+LessEqual        = "<="	symbol ;                                 
+LessThan         = "<"	symbol ;                                  
+LogicalAnd       = "&&"	symbol ;                 
+LogicalNot       = "!"	symbol ;                 
+LogicalOr        = "||"	symbol ;                 
+NotEqual         = "!="	symbol ;                 
+                 
+// Literals
+
+BinLiteral       = "0b"{DigitBin}+;
+DecLiteral       = {DigitNonZero}{Digit}*;
+HexLiteral       = ( "0x"{DigitHex}+ | "$"{DigitHex}+ )  ;
+OctLiteral       = "0"{DigitOct}*;
+
+// Rest of world
+
+Assignment			= "=" symbol;
+Accum				= MIXED("A")			keyword;
+ComX				= MIXED(",X")			keyword;
+ComY				= MIXED(",Y")			keyword;
+Force				= MIXED("FORCE")		keyword;
+F_ASC				= MIXED("ASC(")			keyword;
+F_BUILD				= MIXED("BUILD()")		keyword;
+F_CHR				= MIXED("CHR(")			keyword;
+F_DATE				= MIXED("DATE()")		keyword;
+F_HEX				= MIXED("HEX(")			keyword;
+F_HIGH				= MIXED("HIGH(")		keyword;
+F_IIF				= MIXED("IIF(")			keyword;
+F_LEFT				= MIXED("LEFT(")		keyword;
+F_LOW				= MIXED("LOW(")			keyword;
+F_LOWER				= MIXED("LOWER(")		keyword;
+F_MID				= MIXED("MID(")			keyword;
+F_ORG				= MIXED("ORG")			keyword;
+F_POS				= MIXED("POS(")			keyword;
+F_RIGHT				= MIXED("RIGHT(")		keyword;
+F_STRING			= MIXED("STRING(")		keyword;
+F_TIME				= MIXED("TIME()")		keyword;
+F_UPPER				= MIXED("UPPER(")		keyword;
+F_VALUE				= MIXED("VALUE(")		keyword;
+
+K_BYTE				= MIXED(".BYTE")		keyword;
+K_DB				= MIXED(".DB")			keyword;
+K_DD				= MIXED(".DD")			keyword;
+K_DEFINE			= MIXED(".DEFINE")		keyword;
+K_DEFMACRO			= MIXED(".DEFMACRO")	keyword;
+K_DS				= MIXED(".DS")			keyword;
+K_DSH				= MIXED(".DSH")			keyword;
+K_DSZ				= MIXED(".DSZ")			keyword;
+K_DW				= MIXED(".DW")			keyword;
+K_ELSE				= MIXED(".ELSE")		keyword;
+K_ENDIF				= MIXED(".ENDIF")		keyword;
+K_ENDM				= MIXED(".ENDM")		keyword;
+K_EQ				= MIXED(".EQ")			keyword;
+K_EQU				= MIXED(".EQU")			keyword;
+K_ERROR				= MIXED(".ERROR")		keyword;
+K_IF				= MIXED(".IF")			keyword;
+K_IFDEF				= MIXED(".IFDEF")		keyword;
+K_IFNDEF			= MIXED(".IFNDEF")		keyword;
+K_INCLUDE			= MIXED(".INCLUDE")		keyword;
+K_LIST				= MIXED(".LIST")		keyword;
+K_MESSAGE			= MIXED(".MESSAGE")		keyword;
+K_MACRO				= MIXED(".MACRO")		keyword;
+K_NOLIST			= MIXED(".NOLIST")		keyword;
+K_ORG				= MIXED(".ORG")			keyword;
+K_SET				= MIXED(".SET")			keyword;
+K_UNDEFINE			= MIXED(".UNDEFINE")	keyword;
+K_WARNING			= MIXED(".WARNING")		keyword;
+
+LocalAddress		= "@" {SymbolStart}{SymbolMid}*;
+MacroPlaceholder	= "@"{Digit};
+StringConstant		= {DQuote} ({StringChar} | {Backslash} {Escaped})* {DQuote};                 
+SymbolDef			= {SymbolStart}{SymbolMid}*;   
+Whitespace			= {Whitespace}+ ignore;                 
+                 
+
+
+//
+// Lexical groups
+//
+
+LineComment1		= ";" {CommentChar}* ignore;           
+LineComment2		= "//" {CommentChar}* ignore; 
+InternalComment1	= "{" {NonCurlyChar}* "}" ignore;
+
+
+//
+// Productions
+//
+
+<assembler line>	: <label> <directive line>						# ActIgnore
+					| <directive line>								# ActIgnore
+					| <label> <instruction>							# ActIgnore
+					| <instruction>									# ActIgnore
+					| <label>										# ActIgnore
+					|												# ActIgnore
+					;
+                   
+<directive line>	: K_BYTE	 <expression> "," <expression>		# ActDirByte
+					| K_DB       <expression list>					# ActDirDB
+					| K_DD       <expression list>					# ActDirDD
+					| K_DEFINE   SymbolDef							# ActDirDefine
+					| K_DEFINE   SymbolDef Assignment <expression>	# ActDirDefineExpr
+					| K_DEFMACRO SymbolDef							# ActDirDefmacro
+					| K_DS       <string expr>						# ActDirDS
+					| K_DSH		 <string expr>						# ActDirDSH
+					| K_DSZ      <string expr>						# ActDirDSZ
+					| K_DW       <expression list>					# ActDirDW
+					| K_ELSE										# ActDirElse
+					| K_ENDIF										# ActDirEndif
+					| K_ENDM										# ActDirEndm
+					| 			 SymbolDef K_EQ <expression>		# ActDirDefineExpr
+					| 			 SymbolDef K_EQU <expression>		# ActDirDefineExpr
+					| K_ERROR    <string expr>						# ActDirError
+					| K_IF		 <expression>						# ActDirIf
+					| K_IFDEF    SymbolDef							# ActDirIfdef
+					| K_IFNDEF   SymbolDef							# ActDirIfndef
+					| K_INCLUDE  Force <string expr>				# ActDirIncludeList
+					| K_INCLUDE  <string expr>						# ActDirInclude
+					| K_LIST										# ActDirList
+					| K_MACRO	 SymbolDef <expression list>		# ActDirMacro
+					| K_MACRO    SymbolDef							# ActDirMacroNoexpr
+					| K_MESSAGE  <string expr>						# ActDirMessage
+					| K_NOLIST 										# ActDirNolist
+					| K_ORG      <expression>						# ActDirOrg
+					| K_SET      SymbolDef Assignment <expression>	# ActDirSet
+					| K_UNDEFINE SymbolDef							# ActDirUndefine
+					| K_WARNING  <string expr>						# ActDirWarning
+					;
+
+<label>	: LocalAddress												# ActLabelLocal
+		| LocalAddress ":"											# ActLabelLocalC
+		| SymbolDef													# ActLabel
+		| SymbolDef ":"												# ActLabelC
+		;
+
+<instruction> : OPCODE <Operand>									# ActInstruction
+			;
+
+<Operand>	: "[" <expression> ComX "]"								# ActSetOpIndX
+            | "[" <expression> "]" ComY								# ActSetOpIndY
+            | "[" <expression> "]"									# ActSetOpInd
+            | "#" <expression>										# ActSetOpImmed
+            | <expression> ComX										# ActSetOpAbsX
+            | <expression> ComY										# ActSetOpAbsY
+            | <expression>											# ActSetOpAbs
+            | Accum													# ActSetOpA
+            |														# ActSetOpImpl 
+			;
+
+<expression list>	: <expression list> "," <expression>			# ActExprList
+					| <expression>									# ActCopy1
+					;
+                               
+<expression>		: <expression> LogicalOr <and expr>				# ActLogOr
+					| <and expr>									# ActCopy1
+					;
+               
+<and expr>			: <and expr> LogicalAnd <binor expr>			# ActLogAnd
+					| <binor expr>									# ActCopy1
+					;
+             
+<binor expr>		: <binor expr> BinOr <binxor expr>				# ActExprOr
+					| <binxor expr>									# ActCopy1
+					;
+               
+<binxor expr>		: <binxor expr> BinXor <binand expr>			# ActExprXor
+					| <binand expr>									# ActCopy1
+					;
+                
+<binand expr>		: <binand expr> BinAnd <equate expr>			# ActExprAnd
+					| <equate expr>									# ActCopy1
+					;
+                
+<equate expr>		: <equate expr> Equal <compare expr>			# ActCompEQ
+					| <equate expr> NotEqual <compare expr>			# ActCompNE
+					| <compare expr>								# ActCopy1
+					;
+                
+<compare expr>		: <compare expr> LessThan <shift expr>			# ActCompLT
+					| <compare expr> GreaterThan <shift expr>		# ActCompGT
+					| <compare expr> LessEqual <shift expr>			# ActCompLE
+					| <compare expr> GreaterEqual <shift expr>		# ActCompGE
+					| <shift expr>									# ActCopy1
+					;
+                 
+<shift expr>		: <shift expr> LeftShift <add expr>				# ActExprShl
+					| <shift expr> RightShift <add expr>			# ActExprShr
+					| <add expr>									# ActCopy1
+					;
+                 
+<add expr>			: <add expr> "+" <mult expr>					# ActExprAdd
+					| <add expr> "-" <mult expr>					# ActExprSub
+					| <mult expr>									# ActCopy1
+					;
+                 
+<mult expr>			: <mult expr> "*" <unary expr>					# ActExprMul
+					| <mult expr> "/" <unary expr>					# ActExprDiv
+					| <mult expr> Modulo <unary expr>				# ActExprMod
+					| <unary expr>									# ActCopy1
+					;
+                 
+<unary expr>		: "-" <value>									# ActExprMinus
+					| LogicalNot <value>							# ActLogNot
+					| BinNot <value>								# ActExprNot
+					| <value>										# ActCopy1
+					;
+                 
+<value>				: F_ORG											# ActValueOrg
+					| HexLiteral									# ActHexLiteral
+					| DecLiteral									# ActDecLiteral
+					| OctLiteral									# ActOctLiteral
+					| BinLiteral									# ActBinLiteral
+					| F_ASC <string expr> ")"						# ActFuncAsc
+					| F_HIGH <expression> ")"						# ActFuncHigh
+					| F_IIF <expression> "," <expression> "," <expression> ")" # ActFuncIif
+					| F_LOW <expression> ")"						# ActFuncLow
+					| F_POS <string expr> "," <string expr> ")"		# ActFuncPos
+					| F_VALUE <string expr> ")"						# ActFuncValue
+					| "(" <expression> ")"							# ActExprBracket
+					| SymbolDef										# ActValueSymbol
+					| LocalAddress									# ActValueLocal
+					| MacroPlaceholder								# ActMacroPlaceholder
+					;
+
+<string expr>		: <string expr> "+" <string result>				# ActStrCat
+					| <string result>								# ActCopy1
+					;
+                
+<string result>		: StringConstant								# ActStringConstant
+					| F_BUILD										# ActStrBuild
+					| F_CHR <expression> ")"						# ActStrChr
+					| F_DATE										# ActStrDate
+					| F_HEX <expression> ")"						# ActStrHex1
+					| F_HEX <expression> "," <expression> ")"		# ActStrHex2
+					| F_LEFT <string expr> "," <expression> ")"		# ActStrLeft
+					| F_LOWER <string expr> ")"						# ActStrLower
+					| F_MID <string expr> "," <expression> "," <expression> ")"	# ActStrMid
+					| F_RIGHT <string expr> "," <expression> ")"	# ActStrRight
+					| F_STRING <expression> ")"						# ActStrString
+					| F_TIME										# ActStrTime
+					| F_UPPER <string expr> ")"						# ActStrUpper
+					;  
