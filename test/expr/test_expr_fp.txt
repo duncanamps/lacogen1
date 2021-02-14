@@ -1,0 +1,1022 @@
+PARAMETER LIST
+==============
+%COMMENTNESTED = TRUE
+%AUTHOR        = Duncan Munro
+%CODEPREFIX    = FP
+%COPYRIGHT     = 
+%LICENCE       = 
+%TITLE         = LaCoGen TEST Expression Evaluator (Floating Point)
+%UNITLEXER     = 
+%UNITPARSER    = 
+%VERSION       = 0
+%LEXERBUFFER   = 4096
+%LEXERTAB      = 4
+%PARSERBUFFER  = 1024
+%START         = <Command>
+
+CHARACTER SETS
+==============
+{alphanumeric} = [0-9A-Za-z]
+{alpha} = [A-Za-z]
+{digits} = [0-9]
+{wschar} = [{9}-{10}{13}{32}]
+
+Terminals - Special
+===================
+    0: [-,-] (Error)
+    1: [-,-] (EOF)
+    2: [-,-] (Comment)
+
+Terminals - Normal
+==================
+    3: [3,32] number = ([0-9])*&(.)?&([0-9])+&(E|e&(+|-)?&([0-9])+)?
+    4: [33,38] id = [A-Za-z]&([0-9A-Za-z])*
+
+Terminals - Ignored
+===================
+    8: [60,61] whitespace = ([{9}-{10}{13}{32}])+
+
+Terminals - Keywords
+====================
+    5: [39,43] help = MIXED(HELP)
+    6: [52,53] print = MIXED(PRINT)|?
+    7: [54,57] let = MIXED(LET)
+
+Terminals - Symbols
+===================
+   14: [62,63] =
+   15: [64,65] +
+   17: [66,67] -
+   18: [68,69] *
+   20: [70,71] /
+   22: [72,73] ^
+   23: [74,75] (
+   24: [76,77] )
+   25: [78,79] ,
+
+Terminals - Virtual
+===================
+
+Terminals - Non-Terminals
+=========================
+    9: [-,-] <Command>
+   10: [-,-] <PrintCommand>
+   11: [-,-] <AssignCommand>
+   12: [-,-] <HelpCommand>
+   13: [-,-] <Expression>
+   16: [-,-] <AddOp>
+   19: [-,-] <MulOp>
+   21: [-,-] <PowerOp>
+   26: [-,-] <NumberVal>
+
+FRAGMENTED CHARACTERS AND SETS
+==============================
+{9},{9}
+{10},{10}
+{13},{13}
+{32},{32}
+(,(
+),)
+*,*
++,+
+,,,
+-,-
+.,.
+/,/
+0,9
+=,=
+?,?
+A,D
+E,E
+F,F
+G,G
+H,H
+I,I
+J,J
+K,K
+L,L
+M,M
+N,N
+O,O
+P,P
+Q,Q
+R,R
+S,S
+T,T
+U,Z
+^,^
+a,d
+e,e
+f,f
+g,g
+h,h
+i,i
+j,j
+k,k
+l,l
+m,m
+n,n
+o,o
+p,p
+q,q
+r,r
+s,s
+t,t
+u,z
+
+DUMP OF THE STATE LIST
+======================
+State no.      0 Epsilon -> 3
+                 Epsilon -> 33
+                 Epsilon -> 39
+                 Epsilon -> 52
+                 Epsilon -> 54
+                 Epsilon -> 60
+                 Epsilon -> 62
+                 Epsilon -> 64
+                 Epsilon -> 66
+                 Epsilon -> 68
+                 Epsilon -> 70
+                 Epsilon -> 72
+                 Epsilon -> 74
+                 Epsilon -> 76
+                 Epsilon -> 78
+
+State no.      1 Range "0"-"9" -> 2
+
+State no.      2 Epsilon -> 4
+                 Epsilon -> 1
+
+State no.      3 Epsilon -> 1
+                 Epsilon -> 4
+
+State no.      4 Epsilon -> 7
+
+State no.      5 Char "." -> 6
+
+State no.      6 Epsilon -> 8
+
+State no.      7 Epsilon -> 5
+                 Epsilon -> 8
+
+State no.      8 Epsilon -> 11
+
+State no.      9 Range "0"-"9" -> 10
+
+State no.     10 Epsilon -> 12
+                 Epsilon -> 9
+
+State no.     11 Epsilon -> 9
+
+State no.     12 Epsilon -> 31
+
+State no.     13 Char "E" -> 14
+
+State no.     14 Epsilon -> 18
+
+State no.     15 Char "e" -> 16
+
+State no.     16 Epsilon -> 18
+
+State no.     17 Epsilon -> 13
+                 Epsilon -> 15
+
+State no.     18 Epsilon -> 25
+
+State no.     19 Char "+" -> 20
+
+State no.     20 Epsilon -> 24
+
+State no.     21 Char "-" -> 22
+
+State no.     22 Epsilon -> 24
+
+State no.     23 Epsilon -> 19
+                 Epsilon -> 21
+
+State no.     24 Epsilon -> 26
+
+State no.     25 Epsilon -> 23
+                 Epsilon -> 26
+
+State no.     26 Epsilon -> 29
+
+State no.     27 Range "0"-"9" -> 28
+
+State no.     28 Epsilon -> 30
+                 Epsilon -> 27
+
+State no.     29 Epsilon -> 27
+
+State no.     30 Epsilon -> 32
+
+State no.     31 Epsilon -> 17
+                 Epsilon -> 32
+
+State no.     32 Accepting state with token 3 "number"
+
+State no.     33 Range "A"-"D" -> 34
+                 Char "E" -> 34
+                 Char "F" -> 34
+                 Char "G" -> 34
+                 Char "H" -> 34
+                 Char "I" -> 34
+                 Char "J" -> 34
+                 Char "K" -> 34
+                 Char "L" -> 34
+                 Char "M" -> 34
+                 Char "N" -> 34
+                 Char "O" -> 34
+                 Char "P" -> 34
+                 Char "Q" -> 34
+                 Char "R" -> 34
+                 Char "S" -> 34
+                 Char "T" -> 34
+                 Range "U"-"Z" -> 34
+                 Range "a"-"d" -> 34
+                 Char "e" -> 34
+                 Char "f" -> 34
+                 Char "g" -> 34
+                 Char "h" -> 34
+                 Char "i" -> 34
+                 Char "j" -> 34
+                 Char "k" -> 34
+                 Char "l" -> 34
+                 Char "m" -> 34
+                 Char "n" -> 34
+                 Char "o" -> 34
+                 Char "p" -> 34
+                 Char "q" -> 34
+                 Char "r" -> 34
+                 Char "s" -> 34
+                 Char "t" -> 34
+                 Range "u"-"z" -> 34
+
+State no.     34 Epsilon -> 37
+
+State no.     35 Range "0"-"9" -> 36
+                 Range "A"-"D" -> 36
+                 Char "E" -> 36
+                 Char "F" -> 36
+                 Char "G" -> 36
+                 Char "H" -> 36
+                 Char "I" -> 36
+                 Char "J" -> 36
+                 Char "K" -> 36
+                 Char "L" -> 36
+                 Char "M" -> 36
+                 Char "N" -> 36
+                 Char "O" -> 36
+                 Char "P" -> 36
+                 Char "Q" -> 36
+                 Char "R" -> 36
+                 Char "S" -> 36
+                 Char "T" -> 36
+                 Range "U"-"Z" -> 36
+                 Range "a"-"d" -> 36
+                 Char "e" -> 36
+                 Char "f" -> 36
+                 Char "g" -> 36
+                 Char "h" -> 36
+                 Char "i" -> 36
+                 Char "j" -> 36
+                 Char "k" -> 36
+                 Char "l" -> 36
+                 Char "m" -> 36
+                 Char "n" -> 36
+                 Char "o" -> 36
+                 Char "p" -> 36
+                 Char "q" -> 36
+                 Char "r" -> 36
+                 Char "s" -> 36
+                 Char "t" -> 36
+                 Range "u"-"z" -> 36
+
+State no.     36 Epsilon -> 38
+                 Epsilon -> 35
+
+State no.     37 Epsilon -> 35
+                 Epsilon -> 38
+
+State no.     38 Accepting state with token 4 "id"
+
+State no.     39 Char "H" -> 40
+                 Char "h" -> 40
+
+State no.     40 Char "E" -> 41
+                 Char "e" -> 41
+
+State no.     41 Char "L" -> 42
+                 Char "l" -> 42
+
+State no.     42 Char "P" -> 43
+                 Char "p" -> 43
+
+State no.     43 Accepting state with token 5 "help"
+
+State no.     44 Char "P" -> 45
+                 Char "p" -> 45
+
+State no.     45 Char "R" -> 46
+                 Char "r" -> 46
+
+State no.     46 Char "I" -> 47
+                 Char "i" -> 47
+
+State no.     47 Char "N" -> 48
+                 Char "n" -> 48
+
+State no.     48 Char "T" -> 49
+                 Char "t" -> 49
+
+State no.     49 Epsilon -> 53
+
+State no.     50 Char "?" -> 51
+
+State no.     51 Epsilon -> 53
+
+State no.     52 Epsilon -> 44
+                 Epsilon -> 50
+
+State no.     53 Accepting state with token 6 "print"
+
+State no.     54 Char "L" -> 55
+                 Char "l" -> 55
+
+State no.     55 Char "E" -> 56
+                 Char "e" -> 56
+
+State no.     56 Char "T" -> 57
+                 Char "t" -> 57
+
+State no.     57 Accepting state with token 7 "let"
+
+State no.     58 Char "{9}" -> 59
+                 Char "{10}" -> 59
+                 Char "{13}" -> 59
+                 Char "{32}" -> 59
+
+State no.     59 Epsilon -> 61
+                 Epsilon -> 58
+
+State no.     60 Epsilon -> 58
+
+State no.     61 Accepting state with token 8 "whitespace"
+
+State no.     62 Char "=" -> 63
+
+State no.     63 Accepting state with token 14 "="
+
+State no.     64 Char "+" -> 65
+
+State no.     65 Accepting state with token 15 "+"
+
+State no.     66 Char "-" -> 67
+
+State no.     67 Accepting state with token 17 "-"
+
+State no.     68 Char "*" -> 69
+
+State no.     69 Accepting state with token 18 "*"
+
+State no.     70 Char "/" -> 71
+
+State no.     71 Accepting state with token 20 "/"
+
+State no.     72 Char "^" -> 73
+
+State no.     73 Accepting state with token 22 "^"
+
+State no.     74 Char "(" -> 75
+
+State no.     75 Accepting state with token 23 "("
+
+State no.     76 Char ")" -> 77
+
+State no.     77 Accepting state with token 24 ")"
+
+State no.     78 Char "," -> 79
+
+State no.     79 Accepting state with token 25 ","
+
+DICTIONARY
+==========
+Character {9}
+Character {10}
+Character {13}
+Character {32}
+Character (
+Character )
+Character *
+Character +
+Character ,
+Character -
+Character .
+Character /
+Character =
+Character ?
+Character E
+Character F
+Character G
+Character H
+Character I
+Character J
+Character K
+Character L
+Character M
+Character N
+Character O
+Character P
+Character Q
+Character R
+Character S
+Character T
+Character ^
+Character e
+Character f
+Character g
+Character h
+Character i
+Character j
+Character k
+Character l
+Character m
+Character n
+Character o
+Character p
+Character q
+Character r
+Character s
+Character t
+Character Range 0-9
+Character Range A-D
+Character Range U-Z
+Character Range a-d
+Character Range u-z
+
+NFA LIST
+========
+
+State Token   {9}  {10}  {13}  {32}     (     )     *     +     ,     -     .     /     =     ?     E     F     G     H     I     J     K     L     M     N     O     P     Q     R     S     T     ^     e     f     g     h     i     j     k     l     m     n     o     p     q     r     s     t   0-9   A-D   U-Z   a-d   u-z Epsilons
+----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- --------
+    0                                                                                                                                                                                                                                                                                                                               0,1,3,4,5,7,8,9,11,33,39,44,50,52,54,58,60,62,64,66,68,70,72,74,76,78
+    1                                                                                                                                                                                                                                                                                                     2                         1
+    2                                                                                                                                                                                                                                                                                                                               1,2,4,5,7,8,9,11
+    3                                                                                                                                                                                                                                                                                                                               1,3,4,5,7,8,9,11
+    4                                                                                                                                                                                                                                                                                                                               4,5,7,8,9,11
+    5                                                                       6                                                                                                                                                                                                                                                       5
+    6                                                                                                                                                                                                                                                                                                                               6,8,9,11
+    7                                                                                                                                                                                                                                                                                                                               5,7,8,9,11
+    8                                                                                                                                                                                                                                                                                                                               8,9,11
+    9                                                                                                                                                                                                                                                                                                    10                         9
+   10                                                                                                                                                                                                                                                                                                                               9,10,12,13,15,17,31,32
+   11                                                                                                                                                                                                                                                                                                                               9,11
+   12                                                                                                                                                                                                                                                                                                                               12,13,15,17,31,32
+   13                                                                                              14                                                                                                                                                                                                                               13
+   14                                                                                                                                                                                                                                                                                                                               14,18,19,21,23,25,26,27,29
+   15                                                                                                                                                                                                    16                                                                                                                         15
+   16                                                                                                                                                                                                                                                                                                                               16,18,19,21,23,25,26,27,29
+   17                                                                                                                                                                                                                                                                                                                               13,15,17
+   18                                                                                                                                                                                                                                                                                                                               18,19,21,23,25,26,27,29
+   19                                                    20                                                                                                                                                                                                                                                                         19
+   20                                                                                                                                                                                                                                                                                                                               20,24,26,27,29
+   21                                                                22                                                                                                                                                                                                                                                             21
+   22                                                                                                                                                                                                                                                                                                                               22,24,26,27,29
+   23                                                                                                                                                                                                                                                                                                                               19,21,23
+   24                                                                                                                                                                                                                                                                                                                               24,26,27,29
+   25                                                                                                                                                                                                                                                                                                                               19,21,23,25,26,27,29
+   26                                                                                                                                                                                                                                                                                                                               26,27,29
+   27                                                                                                                                                                                                                                                                                                    28                         27
+   28                                                                                                                                                                                                                                                                                                                               27,28,30,32
+   29                                                                                                                                                                                                                                                                                                                               27,29
+   30                                                                                                                                                                                                                                                                                                                               30,32
+   31                                                                                                                                                                                                                                                                                                                               13,15,17,31,32
+(  32)    3                                                                                                                                                                                                                                                                                                                         32
+   33                                                                                              34    34    34    34    34    34    34    34    34    34    34    34    34    34    34    34          34    34    34    34    34    34    34    34    34    34    34    34    34    34    34    34          34    34    34    34 33
+   34                                                                                                                                                                                                                                                                                                                               34,35,37,38
+   35                                                                                              36    36    36    36    36    36    36    36    36    36    36    36    36    36    36    36          36    36    36    36    36    36    36    36    36    36    36    36    36    36    36    36    36    36    36    36    36 35
+   36                                                                                                                                                                                                                                                                                                                               35,36,38
+   37                                                                                                                                                                                                                                                                                                                               35,37,38
+(  38)    4                                                                                                                                                                                                                                                                                                                         38
+   39                                                                                                                40                                                                                                    40                                                                                                       39
+   40                                                                                              41                                                                                                    41                                                                                                                         40
+   41                                                                                                                                        42                                                                                                    42                                                                               41
+   42                                                                                                                                                                43                                                                                                    43                                                       42
+(  43)    5                                                                                                                                                                                                                                                                                                                         43
+   44                                                                                                                                                                45                                                                                                    45                                                       44
+   45                                                                                                                                                                            46                                                                                                    46                                           45
+   46                                                                                                                      47                                                                                                    47                                                                                                 46
+   47                                                                                                                                                    48                                                                                                    48                                                                   47
+   48                                                                                                                                                                                        49                                                                                                    49                               48
+   49                                                                                                                                                                                                                                                                                                                               49,53
+   50                                                                                        51                                                                                                                                                                                                                                     50
+   51                                                                                                                                                                                                                                                                                                                               51,53
+   52                                                                                                                                                                                                                                                                                                                               44,50,52
+(  53)    6                                                                                                                                                                                                                                                                                                                         53
+   54                                                                                                                                        55                                                                                                    55                                                                               54
+   55                                                                                              56                                                                                                    56                                                                                                                         55
+   56                                                                                                                                                                                        57                                                                                                    57                               56
+(  57)    7                                                                                                                                                                                                                                                                                                                         57
+   58          59    59    59    59                                                                                                                                                                                                                                                                                                 58
+   59                                                                                                                                                                                                                                                                                                                               58,59,61
+   60                                                                                                                                                                                                                                                                                                                               58,60
+(  61)    8                                                                                                                                                                                                                                                                                                                         61
+   62                                                                                  63                                                                                                                                                                                                                                           62
+(  63)   14                                                                                                                                                                                                                                                                                                                         63
+   64                                                    65                                                                                                                                                                                                                                                                         64
+(  65)   15                                                                                                                                                                                                                                                                                                                         65
+   66                                                                67                                                                                                                                                                                                                                                             66
+(  67)   17                                                                                                                                                                                                                                                                                                                         67
+   68                                              69                                                                                                                                                                                                                                                                               68
+(  69)   18                                                                                                                                                                                                                                                                                                                         69
+   70                                                                            71                                                                                                                                                                                                                                                 70
+(  71)   20                                                                                                                                                                                                                                                                                                                         71
+   72                                                                                                                                                                                              73                                                                                                                               72
+(  73)   22                                                                                                                                                                                                                                                                                                                         73
+   74                                  75                                                                                                                                                                                                                                                                                           74
+(  75)   23                                                                                                                                                                                                                                                                                                                         75
+   76                                        77                                                                                                                                                                                                                                                                                     76
+(  77)   24                                                                                                                                                                                                                                                                                                                         77
+   78                                                          79                                                                                                                                                                                                                                                                   78
+(  79)   25                                                                                                                                                                                                                                                                                                                         79
+
+DFA LIST (RENAMED)
+==================
+
+StateID ACCEPT {9} {10} {13} {32} (    )    *    +    ,    -    .    /    =    ?    E    F    G    H    I    J    K    L    M    N    O    P    Q    R    S    T    ^    e    f    g    h    i    j    k    l    m    n    o    p    q    r    s    t    0-9  A-D  U-Z  a-d  u-z 
+------- ------ --- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+0              1   1    1    1    2    3    4    5    6    7    8    9    10   11   12   12   12   13   12   12   12   14   12   12   12   15   12   12   12   12   16   12   12   12   13   12   12   12   14   12   12   12   15   12   12   12   12   17   12   12   12   12  
+1            8 1   1    1    1                                                                                                                                                                                                                                                   
+2           23                                                                                                                                                                                                                                                                   
+3           24                                                                                                                                                                                                                                                                   
+4           18                                                                                                                                                                                                                                                                   
+5           15                                                                                                                                                                                                                                                                   
+6           25                                                                                                                                                                                                                                                                   
+7           17                                                                                                                                                                                                                                                                   
+8                                                                                                                                                                                                                                                        18                      
+9           20                                                                                                                                                                                                                                                                   
+10          14                                                                                                                                                                                                                                                                   
+11           6                                                                                                                                                                                                                                                                   
+12           4                                                                      12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12        12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12  
+13           4                                                                      19   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12        19   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12  
+14           4                                                                      20   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12        20   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12  
+15           4                                                                      12   12   12   12   12   12   12   12   12   12   12   12   12   21   12   12        12   12   12   12   12   12   12   12   12   12   12   12   12   21   12   12   12   12   12   12   12  
+16          22                                                                                                                                                                                                                                                                   
+17           3                                                  8                   22                                                                                   22                                                                              17                      
+18           3                                                                      22                                                                                   22                                                                              18                      
+19           4                                                                      12   12   12   12   12   12   12   23   12   12   12   12   12   12   12   12        12   12   12   12   12   12   12   23   12   12   12   12   12   12   12   12   12   12   12   12   12  
+20           4                                                                      12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   24        12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   24   12   12   12   12   12  
+21           4                                                                      12   12   12   12   25   12   12   12   12   12   12   12   12   12   12   12        12   12   12   12   25   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12  
+22                                               26        26                                                                                                                                                                                            27                      
+23           4                                                                      12   12   12   12   12   12   12   12   12   12   12   28   12   12   12   12        12   12   12   12   12   12   12   12   12   12   12   28   12   12   12   12   12   12   12   12   12  
+24           7                                                                      12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12        12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12  
+25           4                                                                      12   12   12   12   12   12   12   12   12   29   12   12   12   12   12   12        12   12   12   12   12   12   12   12   12   29   12   12   12   12   12   12   12   12   12   12   12  
+26                                                                                                                                                                                                                                                       27                      
+27           3                                                                                                                                                                                                                                           27                      
+28           5                                                                      12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12        12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12  
+29           4                                                                      12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   30        12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   30   12   12   12   12   12  
+30           6                                                                      12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12        12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12   12  
+
+RULES
+=====
+0: <Command> : <PrintCommand> # procignore
+1: <Command> : <AssignCommand> # procignore
+2: <Command> : <HelpCommand> # procignore
+3: <PrintCommand> : print <Expression> # procprint
+4: <AssignCommand> : let id = <Expression> # proclet2
+5: <AssignCommand> : id = <Expression> # proclet1
+6: <HelpCommand> : help # prochelp
+7: <Expression> : <Expression> + <AddOp> # procadd
+8: <Expression> : <Expression> - <AddOp> # procsub
+9: <Expression> : <AddOp> # proccopy
+10: <AddOp> : <AddOp> * <MulOp> # procmul
+11: <AddOp> : <AddOp> / <MulOp> # procdiv
+12: <AddOp> : <MulOp> # proccopy
+13: <MulOp> : <PowerOp> ^ <MulOp> # procpower
+14: <MulOp> : <PowerOp> # proccopy
+15: <PowerOp> : ( <Expression> ) # procbrackets
+16: <PowerOp> : id ( <Expression> ) # procfunc1
+17: <PowerOp> : id ( <Expression> , <Expression> ) # procfunc2
+18: <PowerOp> : <NumberVal> # proccopy
+19: <PowerOp> : id # procid
+20: <NumberVal> : + number # procunaryplus
+21: <NumberVal> : - number # procunaryminus
+22: <NumberVal> : number # procnumber
+23: <$accept> : <Command> (EOF) # PROC__DOLLAR_ACCEPT_COMMAND___EOF__
+
+First Set
+=========
+<Command> -> <PrintCommand> | <AssignCommand> | <HelpCommand> | print | let | id | help
+<PrintCommand> -> print
+<AssignCommand> -> let | id
+<HelpCommand> -> help
+<Expression> -> <Expression> | <AddOp> | <MulOp> | <PowerOp> | ( | id | <NumberVal> | + | - | number
+<AddOp> -> <AddOp> | <MulOp> | <PowerOp> | ( | id | <NumberVal> | + | - | number
+<MulOp> -> <PowerOp> | ( | id | <NumberVal> | + | - | number
+<PowerOp> -> ( | id | <NumberVal> | + | - | number
+<NumberVal> -> + | - | number
+<$accept> -> <Command> | <PrintCommand> | <AssignCommand> | <HelpCommand> | print | let | id | help
+
+Follow Set
+==========
+print -> <Expression> | <AddOp> | <MulOp> | <PowerOp> | ( | id | <NumberVal> | + | - | number
+let -> id
+id -> = | ( | ^ | * | / | + | - | ) | , | (EOF)
+= -> <Expression> | <AddOp> | <MulOp> | <PowerOp> | ( | id | <NumberVal> | + | - | number
+<Expression> -> + | - | ) | , | (EOF)
++ -> <AddOp> | number | <MulOp> | <PowerOp> | ( | id | <NumberVal> | + | -
+- -> <AddOp> | number | <MulOp> | <PowerOp> | ( | id | <NumberVal> | + | -
+<AddOp> -> * | / | + | - | ) | , | (EOF)
+* -> <MulOp> | <PowerOp> | ( | id | <NumberVal> | + | - | number
+/ -> <MulOp> | <PowerOp> | ( | id | <NumberVal> | + | - | number
+<PowerOp> -> ^ | * | / | + | - | ) | , | (EOF)
+^ -> <MulOp> | <PowerOp> | ( | id | <NumberVal> | + | - | number
+( -> <Expression> | <AddOp> | <MulOp> | <PowerOp> | ( | id | <NumberVal> | + | - | number
+, -> <Expression> | <AddOp> | <MulOp> | <PowerOp> | ( | id | <NumberVal> | + | - | number
+<Command> -> (EOF)
+<MulOp> -> * | / | + | - | ) | , | (EOF)
+) -> ^ | * | / | + | - | ) | , | (EOF)
+<NumberVal> -> ^ | * | / | + | - | ) | , | (EOF)
+<PrintCommand> -> (EOF)
+<AssignCommand> -> (EOF)
+<HelpCommand> -> (EOF)
+number -> ^ | * | / | + | - | ) | , | (EOF)
+help -> (EOF)
+
+Last Set
+========
+<Command> -> <PrintCommand> | <AssignCommand> | <HelpCommand>
+<PrintCommand> -> <Expression>
+<AssignCommand> -> <Expression>
+<HelpCommand> -> help
+<Expression> -> <AddOp>
+<AddOp> -> <MulOp>
+<MulOp> -> <MulOp> | <PowerOp>
+<PowerOp> -> ) | <NumberVal> | id
+<NumberVal> -> number
+<$accept> -> (EOF)
+
+Expanded Rule List
+==================
+    0: RuleNo=00023,Head=00027,Next=00009,Offs= 0,acc=n <$accept> : ● <Command> (EOF) 
+    1: RuleNo=00023,Head=00027,Next=00001,Offs= 1,acc=n <$accept> : <Command> ● (EOF) 
+    2: RuleNo=00023,Head=00027,Next=2147483647,Offs= 2,acc=Y <$accept> : <Command> (EOF) ● 
+    3: RuleNo=00000,Head=00009,Next=00010,Offs= 0,acc=n <Command> : ● <PrintCommand> 
+    4: RuleNo=00000,Head=00009,Next=2147483647,Offs= 1,acc=n <Command> : <PrintCommand> ● 
+    5: RuleNo=00001,Head=00009,Next=00011,Offs= 0,acc=n <Command> : ● <AssignCommand> 
+    6: RuleNo=00001,Head=00009,Next=2147483647,Offs= 1,acc=n <Command> : <AssignCommand> ● 
+    7: RuleNo=00002,Head=00009,Next=00012,Offs= 0,acc=n <Command> : ● <HelpCommand> 
+    8: RuleNo=00002,Head=00009,Next=2147483647,Offs= 1,acc=n <Command> : <HelpCommand> ● 
+    9: RuleNo=00003,Head=00010,Next=00006,Offs= 0,acc=n <PrintCommand> : ● print <Expression> 
+   10: RuleNo=00003,Head=00010,Next=00013,Offs= 1,acc=n <PrintCommand> : print ● <Expression> 
+   11: RuleNo=00003,Head=00010,Next=2147483647,Offs= 2,acc=n <PrintCommand> : print <Expression> ● 
+   12: RuleNo=00004,Head=00011,Next=00007,Offs= 0,acc=n <AssignCommand> : ● let id = <Expression> 
+   13: RuleNo=00004,Head=00011,Next=00004,Offs= 1,acc=n <AssignCommand> : let ● id = <Expression> 
+   14: RuleNo=00004,Head=00011,Next=00014,Offs= 2,acc=n <AssignCommand> : let id ● = <Expression> 
+   15: RuleNo=00004,Head=00011,Next=00013,Offs= 3,acc=n <AssignCommand> : let id = ● <Expression> 
+   16: RuleNo=00004,Head=00011,Next=2147483647,Offs= 4,acc=n <AssignCommand> : let id = <Expression> ● 
+   17: RuleNo=00005,Head=00011,Next=00004,Offs= 0,acc=n <AssignCommand> : ● id = <Expression> 
+   18: RuleNo=00005,Head=00011,Next=00014,Offs= 1,acc=n <AssignCommand> : id ● = <Expression> 
+   19: RuleNo=00005,Head=00011,Next=00013,Offs= 2,acc=n <AssignCommand> : id = ● <Expression> 
+   20: RuleNo=00005,Head=00011,Next=2147483647,Offs= 3,acc=n <AssignCommand> : id = <Expression> ● 
+   21: RuleNo=00006,Head=00012,Next=00005,Offs= 0,acc=n <HelpCommand> : ● help 
+   22: RuleNo=00006,Head=00012,Next=2147483647,Offs= 1,acc=n <HelpCommand> : help ● 
+   23: RuleNo=00007,Head=00013,Next=00013,Offs= 0,acc=n <Expression> : ● <Expression> + <AddOp> 
+   24: RuleNo=00007,Head=00013,Next=00015,Offs= 1,acc=n <Expression> : <Expression> ● + <AddOp> 
+   25: RuleNo=00007,Head=00013,Next=00016,Offs= 2,acc=n <Expression> : <Expression> + ● <AddOp> 
+   26: RuleNo=00007,Head=00013,Next=2147483647,Offs= 3,acc=n <Expression> : <Expression> + <AddOp> ● 
+   27: RuleNo=00008,Head=00013,Next=00013,Offs= 0,acc=n <Expression> : ● <Expression> - <AddOp> 
+   28: RuleNo=00008,Head=00013,Next=00017,Offs= 1,acc=n <Expression> : <Expression> ● - <AddOp> 
+   29: RuleNo=00008,Head=00013,Next=00016,Offs= 2,acc=n <Expression> : <Expression> - ● <AddOp> 
+   30: RuleNo=00008,Head=00013,Next=2147483647,Offs= 3,acc=n <Expression> : <Expression> - <AddOp> ● 
+   31: RuleNo=00009,Head=00013,Next=00016,Offs= 0,acc=n <Expression> : ● <AddOp> 
+   32: RuleNo=00009,Head=00013,Next=2147483647,Offs= 1,acc=n <Expression> : <AddOp> ● 
+   33: RuleNo=00010,Head=00016,Next=00016,Offs= 0,acc=n <AddOp> : ● <AddOp> * <MulOp> 
+   34: RuleNo=00010,Head=00016,Next=00018,Offs= 1,acc=n <AddOp> : <AddOp> ● * <MulOp> 
+   35: RuleNo=00010,Head=00016,Next=00019,Offs= 2,acc=n <AddOp> : <AddOp> * ● <MulOp> 
+   36: RuleNo=00010,Head=00016,Next=2147483647,Offs= 3,acc=n <AddOp> : <AddOp> * <MulOp> ● 
+   37: RuleNo=00011,Head=00016,Next=00016,Offs= 0,acc=n <AddOp> : ● <AddOp> / <MulOp> 
+   38: RuleNo=00011,Head=00016,Next=00020,Offs= 1,acc=n <AddOp> : <AddOp> ● / <MulOp> 
+   39: RuleNo=00011,Head=00016,Next=00019,Offs= 2,acc=n <AddOp> : <AddOp> / ● <MulOp> 
+   40: RuleNo=00011,Head=00016,Next=2147483647,Offs= 3,acc=n <AddOp> : <AddOp> / <MulOp> ● 
+   41: RuleNo=00012,Head=00016,Next=00019,Offs= 0,acc=n <AddOp> : ● <MulOp> 
+   42: RuleNo=00012,Head=00016,Next=2147483647,Offs= 1,acc=n <AddOp> : <MulOp> ● 
+   43: RuleNo=00013,Head=00019,Next=00021,Offs= 0,acc=n <MulOp> : ● <PowerOp> ^ <MulOp> 
+   44: RuleNo=00013,Head=00019,Next=00022,Offs= 1,acc=n <MulOp> : <PowerOp> ● ^ <MulOp> 
+   45: RuleNo=00013,Head=00019,Next=00019,Offs= 2,acc=n <MulOp> : <PowerOp> ^ ● <MulOp> 
+   46: RuleNo=00013,Head=00019,Next=2147483647,Offs= 3,acc=n <MulOp> : <PowerOp> ^ <MulOp> ● 
+   47: RuleNo=00014,Head=00019,Next=00021,Offs= 0,acc=n <MulOp> : ● <PowerOp> 
+   48: RuleNo=00014,Head=00019,Next=2147483647,Offs= 1,acc=n <MulOp> : <PowerOp> ● 
+   49: RuleNo=00015,Head=00021,Next=00023,Offs= 0,acc=n <PowerOp> : ● ( <Expression> ) 
+   50: RuleNo=00015,Head=00021,Next=00013,Offs= 1,acc=n <PowerOp> : ( ● <Expression> ) 
+   51: RuleNo=00015,Head=00021,Next=00024,Offs= 2,acc=n <PowerOp> : ( <Expression> ● ) 
+   52: RuleNo=00015,Head=00021,Next=2147483647,Offs= 3,acc=n <PowerOp> : ( <Expression> ) ● 
+   53: RuleNo=00016,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id ( <Expression> ) 
+   54: RuleNo=00016,Head=00021,Next=00023,Offs= 1,acc=n <PowerOp> : id ● ( <Expression> ) 
+   55: RuleNo=00016,Head=00021,Next=00013,Offs= 2,acc=n <PowerOp> : id ( ● <Expression> ) 
+   56: RuleNo=00016,Head=00021,Next=00024,Offs= 3,acc=n <PowerOp> : id ( <Expression> ● ) 
+   57: RuleNo=00016,Head=00021,Next=2147483647,Offs= 4,acc=n <PowerOp> : id ( <Expression> ) ● 
+   58: RuleNo=00017,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id ( <Expression> , <Expression> ) 
+   59: RuleNo=00017,Head=00021,Next=00023,Offs= 1,acc=n <PowerOp> : id ● ( <Expression> , <Expression> ) 
+   60: RuleNo=00017,Head=00021,Next=00013,Offs= 2,acc=n <PowerOp> : id ( ● <Expression> , <Expression> ) 
+   61: RuleNo=00017,Head=00021,Next=00025,Offs= 3,acc=n <PowerOp> : id ( <Expression> ● , <Expression> ) 
+   62: RuleNo=00017,Head=00021,Next=00013,Offs= 4,acc=n <PowerOp> : id ( <Expression> , ● <Expression> ) 
+   63: RuleNo=00017,Head=00021,Next=00024,Offs= 5,acc=n <PowerOp> : id ( <Expression> , <Expression> ● ) 
+   64: RuleNo=00017,Head=00021,Next=2147483647,Offs= 6,acc=n <PowerOp> : id ( <Expression> , <Expression> ) ● 
+   65: RuleNo=00018,Head=00021,Next=00026,Offs= 0,acc=n <PowerOp> : ● <NumberVal> 
+   66: RuleNo=00018,Head=00021,Next=2147483647,Offs= 1,acc=n <PowerOp> : <NumberVal> ● 
+   67: RuleNo=00019,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id 
+   68: RuleNo=00019,Head=00021,Next=2147483647,Offs= 1,acc=n <PowerOp> : id ● 
+   69: RuleNo=00020,Head=00026,Next=00015,Offs= 0,acc=n <NumberVal> : ● + number 
+   70: RuleNo=00020,Head=00026,Next=00003,Offs= 1,acc=n <NumberVal> : + ● number 
+   71: RuleNo=00020,Head=00026,Next=2147483647,Offs= 2,acc=n <NumberVal> : + number ● 
+   72: RuleNo=00021,Head=00026,Next=00017,Offs= 0,acc=n <NumberVal> : ● - number 
+   73: RuleNo=00021,Head=00026,Next=00003,Offs= 1,acc=n <NumberVal> : - ● number 
+   74: RuleNo=00021,Head=00026,Next=2147483647,Offs= 2,acc=n <NumberVal> : - number ● 
+   75: RuleNo=00022,Head=00026,Next=00003,Offs= 0,acc=n <NumberVal> : ● number 
+   76: RuleNo=00022,Head=00026,Next=2147483647,Offs= 1,acc=n <NumberVal> : number ● 
+
+Parser Table
+============
+
+Entry State Canon  Next ε Shift Reduc PGoto Accep Expan AsText
+----- ----- ----- ----- - ----- ----- ----- ----- ----- ------
+    0     0     0     9       -     -     5 False True  RuleNo=00023,Head=00027,Next=00009,Offs= 0,acc=n <$accept> : ● <Command> (EOF) 
+    1     0     3    10       -     -     6 False True  RuleNo=00000,Head=00009,Next=00010,Offs= 0,acc=n <Command> : ● <PrintCommand> 
+    2     0     5    11       -     -     7 False True  RuleNo=00001,Head=00009,Next=00011,Offs= 0,acc=n <Command> : ● <AssignCommand> 
+    3     0     7    12       -     -     8 False True  RuleNo=00002,Head=00009,Next=00012,Offs= 0,acc=n <Command> : ● <HelpCommand> 
+    4     0     9     6       1     -     - False True  RuleNo=00003,Head=00010,Next=00006,Offs= 0,acc=n <PrintCommand> : ● print <Expression> 
+    5     0    12     7       2     -     - False True  RuleNo=00004,Head=00011,Next=00007,Offs= 0,acc=n <AssignCommand> : ● let id = <Expression> 
+    6     0    17     4       3     -     - False True  RuleNo=00005,Head=00011,Next=00004,Offs= 0,acc=n <AssignCommand> : ● id = <Expression> 
+    7     0    21     5       4     -     - False True  RuleNo=00006,Head=00012,Next=00005,Offs= 0,acc=n <HelpCommand> : ● help 
+    8     1    10    13       -     -    14 False True  RuleNo=00003,Head=00010,Next=00013,Offs= 1,acc=n <PrintCommand> : print ● <Expression> 
+    9     1    23    13       -     -    14 False True  RuleNo=00007,Head=00013,Next=00013,Offs= 0,acc=n <Expression> : ● <Expression> + <AddOp> 
+   10     1    27    13       -     -    14 False True  RuleNo=00008,Head=00013,Next=00013,Offs= 0,acc=n <Expression> : ● <Expression> - <AddOp> 
+   11     1    31    16       -     -    15 False True  RuleNo=00009,Head=00013,Next=00016,Offs= 0,acc=n <Expression> : ● <AddOp> 
+   12     1    33    16       -     -    15 False True  RuleNo=00010,Head=00016,Next=00016,Offs= 0,acc=n <AddOp> : ● <AddOp> * <MulOp> 
+   13     1    37    16       -     -    15 False True  RuleNo=00011,Head=00016,Next=00016,Offs= 0,acc=n <AddOp> : ● <AddOp> / <MulOp> 
+   14     1    41    19       -     -    16 False True  RuleNo=00012,Head=00016,Next=00019,Offs= 0,acc=n <AddOp> : ● <MulOp> 
+   15     1    43    21       -     -    17 False True  RuleNo=00013,Head=00019,Next=00021,Offs= 0,acc=n <MulOp> : ● <PowerOp> ^ <MulOp> 
+   16     1    47    21       -     -    17 False True  RuleNo=00014,Head=00019,Next=00021,Offs= 0,acc=n <MulOp> : ● <PowerOp> 
+   17     1    49    23       9     -     - False True  RuleNo=00015,Head=00021,Next=00023,Offs= 0,acc=n <PowerOp> : ● ( <Expression> ) 
+   18     1    53     4      10     -     - False True  RuleNo=00016,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id ( <Expression> ) 
+   19     1    58     4      10     -     - False True  RuleNo=00017,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id ( <Expression> , <Expression> ) 
+   20     1    65    26       -     -    18 False True  RuleNo=00018,Head=00021,Next=00026,Offs= 0,acc=n <PowerOp> : ● <NumberVal> 
+   21     1    67     4      10     -     - False True  RuleNo=00019,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id 
+   22     1    69    15      11     -     - False True  RuleNo=00020,Head=00026,Next=00015,Offs= 0,acc=n <NumberVal> : ● + number 
+   23     1    72    17      12     -     - False True  RuleNo=00021,Head=00026,Next=00017,Offs= 0,acc=n <NumberVal> : ● - number 
+   24     1    75     3      13     -     - False True  RuleNo=00022,Head=00026,Next=00003,Offs= 0,acc=n <NumberVal> : ● number 
+   25     2    13     4      19     -     - False True  RuleNo=00004,Head=00011,Next=00004,Offs= 1,acc=n <AssignCommand> : let ● id = <Expression> 
+   26     3    18    14      20     -     - False True  RuleNo=00005,Head=00011,Next=00014,Offs= 1,acc=n <AssignCommand> : id ● = <Expression> 
+   27     4    22     -       -     6     - False True  RuleNo=00006,Head=00012,Next=2147483647,Offs= 1,acc=n <HelpCommand> : help ● 
+   28     5     1     1      21     -     - False True  RuleNo=00023,Head=00027,Next=00001,Offs= 1,acc=n <$accept> : <Command> ● (EOF) 
+   29     6     4     -       -     0     - False True  RuleNo=00000,Head=00009,Next=2147483647,Offs= 1,acc=n <Command> : <PrintCommand> ● 
+   30     7     6     -       -     1     - False True  RuleNo=00001,Head=00009,Next=2147483647,Offs= 1,acc=n <Command> : <AssignCommand> ● 
+   31     8     8     -       -     2     - False True  RuleNo=00002,Head=00009,Next=2147483647,Offs= 1,acc=n <Command> : <HelpCommand> ● 
+   32     9    23    13       -     -    22 False True  RuleNo=00007,Head=00013,Next=00013,Offs= 0,acc=n <Expression> : ● <Expression> + <AddOp> 
+   33     9    27    13       -     -    22 False True  RuleNo=00008,Head=00013,Next=00013,Offs= 0,acc=n <Expression> : ● <Expression> - <AddOp> 
+   34     9    31    16       -     -    15 False True  RuleNo=00009,Head=00013,Next=00016,Offs= 0,acc=n <Expression> : ● <AddOp> 
+   35     9    33    16       -     -    15 False True  RuleNo=00010,Head=00016,Next=00016,Offs= 0,acc=n <AddOp> : ● <AddOp> * <MulOp> 
+   36     9    37    16       -     -    15 False True  RuleNo=00011,Head=00016,Next=00016,Offs= 0,acc=n <AddOp> : ● <AddOp> / <MulOp> 
+   37     9    41    19       -     -    16 False True  RuleNo=00012,Head=00016,Next=00019,Offs= 0,acc=n <AddOp> : ● <MulOp> 
+   38     9    43    21       -     -    17 False True  RuleNo=00013,Head=00019,Next=00021,Offs= 0,acc=n <MulOp> : ● <PowerOp> ^ <MulOp> 
+   39     9    47    21       -     -    17 False True  RuleNo=00014,Head=00019,Next=00021,Offs= 0,acc=n <MulOp> : ● <PowerOp> 
+   40     9    49    23       9     -     - False True  RuleNo=00015,Head=00021,Next=00023,Offs= 0,acc=n <PowerOp> : ● ( <Expression> ) 
+   41     9    50    13       -     -    22 False True  RuleNo=00015,Head=00021,Next=00013,Offs= 1,acc=n <PowerOp> : ( ● <Expression> ) 
+   42     9    53     4      10     -     - False True  RuleNo=00016,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id ( <Expression> ) 
+   43     9    58     4      10     -     - False True  RuleNo=00017,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id ( <Expression> , <Expression> ) 
+   44     9    65    26       -     -    18 False True  RuleNo=00018,Head=00021,Next=00026,Offs= 0,acc=n <PowerOp> : ● <NumberVal> 
+   45     9    67     4      10     -     - False True  RuleNo=00019,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id 
+   46     9    69    15      11     -     - False True  RuleNo=00020,Head=00026,Next=00015,Offs= 0,acc=n <NumberVal> : ● + number 
+   47     9    72    17      12     -     - False True  RuleNo=00021,Head=00026,Next=00017,Offs= 0,acc=n <NumberVal> : ● - number 
+   48     9    75     3      13     -     - False True  RuleNo=00022,Head=00026,Next=00003,Offs= 0,acc=n <NumberVal> : ● number 
+   49    10    54    23      23     -     - False True  RuleNo=00016,Head=00021,Next=00023,Offs= 1,acc=n <PowerOp> : id ● ( <Expression> ) 
+   50    10    59    23      23     -     - False True  RuleNo=00017,Head=00021,Next=00023,Offs= 1,acc=n <PowerOp> : id ● ( <Expression> , <Expression> ) 
+   51    10    68     -       -    19     - False True  RuleNo=00019,Head=00021,Next=2147483647,Offs= 1,acc=n <PowerOp> : id ● 
+   52    11    70     3      24     -     - False True  RuleNo=00020,Head=00026,Next=00003,Offs= 1,acc=n <NumberVal> : + ● number 
+   53    12    73     3      25     -     - False True  RuleNo=00021,Head=00026,Next=00003,Offs= 1,acc=n <NumberVal> : - ● number 
+   54    13    76     -       -    22     - False True  RuleNo=00022,Head=00026,Next=2147483647,Offs= 1,acc=n <NumberVal> : number ● 
+   55    14    11     -       -     3     - False True  RuleNo=00003,Head=00010,Next=2147483647,Offs= 2,acc=n <PrintCommand> : print <Expression> ● 
+   56    14    24    15      26     -     - False True  RuleNo=00007,Head=00013,Next=00015,Offs= 1,acc=n <Expression> : <Expression> ● + <AddOp> 
+   57    14    28    17      27     -     - False True  RuleNo=00008,Head=00013,Next=00017,Offs= 1,acc=n <Expression> : <Expression> ● - <AddOp> 
+   58    15    32     -       -     9     - False True  RuleNo=00009,Head=00013,Next=2147483647,Offs= 1,acc=n <Expression> : <AddOp> ● 
+   59    15    34    18      28     -     - False True  RuleNo=00010,Head=00016,Next=00018,Offs= 1,acc=n <AddOp> : <AddOp> ● * <MulOp> 
+   60    15    38    20      29     -     - False True  RuleNo=00011,Head=00016,Next=00020,Offs= 1,acc=n <AddOp> : <AddOp> ● / <MulOp> 
+   61    16    42     -       -    12     - False True  RuleNo=00012,Head=00016,Next=2147483647,Offs= 1,acc=n <AddOp> : <MulOp> ● 
+   62    17    44    22      30     -     - False True  RuleNo=00013,Head=00019,Next=00022,Offs= 1,acc=n <MulOp> : <PowerOp> ● ^ <MulOp> 
+   63    17    48     -       -    14     - False True  RuleNo=00014,Head=00019,Next=2147483647,Offs= 1,acc=n <MulOp> : <PowerOp> ● 
+   64    18    66     -       -    18     - False True  RuleNo=00018,Head=00021,Next=2147483647,Offs= 1,acc=n <PowerOp> : <NumberVal> ● 
+   65    19    14    14      31     -     - False True  RuleNo=00004,Head=00011,Next=00014,Offs= 2,acc=n <AssignCommand> : let id ● = <Expression> 
+   66    20    19    13       -     -    32 False True  RuleNo=00005,Head=00011,Next=00013,Offs= 2,acc=n <AssignCommand> : id = ● <Expression> 
+   67    20    23    13       -     -    32 False True  RuleNo=00007,Head=00013,Next=00013,Offs= 0,acc=n <Expression> : ● <Expression> + <AddOp> 
+   68    20    27    13       -     -    32 False True  RuleNo=00008,Head=00013,Next=00013,Offs= 0,acc=n <Expression> : ● <Expression> - <AddOp> 
+   69    20    31    16       -     -    15 False True  RuleNo=00009,Head=00013,Next=00016,Offs= 0,acc=n <Expression> : ● <AddOp> 
+   70    20    33    16       -     -    15 False True  RuleNo=00010,Head=00016,Next=00016,Offs= 0,acc=n <AddOp> : ● <AddOp> * <MulOp> 
+   71    20    37    16       -     -    15 False True  RuleNo=00011,Head=00016,Next=00016,Offs= 0,acc=n <AddOp> : ● <AddOp> / <MulOp> 
+   72    20    41    19       -     -    16 False True  RuleNo=00012,Head=00016,Next=00019,Offs= 0,acc=n <AddOp> : ● <MulOp> 
+   73    20    43    21       -     -    17 False True  RuleNo=00013,Head=00019,Next=00021,Offs= 0,acc=n <MulOp> : ● <PowerOp> ^ <MulOp> 
+   74    20    47    21       -     -    17 False True  RuleNo=00014,Head=00019,Next=00021,Offs= 0,acc=n <MulOp> : ● <PowerOp> 
+   75    20    49    23       9     -     - False True  RuleNo=00015,Head=00021,Next=00023,Offs= 0,acc=n <PowerOp> : ● ( <Expression> ) 
+   76    20    53     4      10     -     - False True  RuleNo=00016,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id ( <Expression> ) 
+   77    20    58     4      10     -     - False True  RuleNo=00017,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id ( <Expression> , <Expression> ) 
+   78    20    65    26       -     -    18 False True  RuleNo=00018,Head=00021,Next=00026,Offs= 0,acc=n <PowerOp> : ● <NumberVal> 
+   79    20    67     4      10     -     - False True  RuleNo=00019,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id 
+   80    20    69    15      11     -     - False True  RuleNo=00020,Head=00026,Next=00015,Offs= 0,acc=n <NumberVal> : ● + number 
+   81    20    72    17      12     -     - False True  RuleNo=00021,Head=00026,Next=00017,Offs= 0,acc=n <NumberVal> : ● - number 
+   82    20    75     3      13     -     - False True  RuleNo=00022,Head=00026,Next=00003,Offs= 0,acc=n <NumberVal> : ● number 
+   83    21     2     -       -     -     - True  True  RuleNo=00023,Head=00027,Next=2147483647,Offs= 2,acc=Y <$accept> : <Command> (EOF) ● 
+   84    22    24    15      26     -     - False True  RuleNo=00007,Head=00013,Next=00015,Offs= 1,acc=n <Expression> : <Expression> ● + <AddOp> 
+   85    22    28    17      27     -     - False True  RuleNo=00008,Head=00013,Next=00017,Offs= 1,acc=n <Expression> : <Expression> ● - <AddOp> 
+   86    22    51    24      33     -     - False True  RuleNo=00015,Head=00021,Next=00024,Offs= 2,acc=n <PowerOp> : ( <Expression> ● ) 
+   87    23    23    13       -     -    34 False True  RuleNo=00007,Head=00013,Next=00013,Offs= 0,acc=n <Expression> : ● <Expression> + <AddOp> 
+   88    23    27    13       -     -    34 False True  RuleNo=00008,Head=00013,Next=00013,Offs= 0,acc=n <Expression> : ● <Expression> - <AddOp> 
+   89    23    31    16       -     -    15 False True  RuleNo=00009,Head=00013,Next=00016,Offs= 0,acc=n <Expression> : ● <AddOp> 
+   90    23    33    16       -     -    15 False True  RuleNo=00010,Head=00016,Next=00016,Offs= 0,acc=n <AddOp> : ● <AddOp> * <MulOp> 
+   91    23    37    16       -     -    15 False True  RuleNo=00011,Head=00016,Next=00016,Offs= 0,acc=n <AddOp> : ● <AddOp> / <MulOp> 
+   92    23    41    19       -     -    16 False True  RuleNo=00012,Head=00016,Next=00019,Offs= 0,acc=n <AddOp> : ● <MulOp> 
+   93    23    43    21       -     -    17 False True  RuleNo=00013,Head=00019,Next=00021,Offs= 0,acc=n <MulOp> : ● <PowerOp> ^ <MulOp> 
+   94    23    47    21       -     -    17 False True  RuleNo=00014,Head=00019,Next=00021,Offs= 0,acc=n <MulOp> : ● <PowerOp> 
+   95    23    49    23       9     -     - False True  RuleNo=00015,Head=00021,Next=00023,Offs= 0,acc=n <PowerOp> : ● ( <Expression> ) 
+   96    23    53     4      10     -     - False True  RuleNo=00016,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id ( <Expression> ) 
+   97    23    55    13       -     -    34 False True  RuleNo=00016,Head=00021,Next=00013,Offs= 2,acc=n <PowerOp> : id ( ● <Expression> ) 
+   98    23    58     4      10     -     - False True  RuleNo=00017,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id ( <Expression> , <Expression> ) 
+   99    23    60    13       -     -    34 False True  RuleNo=00017,Head=00021,Next=00013,Offs= 2,acc=n <PowerOp> : id ( ● <Expression> , <Expression> ) 
+  100    23    65    26       -     -    18 False True  RuleNo=00018,Head=00021,Next=00026,Offs= 0,acc=n <PowerOp> : ● <NumberVal> 
+  101    23    67     4      10     -     - False True  RuleNo=00019,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id 
+  102    23    69    15      11     -     - False True  RuleNo=00020,Head=00026,Next=00015,Offs= 0,acc=n <NumberVal> : ● + number 
+  103    23    72    17      12     -     - False True  RuleNo=00021,Head=00026,Next=00017,Offs= 0,acc=n <NumberVal> : ● - number 
+  104    23    75     3      13     -     - False True  RuleNo=00022,Head=00026,Next=00003,Offs= 0,acc=n <NumberVal> : ● number 
+  105    24    71     -       -    20     - False True  RuleNo=00020,Head=00026,Next=2147483647,Offs= 2,acc=n <NumberVal> : + number ● 
+  106    25    74     -       -    21     - False True  RuleNo=00021,Head=00026,Next=2147483647,Offs= 2,acc=n <NumberVal> : - number ● 
+  107    26    25    16       -     -    35 False True  RuleNo=00007,Head=00013,Next=00016,Offs= 2,acc=n <Expression> : <Expression> + ● <AddOp> 
+  108    26    33    16       -     -    35 False True  RuleNo=00010,Head=00016,Next=00016,Offs= 0,acc=n <AddOp> : ● <AddOp> * <MulOp> 
+  109    26    37    16       -     -    35 False True  RuleNo=00011,Head=00016,Next=00016,Offs= 0,acc=n <AddOp> : ● <AddOp> / <MulOp> 
+  110    26    41    19       -     -    16 False True  RuleNo=00012,Head=00016,Next=00019,Offs= 0,acc=n <AddOp> : ● <MulOp> 
+  111    26    43    21       -     -    17 False True  RuleNo=00013,Head=00019,Next=00021,Offs= 0,acc=n <MulOp> : ● <PowerOp> ^ <MulOp> 
+  112    26    47    21       -     -    17 False True  RuleNo=00014,Head=00019,Next=00021,Offs= 0,acc=n <MulOp> : ● <PowerOp> 
+  113    26    49    23       9     -     - False True  RuleNo=00015,Head=00021,Next=00023,Offs= 0,acc=n <PowerOp> : ● ( <Expression> ) 
+  114    26    53     4      10     -     - False True  RuleNo=00016,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id ( <Expression> ) 
+  115    26    58     4      10     -     - False True  RuleNo=00017,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id ( <Expression> , <Expression> ) 
+  116    26    65    26       -     -    18 False True  RuleNo=00018,Head=00021,Next=00026,Offs= 0,acc=n <PowerOp> : ● <NumberVal> 
+  117    26    67     4      10     -     - False True  RuleNo=00019,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id 
+  118    26    69    15      11     -     - False True  RuleNo=00020,Head=00026,Next=00015,Offs= 0,acc=n <NumberVal> : ● + number 
+  119    26    72    17      12     -     - False True  RuleNo=00021,Head=00026,Next=00017,Offs= 0,acc=n <NumberVal> : ● - number 
+  120    26    75     3      13     -     - False True  RuleNo=00022,Head=00026,Next=00003,Offs= 0,acc=n <NumberVal> : ● number 
+  121    27    29    16       -     -    36 False True  RuleNo=00008,Head=00013,Next=00016,Offs= 2,acc=n <Expression> : <Expression> - ● <AddOp> 
+  122    27    33    16       -     -    36 False True  RuleNo=00010,Head=00016,Next=00016,Offs= 0,acc=n <AddOp> : ● <AddOp> * <MulOp> 
+  123    27    37    16       -     -    36 False True  RuleNo=00011,Head=00016,Next=00016,Offs= 0,acc=n <AddOp> : ● <AddOp> / <MulOp> 
+  124    27    41    19       -     -    16 False True  RuleNo=00012,Head=00016,Next=00019,Offs= 0,acc=n <AddOp> : ● <MulOp> 
+  125    27    43    21       -     -    17 False True  RuleNo=00013,Head=00019,Next=00021,Offs= 0,acc=n <MulOp> : ● <PowerOp> ^ <MulOp> 
+  126    27    47    21       -     -    17 False True  RuleNo=00014,Head=00019,Next=00021,Offs= 0,acc=n <MulOp> : ● <PowerOp> 
+  127    27    49    23       9     -     - False True  RuleNo=00015,Head=00021,Next=00023,Offs= 0,acc=n <PowerOp> : ● ( <Expression> ) 
+  128    27    53     4      10     -     - False True  RuleNo=00016,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id ( <Expression> ) 
+  129    27    58     4      10     -     - False True  RuleNo=00017,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id ( <Expression> , <Expression> ) 
+  130    27    65    26       -     -    18 False True  RuleNo=00018,Head=00021,Next=00026,Offs= 0,acc=n <PowerOp> : ● <NumberVal> 
+  131    27    67     4      10     -     - False True  RuleNo=00019,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id 
+  132    27    69    15      11     -     - False True  RuleNo=00020,Head=00026,Next=00015,Offs= 0,acc=n <NumberVal> : ● + number 
+  133    27    72    17      12     -     - False True  RuleNo=00021,Head=00026,Next=00017,Offs= 0,acc=n <NumberVal> : ● - number 
+  134    27    75     3      13     -     - False True  RuleNo=00022,Head=00026,Next=00003,Offs= 0,acc=n <NumberVal> : ● number 
+  135    28    35    19       -     -    37 False True  RuleNo=00010,Head=00016,Next=00019,Offs= 2,acc=n <AddOp> : <AddOp> * ● <MulOp> 
+  136    28    43    21       -     -    17 False True  RuleNo=00013,Head=00019,Next=00021,Offs= 0,acc=n <MulOp> : ● <PowerOp> ^ <MulOp> 
+  137    28    47    21       -     -    17 False True  RuleNo=00014,Head=00019,Next=00021,Offs= 0,acc=n <MulOp> : ● <PowerOp> 
+  138    28    49    23       9     -     - False True  RuleNo=00015,Head=00021,Next=00023,Offs= 0,acc=n <PowerOp> : ● ( <Expression> ) 
+  139    28    53     4      10     -     - False True  RuleNo=00016,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id ( <Expression> ) 
+  140    28    58     4      10     -     - False True  RuleNo=00017,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id ( <Expression> , <Expression> ) 
+  141    28    65    26       -     -    18 False True  RuleNo=00018,Head=00021,Next=00026,Offs= 0,acc=n <PowerOp> : ● <NumberVal> 
+  142    28    67     4      10     -     - False True  RuleNo=00019,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id 
+  143    28    69    15      11     -     - False True  RuleNo=00020,Head=00026,Next=00015,Offs= 0,acc=n <NumberVal> : ● + number 
+  144    28    72    17      12     -     - False True  RuleNo=00021,Head=00026,Next=00017,Offs= 0,acc=n <NumberVal> : ● - number 
+  145    28    75     3      13     -     - False True  RuleNo=00022,Head=00026,Next=00003,Offs= 0,acc=n <NumberVal> : ● number 
+  146    29    39    19       -     -    38 False True  RuleNo=00011,Head=00016,Next=00019,Offs= 2,acc=n <AddOp> : <AddOp> / ● <MulOp> 
+  147    29    43    21       -     -    17 False True  RuleNo=00013,Head=00019,Next=00021,Offs= 0,acc=n <MulOp> : ● <PowerOp> ^ <MulOp> 
+  148    29    47    21       -     -    17 False True  RuleNo=00014,Head=00019,Next=00021,Offs= 0,acc=n <MulOp> : ● <PowerOp> 
+  149    29    49    23       9     -     - False True  RuleNo=00015,Head=00021,Next=00023,Offs= 0,acc=n <PowerOp> : ● ( <Expression> ) 
+  150    29    53     4      10     -     - False True  RuleNo=00016,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id ( <Expression> ) 
+  151    29    58     4      10     -     - False True  RuleNo=00017,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id ( <Expression> , <Expression> ) 
+  152    29    65    26       -     -    18 False True  RuleNo=00018,Head=00021,Next=00026,Offs= 0,acc=n <PowerOp> : ● <NumberVal> 
+  153    29    67     4      10     -     - False True  RuleNo=00019,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id 
+  154    29    69    15      11     -     - False True  RuleNo=00020,Head=00026,Next=00015,Offs= 0,acc=n <NumberVal> : ● + number 
+  155    29    72    17      12     -     - False True  RuleNo=00021,Head=00026,Next=00017,Offs= 0,acc=n <NumberVal> : ● - number 
+  156    29    75     3      13     -     - False True  RuleNo=00022,Head=00026,Next=00003,Offs= 0,acc=n <NumberVal> : ● number 
+  157    30    43    21       -     -    17 False True  RuleNo=00013,Head=00019,Next=00021,Offs= 0,acc=n <MulOp> : ● <PowerOp> ^ <MulOp> 
+  158    30    45    19       -     -    39 False True  RuleNo=00013,Head=00019,Next=00019,Offs= 2,acc=n <MulOp> : <PowerOp> ^ ● <MulOp> 
+  159    30    47    21       -     -    17 False True  RuleNo=00014,Head=00019,Next=00021,Offs= 0,acc=n <MulOp> : ● <PowerOp> 
+  160    30    49    23       9     -     - False True  RuleNo=00015,Head=00021,Next=00023,Offs= 0,acc=n <PowerOp> : ● ( <Expression> ) 
+  161    30    53     4      10     -     - False True  RuleNo=00016,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id ( <Expression> ) 
+  162    30    58     4      10     -     - False True  RuleNo=00017,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id ( <Expression> , <Expression> ) 
+  163    30    65    26       -     -    18 False True  RuleNo=00018,Head=00021,Next=00026,Offs= 0,acc=n <PowerOp> : ● <NumberVal> 
+  164    30    67     4      10     -     - False True  RuleNo=00019,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id 
+  165    30    69    15      11     -     - False True  RuleNo=00020,Head=00026,Next=00015,Offs= 0,acc=n <NumberVal> : ● + number 
+  166    30    72    17      12     -     - False True  RuleNo=00021,Head=00026,Next=00017,Offs= 0,acc=n <NumberVal> : ● - number 
+  167    30    75     3      13     -     - False True  RuleNo=00022,Head=00026,Next=00003,Offs= 0,acc=n <NumberVal> : ● number 
+  168    31    15    13       -     -    40 False True  RuleNo=00004,Head=00011,Next=00013,Offs= 3,acc=n <AssignCommand> : let id = ● <Expression> 
+  169    31    23    13       -     -    40 False True  RuleNo=00007,Head=00013,Next=00013,Offs= 0,acc=n <Expression> : ● <Expression> + <AddOp> 
+  170    31    27    13       -     -    40 False True  RuleNo=00008,Head=00013,Next=00013,Offs= 0,acc=n <Expression> : ● <Expression> - <AddOp> 
+  171    31    31    16       -     -    15 False True  RuleNo=00009,Head=00013,Next=00016,Offs= 0,acc=n <Expression> : ● <AddOp> 
+  172    31    33    16       -     -    15 False True  RuleNo=00010,Head=00016,Next=00016,Offs= 0,acc=n <AddOp> : ● <AddOp> * <MulOp> 
+  173    31    37    16       -     -    15 False True  RuleNo=00011,Head=00016,Next=00016,Offs= 0,acc=n <AddOp> : ● <AddOp> / <MulOp> 
+  174    31    41    19       -     -    16 False True  RuleNo=00012,Head=00016,Next=00019,Offs= 0,acc=n <AddOp> : ● <MulOp> 
+  175    31    43    21       -     -    17 False True  RuleNo=00013,Head=00019,Next=00021,Offs= 0,acc=n <MulOp> : ● <PowerOp> ^ <MulOp> 
+  176    31    47    21       -     -    17 False True  RuleNo=00014,Head=00019,Next=00021,Offs= 0,acc=n <MulOp> : ● <PowerOp> 
+  177    31    49    23       9     -     - False True  RuleNo=00015,Head=00021,Next=00023,Offs= 0,acc=n <PowerOp> : ● ( <Expression> ) 
+  178    31    53     4      10     -     - False True  RuleNo=00016,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id ( <Expression> ) 
+  179    31    58     4      10     -     - False True  RuleNo=00017,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id ( <Expression> , <Expression> ) 
+  180    31    65    26       -     -    18 False True  RuleNo=00018,Head=00021,Next=00026,Offs= 0,acc=n <PowerOp> : ● <NumberVal> 
+  181    31    67     4      10     -     - False True  RuleNo=00019,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id 
+  182    31    69    15      11     -     - False True  RuleNo=00020,Head=00026,Next=00015,Offs= 0,acc=n <NumberVal> : ● + number 
+  183    31    72    17      12     -     - False True  RuleNo=00021,Head=00026,Next=00017,Offs= 0,acc=n <NumberVal> : ● - number 
+  184    31    75     3      13     -     - False True  RuleNo=00022,Head=00026,Next=00003,Offs= 0,acc=n <NumberVal> : ● number 
+  185    32    20     -       -     5     - False True  RuleNo=00005,Head=00011,Next=2147483647,Offs= 3,acc=n <AssignCommand> : id = <Expression> ● 
+  186    32    24    15      26     -     - False True  RuleNo=00007,Head=00013,Next=00015,Offs= 1,acc=n <Expression> : <Expression> ● + <AddOp> 
+  187    32    28    17      27     -     - False True  RuleNo=00008,Head=00013,Next=00017,Offs= 1,acc=n <Expression> : <Expression> ● - <AddOp> 
+  188    33    52     -       -    15     - False True  RuleNo=00015,Head=00021,Next=2147483647,Offs= 3,acc=n <PowerOp> : ( <Expression> ) ● 
+  189    34    24    15      26     -     - False True  RuleNo=00007,Head=00013,Next=00015,Offs= 1,acc=n <Expression> : <Expression> ● + <AddOp> 
+  190    34    28    17      27     -     - False True  RuleNo=00008,Head=00013,Next=00017,Offs= 1,acc=n <Expression> : <Expression> ● - <AddOp> 
+  191    34    56    24      41     -     - False True  RuleNo=00016,Head=00021,Next=00024,Offs= 3,acc=n <PowerOp> : id ( <Expression> ● ) 
+  192    34    61    25      42     -     - False True  RuleNo=00017,Head=00021,Next=00025,Offs= 3,acc=n <PowerOp> : id ( <Expression> ● , <Expression> ) 
+  193    35    26     -       -     7     - False True  RuleNo=00007,Head=00013,Next=2147483647,Offs= 3,acc=n <Expression> : <Expression> + <AddOp> ● 
+  194    35    34    18      28     -     - False True  RuleNo=00010,Head=00016,Next=00018,Offs= 1,acc=n <AddOp> : <AddOp> ● * <MulOp> 
+  195    35    38    20      29     -     - False True  RuleNo=00011,Head=00016,Next=00020,Offs= 1,acc=n <AddOp> : <AddOp> ● / <MulOp> 
+  196    36    30     -       -     8     - False True  RuleNo=00008,Head=00013,Next=2147483647,Offs= 3,acc=n <Expression> : <Expression> - <AddOp> ● 
+  197    36    34    18      28     -     - False True  RuleNo=00010,Head=00016,Next=00018,Offs= 1,acc=n <AddOp> : <AddOp> ● * <MulOp> 
+  198    36    38    20      29     -     - False True  RuleNo=00011,Head=00016,Next=00020,Offs= 1,acc=n <AddOp> : <AddOp> ● / <MulOp> 
+  199    37    36     -       -    10     - False True  RuleNo=00010,Head=00016,Next=2147483647,Offs= 3,acc=n <AddOp> : <AddOp> * <MulOp> ● 
+  200    38    40     -       -    11     - False True  RuleNo=00011,Head=00016,Next=2147483647,Offs= 3,acc=n <AddOp> : <AddOp> / <MulOp> ● 
+  201    39    46     -       -    13     - False True  RuleNo=00013,Head=00019,Next=2147483647,Offs= 3,acc=n <MulOp> : <PowerOp> ^ <MulOp> ● 
+  202    40    16     -       -     4     - False True  RuleNo=00004,Head=00011,Next=2147483647,Offs= 4,acc=n <AssignCommand> : let id = <Expression> ● 
+  203    40    24    15      26     -     - False True  RuleNo=00007,Head=00013,Next=00015,Offs= 1,acc=n <Expression> : <Expression> ● + <AddOp> 
+  204    40    28    17      27     -     - False True  RuleNo=00008,Head=00013,Next=00017,Offs= 1,acc=n <Expression> : <Expression> ● - <AddOp> 
+  205    41    57     -       -    16     - False True  RuleNo=00016,Head=00021,Next=2147483647,Offs= 4,acc=n <PowerOp> : id ( <Expression> ) ● 
+  206    42    23    13       -     -    43 False True  RuleNo=00007,Head=00013,Next=00013,Offs= 0,acc=n <Expression> : ● <Expression> + <AddOp> 
+  207    42    27    13       -     -    43 False True  RuleNo=00008,Head=00013,Next=00013,Offs= 0,acc=n <Expression> : ● <Expression> - <AddOp> 
+  208    42    31    16       -     -    15 False True  RuleNo=00009,Head=00013,Next=00016,Offs= 0,acc=n <Expression> : ● <AddOp> 
+  209    42    33    16       -     -    15 False True  RuleNo=00010,Head=00016,Next=00016,Offs= 0,acc=n <AddOp> : ● <AddOp> * <MulOp> 
+  210    42    37    16       -     -    15 False True  RuleNo=00011,Head=00016,Next=00016,Offs= 0,acc=n <AddOp> : ● <AddOp> / <MulOp> 
+  211    42    41    19       -     -    16 False True  RuleNo=00012,Head=00016,Next=00019,Offs= 0,acc=n <AddOp> : ● <MulOp> 
+  212    42    43    21       -     -    17 False True  RuleNo=00013,Head=00019,Next=00021,Offs= 0,acc=n <MulOp> : ● <PowerOp> ^ <MulOp> 
+  213    42    47    21       -     -    17 False True  RuleNo=00014,Head=00019,Next=00021,Offs= 0,acc=n <MulOp> : ● <PowerOp> 
+  214    42    49    23       9     -     - False True  RuleNo=00015,Head=00021,Next=00023,Offs= 0,acc=n <PowerOp> : ● ( <Expression> ) 
+  215    42    53     4      10     -     - False True  RuleNo=00016,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id ( <Expression> ) 
+  216    42    58     4      10     -     - False True  RuleNo=00017,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id ( <Expression> , <Expression> ) 
+  217    42    62    13       -     -    43 False True  RuleNo=00017,Head=00021,Next=00013,Offs= 4,acc=n <PowerOp> : id ( <Expression> , ● <Expression> ) 
+  218    42    65    26       -     -    18 False True  RuleNo=00018,Head=00021,Next=00026,Offs= 0,acc=n <PowerOp> : ● <NumberVal> 
+  219    42    67     4      10     -     - False True  RuleNo=00019,Head=00021,Next=00004,Offs= 0,acc=n <PowerOp> : ● id 
+  220    42    69    15      11     -     - False True  RuleNo=00020,Head=00026,Next=00015,Offs= 0,acc=n <NumberVal> : ● + number 
+  221    42    72    17      12     -     - False True  RuleNo=00021,Head=00026,Next=00017,Offs= 0,acc=n <NumberVal> : ● - number 
+  222    42    75     3      13     -     - False True  RuleNo=00022,Head=00026,Next=00003,Offs= 0,acc=n <NumberVal> : ● number 
+  223    43    24    15      26     -     - False True  RuleNo=00007,Head=00013,Next=00015,Offs= 1,acc=n <Expression> : <Expression> ● + <AddOp> 
+  224    43    28    17      27     -     - False True  RuleNo=00008,Head=00013,Next=00017,Offs= 1,acc=n <Expression> : <Expression> ● - <AddOp> 
+  225    43    63    24      44     -     - False True  RuleNo=00017,Head=00021,Next=00024,Offs= 5,acc=n <PowerOp> : id ( <Expression> , <Expression> ● ) 
+  226    44    64     -       -    17     - False True  RuleNo=00017,Head=00021,Next=2147483647,Offs= 6,acc=n <PowerOp> : id ( <Expression> , <Expression> ) ● 
+
+Output Table
+============
+
+State (Error)  (EOF) (Comment) number     id   help  print    let whitespace <Command> <PrintCommand> <AssignCommand> <HelpCommand> <Expression>      =      + <AddOp>      -      * <MulOp>      / <PowerOp>      ^      (      )      , <NumberVal> <$accept>
+----- ------- ------ --------- ------ ------ ------ ------ ------ ---------- --------- -------------- --------------- ------------- ------------ ------ ------ ------- ------ ------ ------- ------ --------- ------ ------ ------ ------ ----------- ---------
+    0       .      .         .      .     S3     S4     S1     S2          .        G5             G6              G7            G8            .      .      .       .      .      .       .      .         .      .      .      .      .           .         .
+    1       .      .         .    S13    S10      .      .      .          .         .              .               .             .          G14      .    S11     G15    S12      .     G16      .       G17      .     S9      .      .         G18         .
+    2       .      .         .      .    S19      .      .      .          .         .              .               .             .            .      .      .       .      .      .       .      .         .      .      .      .      .           .         .
+    3       .      .         .      .      .      .      .      .          .         .              .               .             .            .    S20      .       .      .      .       .      .         .      .      .      .      .           .         .
+    4       .     R6         .      .      .      .      .      .          .         .              .               .             .            .      .      .       .      .      .       .      .         .      .      .      .      .           .         .
+    5       .    S21         .      .      .      .      .      .          .         .              .               .             .            .      .      .       .      .      .       .      .         .      .      .      .      .           .         .
+    6       .     R0         .      .      .      .      .      .          .         .              .               .             .            .      .      .       .      .      .       .      .         .      .      .      .      .           .         .
+    7       .     R1         .      .      .      .      .      .          .         .              .               .             .            .      .      .       .      .      .       .      .         .      .      .      .      .           .         .
+    8       .     R2         .      .      .      .      .      .          .         .              .               .             .            .      .      .       .      .      .       .      .         .      .      .      .      .           .         .
+    9       .      .         .    S13    S10      .      .      .          .         .              .               .             .          G22      .    S11     G15    S12      .     G16      .       G17      .     S9      .      .         G18         .
+   10       .    R19         .      .      .      .      .      .          .         .              .               .             .            .    R19    R19       .    R19    R19       .    R19         .    R19    S23    R19    R19           .         .
+   11       .      .         .    S24      .      .      .      .          .         .              .               .             .            .      .      .       .      .      .       .      .         .      .      .      .      .           .         .
+   12       .      .         .    S25      .      .      .      .          .         .              .               .             .            .      .      .       .      .      .       .      .         .      .      .      .      .           .         .
+   13       .    R22         .      .      .      .      .      .          .         .              .               .             .            .      .    R22       .    R22    R22       .    R22         .    R22      .    R22    R22           .         .
+   14       .     R3         .      .      .      .      .      .          .         .              .               .             .            .      .    S26       .    S27      .       .      .         .      .      .     R3     R3           .         .
+   15       .     R9         .      .      .      .      .      .          .         .              .               .             .            .      .     R9       .     R9    S28       .    S29         .      .      .     R9     R9           .         .
+   16       .    R12         .      .      .      .      .      .          .         .              .               .             .            .      .    R12       .    R12    R12       .    R12         .      .      .    R12    R12           .         .
+   17       .    R14         .      .      .      .      .      .          .         .              .               .             .            .      .    R14       .    R14    R14       .    R14         .    S30      .    R14    R14           .         .
+   18       .    R18         .      .      .      .      .      .          .         .              .               .             .            .      .    R18       .    R18    R18       .    R18         .    R18      .    R18    R18           .         .
+   19       .      .         .      .      .      .      .      .          .         .              .               .             .            .    S31      .       .      .      .       .      .         .      .      .      .      .           .         .
+   20       .      .         .    S13    S10      .      .      .          .         .              .               .             .          G32      .    S11     G15    S12      .     G16      .       G17      .     S9      .      .         G18         .
+   21     ACC    ACC       ACC    ACC    ACC    ACC    ACC    ACC        ACC       ACC            ACC             ACC           ACC          ACC    ACC    ACC     ACC    ACC    ACC     ACC    ACC       ACC    ACC    ACC    ACC    ACC         ACC       ACC
+   22       .      .         .      .      .      .      .      .          .         .              .               .             .            .      .    S26       .    S27      .       .      .         .      .      .    S33      .           .         .
+   23       .      .         .    S13    S10      .      .      .          .         .              .               .             .          G34      .    S11     G15    S12      .     G16      .       G17      .     S9      .      .         G18         .
+   24       .    R20         .      .      .      .      .      .          .         .              .               .             .            .      .    R20       .    R20    R20       .    R20         .    R20      .    R20    R20           .         .
+   25       .    R21         .      .      .      .      .      .          .         .              .               .             .            .      .    R21       .    R21    R21       .    R21         .    R21      .    R21    R21           .         .
+   26       .      .         .    S13    S10      .      .      .          .         .              .               .             .            .      .    S11     G35    S12      .     G16      .       G17      .     S9      .      .         G18         .
+   27       .      .         .    S13    S10      .      .      .          .         .              .               .             .            .      .    S11     G36    S12      .     G16      .       G17      .     S9      .      .         G18         .
+   28       .      .         .    S13    S10      .      .      .          .         .              .               .             .            .      .    S11       .    S12      .     G37      .       G17      .     S9      .      .         G18         .
+   29       .      .         .    S13    S10      .      .      .          .         .              .               .             .            .      .    S11       .    S12      .     G38      .       G17      .     S9      .      .         G18         .
+   30       .      .         .    S13    S10      .      .      .          .         .              .               .             .            .      .    S11       .    S12      .     G39      .       G17      .     S9      .      .         G18         .
+   31       .      .         .    S13    S10      .      .      .          .         .              .               .             .          G40      .    S11     G15    S12      .     G16      .       G17      .     S9      .      .         G18         .
+   32       .     R5         .      .      .      .      .      .          .         .              .               .             .            .      .    S26       .    S27      .       .      .         .      .      .     R5     R5           .         .
+   33       .    R15         .      .      .      .      .      .          .         .              .               .             .            .      .    R15       .    R15    R15       .    R15         .    R15      .    R15    R15           .         .
+   34       .      .         .      .      .      .      .      .          .         .              .               .             .            .      .    S26       .    S27      .       .      .         .      .      .    S41    S42           .         .
+   35       .     R7         .      .      .      .      .      .          .         .              .               .             .            .      .     R7       .     R7    S28       .    S29         .      .      .     R7     R7           .         .
+   36       .     R8         .      .      .      .      .      .          .         .              .               .             .            .      .     R8       .     R8    S28       .    S29         .      .      .     R8     R8           .         .
+   37       .    R10         .      .      .      .      .      .          .         .              .               .             .            .      .    R10       .    R10    R10       .    R10         .      .      .    R10    R10           .         .
+   38       .    R11         .      .      .      .      .      .          .         .              .               .             .            .      .    R11       .    R11    R11       .    R11         .      .      .    R11    R11           .         .
+   39       .    R13         .      .      .      .      .      .          .         .              .               .             .            .      .    R13       .    R13    R13       .    R13         .      .      .    R13    R13           .         .
+   40       .     R4         .      .      .      .      .      .          .         .              .               .             .            .      .    S26       .    S27      .       .      .         .      .      .     R4     R4           .         .
+   41       .    R16         .      .      .      .      .      .          .         .              .               .             .            .      .    R16       .    R16    R16       .    R16         .    R16      .    R16    R16           .         .
+   42       .      .         .    S13    S10      .      .      .          .         .              .               .             .          G43      .    S11     G15    S12      .     G16      .       G17      .     S9      .      .         G18         .
+   43       .      .         .      .      .      .      .      .          .         .              .               .             .            .      .    S26       .    S27      .       .      .         .      .      .    S44      .           .         .
+   44       .    R17         .      .      .      .      .      .          .         .              .               .             .            .      .    R17       .    R17    R17       .    R17         .    R17      .    R17    R17           .         .
+
