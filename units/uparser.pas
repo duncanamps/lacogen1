@@ -1,7 +1,6 @@
 unit uparser;
 
 {$mode objfpc}{$H+}
-
 interface
 
 uses
@@ -170,7 +169,7 @@ begin
   ExpandedList := TExpandedList.Create;
   CanonicalTable   := TCanonicalTable.Create;
   ParserOutput  := TParserOutput.Create;
-  LoadFromResource('LACOGEN10');
+  LoadFromResource('LACOGEN11');
   RegisterFuncs;
   OnReduce := @MyReduce;
 end;

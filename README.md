@@ -49,7 +49,7 @@ Folders are organised as follows:
 
 #### Known Issues 
 * LaCoGen dabbled back and forth between 8 bit and 32 bit characters during its early life. It has now settled on 8 bit characters as UTF8 is handled correctly so multi-byte sequences are OK. There may be parts of the code that are battle damaged by the continual changes, for example large chunks of commented out code
-* As part of the 32bit or 8bit journey, the software generates character ranges as DFA records. So instead of 0,1,2,3,4,... it could be 0-5,6,7... Not sure if this is needed now but it's in there anyway
+* ~~As part of the 32bit or 8bit journey, the software generates character ranges as DFA records. So instead of 0,1,2,3,4,... it could be 0-5,6,7... Not sure if this is needed now but it's in there anyway~~ Have removed this code
 
 #### Author
 Duncan Munro

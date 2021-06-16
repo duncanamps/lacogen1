@@ -20,18 +20,11 @@ type
   TCSLFlags = (cslName,cslBrackets,cslRanges,cslTranslate,cslXML);
   TCSLSet = set of TCSLFlags;
 
-  // Character set fragment. A simple range of characters from x-y, or it
-  // could just be a single character where First=Last
-  TCharSetFragment = record
-    First:  TChar;
-    Last:   TChar;
-    class operator = (a,b: TCharSetFragment) c: boolean;
-  end;
 
   // The character set definition. This is made up of an ordered list of
   // fragments
 
-  TCharSet = class(specialize TFPGList<TCharSetFragment>)
+  TCharSet = class
     protected
       FName:      TString;
       FParser:    TLCGParser;
@@ -40,9 +33,9 @@ type
       FUnwanted:  boolean;
       FUsed:      boolean;
     public
+      FSet:       set of char;
       constructor Create(const _name: TString; _parser: TSLParser; _mainparser: TLCGParser);
       procedure AddCharacter(_a: TChar);
-      procedure AddFragment(_frag: TCharSetFragment);
       procedure AddRange(_a,_b: TChar);
       procedure AddSet(_set: TCharSet);
       function  AsText(_flags: TCSLSet = [cslBrackets,cslRanges,cslTranslate]): TString;
@@ -51,7 +44,6 @@ type
       function  Matches(_set: TCharSet): boolean;
       procedure SetLiteral(const s: TString);
       procedure SubtractCharacter(_a: TChar);
-      procedure SubtractFragment(_frag: TCharSetFragment);
       procedure SubtractRange(_a,_b: TChar);
       procedure SubtractSet(_set: TCharSet);
       property Name:      TString read FName;
@@ -84,7 +76,6 @@ type
 
 function CSListCompare(const a,b: TCharSet): integer;
 
-operator in (_c32: TChar; _f32: TCharSetFragment) b: boolean;
 operator in (_c32: TChar; _s32: TCharSet) b: boolean;
 
 implementation
@@ -93,16 +84,6 @@ uses
   uparser_utility, uparser_exception, htmlelements;
 
 { Helper routines }
-
-function CompareFragment32(const a,b: TCharSetFragment): integer;
-begin
-  if (a.First < b.First) then
-    Result := -1
-  else if (a.First > b.First) then
-    Result := 1
-  else
-    Result := 0;
-end;
 
 function CSListCompare(const a,b: TCharSet): integer;
 begin
@@ -114,26 +95,9 @@ begin
     Result := 0;
 end;
 
-operator in (_c32: TChar; _f32: TCharSetFragment) b: boolean;
-begin
-  Result := (_c32 >= _f32.First) and (_c32 <= _f32.Last);
-end;
-
 operator in (_c32: TChar; _s32: TCharSet) b: boolean;
-var frag: TCharSetFragment;
 begin
-  for frag in _s32 do
-    if _c32 in frag then
-      Exit(True);
-  Exit(False);
-end;
-
-{ TCharSetFragment }
-
-class operator TCharSetFragment.= (a,b: TCharSetFragment) c: boolean;
-begin
-  Result := (a.First = b.First) and
-            (a.Last  = b.Last);
+  Exit(_c32 in _s32.FSet);
 end;
 
 { TCharSet}
@@ -148,138 +112,51 @@ begin
 end;
 
 procedure TCharSet.AddCharacter(_a: TChar);
-var frag: TCharSetFragment;
 begin
-  frag.First := _a;
-  frag.Last  := _a;
-  AddFragment(frag);
-end;
-
-procedure TCharSet.AddFragment(_frag: TCharSetFragment);
-//
-// Add a single fragment to the existing list
-// If AAA and BBB are existing fragments and XXX is the new one, we could have
-// one of the following scenarios:
-//
-// Scenario 1:                           Adding to an empty set
-//                   XXXXX
-//
-// Scenario 2: AAAAA           BBBBBB    Simple, no overlap
-//                     XXXXXX
-//
-// Scenario 3: AAAAA           BBBBBB    Some overlapping, need to combine A+X
-//                XXXXXX
-//
-// Scenario 4: AAAAA  BBBBB              Multiple overlapping, combine A+X+B
-//                XXXXXX
-//
-// Scenario 5:    AAAAA BBBBB            Total enclosure delete A and B
-//              XXXXXXXXXXXXXXX
-//
-// Scenario 6: AAAAAAAA                  Totally within existing, delete X
-//                XXXX
-var i:     integer;
-    processed34: boolean; // True of Scenario 3/4 (overlaps) have been processed
-    processed5:  boolean; // True if Scenario 5 has been processed
-
-  procedure SortIfNeeded;
-  begin
-    if Count > 1 then
-      Sort(@CompareFragment32);
-  end;
-
-begin
-  // Check for scenario 1
-  if Count = 0 then
-    begin
-      Add(_frag);
-      Exit;
-    end;
-  // Check for scenario 6 deleting the request if appropriate
-  for i := 0 to Count-1 do
-    if (_frag.First >= Items[i].First) and (_frag.Last <= Items[i].Last) then
-      Exit; // Already in the range specified by iter, so bale out
-  // Check for scenario 5, a total enclosure of other sets
-  processed5 := False;
-  for i := Count-1 downto 0 do
-    if (Items[i].First >= _frag.First) and (Items[i].Last <= _frag.Last) then
-      begin
-        processed5 := True;
-        Delete(i);
-      end;
-  if processed5 then
-    begin
-      AddFragment(_frag); // Recursive! We do this as we may create additional
-                          // Scenario 1 to deal with
-      Exit;
-    end;
-  // Check for scenario 3 and 4, doing the combining as necessary
-  processed34 := False;
-  for i := Count-1 downto 0 do
-    begin
-      if ((_frag.First >= Items[i].First) and (Ord(_frag.First) <= (Ord(Items[i].Last)+1))) then
-        begin
-          processed34 := True;
-          if Items[i].First < _frag.First then
-            _frag.First := Items[i].First;
-          if Items[i].Last > _frag.Last then
-            _frag.Last := Items[i].Last;
-          Delete(i);
-        end
-      else if ((Ord(_frag.Last) >= Ord(Items[i].First)-1) and (_frag.Last <= Items[i].Last)) then
-        begin
-          processed34 := True;
-          if Items[i].First < _frag.First then
-            _frag.First := Items[i].First;
-          if Items[i].Last > _frag.Last then
-            _frag.Last := Items[i].Last;
-          Delete(i);
-        end;
-    end;
-  if processed34 then
-    begin
-      AddFragment(_frag); // Recursive! We do this as we may create additional
-                          // Scenario 1 to deal with
-      Exit;
-    end;
-  // We are now left with scenario 2
-  // We know that there are at least 1 or more existing ranges in the list, so
-  // we can check for scenario 2 where the new fragment is either before or
-  // after the existing list items
-  if (_frag.Last < Items[0].first) or (_frag.First > Items[Count-1].Last) then
-    begin
-      Add(_frag);
-      SortIfNeeded;
-      Exit;
-    end;
-  for i := 0 to Count-2 do
-    if (_frag.First > Items[i].Last) and (_frag.Last < Items[i+1].First) then
-      begin
-        Add(_frag);
-        SortIfNeeded;
-        Exit;
-      end;
+  FSet := FSet + [_a];
 end;
 
 procedure TCharSet.AddRange(_a,_b: TChar);
-var frag: TCharSetFragment;
+var i: TChar;
 begin
-  frag.First := _a;
-  frag.Last  := _b;
-  AddFragment(frag);
+  for i := _a to _b do
+    FSet := FSet + [i];
 end;
 
 procedure TCharSet.AddSet(_set: TCharSet);
-var frag: TCharSetFragment;
 begin
-  for frag in _set do
-    AddFragment(frag);
+  FSet := FSet + _set.FSet;
 end;
 
 function TCharSet.AsText(_flags: TCSLSet): TString;
-var frag: TCharSetFragment;
-    c:    TChar;
+var c:    TChar;
     prefix, mid, suffix: string;
+    hmc: integer;
+    defeat: integer;
+
+  // Count how many continuous characters are in the set starting with _from
+  // Returns 0 if the _from character isn't in the set
+
+  function HowManyContinuous(_from: TChar): integer;
+  var done: boolean;
+  begin
+    Result := 0;
+    done := False;
+    while not done do
+      begin
+        if _from in FSet then
+          begin
+            Inc(Result);
+            if _from < High(TSetOfChar) then
+              Inc(_from)
+            else
+              done := True;
+          end
+        else
+          done := True;
+      end;
+  end;
+
 begin
   if cslXML in _flags then
     prefix := '    <' + EscapeHTML(MakeXMLHeading(Name)) + '>'
@@ -290,20 +167,26 @@ begin
   if cslBrackets in _flags then
     prefix := prefix + '[';
   mid := '';
-  for frag in Self do
-    if (frag.First = frag.Last) then
-      mid := mid + MakePrintable(frag.First)
-    else
-      begin
-        if cslRanges in _flags then
-          mid := mid +
-                 MakePrintable(frag.First) +
-                 '-' +
-                 MakePrintable(frag.Last)
-          else
-            for c := frag.First to frag.Last do
+  defeat := 0;
+  for c in TSetOfChar do
+    begin
+      if defeat > 0 then
+        Dec(defeat)
+      else
+        begin
+          hmc := HowManyContinuous(c);
+          if (hmc >= 4) and (c > ' ') then
+            begin
               mid := mid + MakePrintable(c);
-      end;
+              mid := mid + '-';
+              mid := mid + MakePrintable(Chr(Ord(c)+hmc-1));
+              defeat := hmc - 1;
+            end
+          else
+            if (c in FSet) then
+              mid := mid + MakePrintable(c);
+        end;
+    end;
   suffix := '';
   if cslBrackets in _flags then
     suffix := ']';
@@ -315,29 +198,24 @@ end;
 function TCharSet.GetFirstChar(var c: TChar): boolean;
 begin
   Result := True; // Assume OK for now
-  if Count > 0 then
-    c := Items[0].First
-  else
-    Result := False;
+  for c in TSetOfChar do
+    if c in FSet then
+      Exit;
+  Result := False;
 end;
 
 function TCharSet.GetSetCount: integer;
-var f: TCharSetFragment;
+var c: TChar;
 begin
   Result := 0;
-  for f in Self do
-    Result := Result + Ord(f.Last) - Ord(f.First) + 1;
+  for c in TSetOfChar do
+    if c in FSet then
+      Inc(Result);
 end;
 
 function TCharSet.Matches(_set: TCharSet): boolean;
-var i: integer;
 begin
-  Result := True; // Assume a match for now
-  if Count <> _set.Count then
-    Exit(False);  // Sizes don't match therefore sets don't match
-  for i := 0 to Count-1 do
-    if Items[i] <> _set.Items[i] then
-      Exit(False);
+  Result := (_set.FSet = FSet);
 end;
 
 procedure TCharSet.SetLiteral(const s: TString);
@@ -346,85 +224,26 @@ begin
 end;
 
 procedure TCharSet.SubtractCharacter(_a: TChar);
-var frag: TCharSetFragment;
 begin
-  frag.First := _a;
-  frag.Last  := _a;
-  SubtractFragment(frag);
-end;
-
-procedure TCharSet.SubtractFragment(_frag: TCharSetFragment);
-var i: integer;
-    r: TCharSetFragment;
-// Scenarios against existing set items
-//
-// Scenario 1: AAAAAA              Outside completely, no action
-//                      XXXXXX
-//
-// Scenario 2: AAAAAA              Part inside and part out, need to trim A
-//                 XXXXXX
-//
-// Scenario 3: AAAAAA              Straight match, delete A
-//             XXXXXX
-//
-// Scenario 4:  AAAA               Encompassing, variation on 3, delete A
-//             XXXXXX
-//
-// Scenario 5: AAAAAA              Split A into A and B
-//               XX
-begin
-  for i := Count-1 downto 0 do
-    begin
-      if (_frag.First > Items[i].Last) or
-         (_frag.Last  < Items[i].First) then
-        begin
-          ;                          // Scenario 1 - do nothing
-        end
-      else if (_frag.First <= Items[i].First) and
-              (_frag.Last  >= Items[i].Last) then
-        Delete(i)                    // Scenario 3/4
-      else if (_frag.First >  Items[i].First) and
-              (_frag.Last  >= Items[i].Last) then
-        begin                        // Scenario 2a (X to the right of A)
-          r := Items[i];
-          r.Last := Chr(Ord(_frag.First) - 1);
-          Items[i] := r;
-        end
-      else if (_frag.First <= Items[i].First) and
-              (_frag.Last  <  Items[i].Last) then
-        begin                        // Scenario 2b (X to the left of A)
-          r := Items[i];
-          r.First := Chr(Ord(_frag.Last) + 1);
-          Items[i] := r;
-        end
-      else if (_frag.First > Items[i].First) and
-              (_frag.Last  < Items[i].Last) then
-        begin                        // Scenario 5 (X completely within A)
-          r := Items[i];
-          r.First := Chr(Ord(_frag.Last) + 1);
-          Insert(i+1,r);
-          r := Items[i];
-          r.Last := Chr(Ord(_frag.First) - 1);
-          Items[i] := r;
-        end
-      else
-        FParser.Monitor(ltInternal,'Logic has failed in TCharSet::SubtractFragment()');
-    end;
+  FSet := FSet - [_a];
 end;
 
 procedure TCharSet.SubtractRange(_a,_b: TChar);
-var frag: TCharSetFragment;
+var c, tmp: TChar;
 begin
-  frag.First := _a;
-  frag.Last  := _b;
-  SubtractFragment(frag);
+  if _a > _b then
+    begin
+      tmp := _a;
+      _a  := _b;
+      _b  := tmp;
+    end;
+  for c := _a to _b do
+    FSet := FSet - [c];
 end;
 
 procedure TCharSet.SubtractSet(_set: TCharSet);
-var frag: TCharSetFragment;
 begin
-  for frag in _set do
-    SubtractFragment(frag);
+  FSet := FSet - _set.FSet;
 end;
 
 { TCharSetList32 }

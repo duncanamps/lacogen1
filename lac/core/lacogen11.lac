@@ -1,34 +1,10 @@
 //-----------------------------------------------------------------------------------
 //
-//  LaCoGen V1.0 - Grammar definition
+//  LaCoGen V1.1 - Grammar definition
 //
-//  04/04/2020
+//  16/06/2021
 //
-//  Items over V0.5 grammar include:
-//
-//    Parameter definition keywords removed
-//    Block comments and line comments commands
-//
-//  Current list of parameters allowed with [default] if set:
-//
-//    Boolean		%COMMENTMATCH [True] +
-//					%COMMENTNESTED [True] +
-//					%COMMENTTOKENISE [True] +
-//					%GENERATEINDENTS [False] +
-//					
-//	  String		%AUTHOR
-//					%COMMENTBLOCK +#
-//					%COMMENTLINE +
-//					%COPYRIGHT
-//					%LICENSE
-//					%LICENSEURL +
-//					%TITLE
-//					%VERSION
-//
-//    Non-Terminal  %START
-//
-//  + Items new to version 1.0
-//  # has two string arguments, e.g. %COMMENTBLOCK "/*" "*/"
+//  Identical to V1.0 but uses MIXED() function which was not present in V0.x
 //
 // -----------------------------------------------------------------------------------
   
@@ -82,9 +58,9 @@ SetName					= "{" {Set Name Ch}+ "}";
 StringLiteral			= ["] ({String Ch} | {Escape} {EscapedChars})* ["];
 Integer					= "-"? ({Zero} | {Nonzero Digit} {Number}*);
 ParameterName			= "%" {Terminal St} {Terminal Ch}*;
-KTrue					= ("T"|"t") ("R"|"r") ("U"|"u") ("E"|"e") keyword;
-KFalse					= ("F"|"f") ("A"|"a") ("L"|"l") ("S"|"s") ("E"|"e") keyword;
-F_MIXED					= ("M"|"m") ("I"|"i") ("X"|"x") ("E"|"e") ("D"|"d") "(" keyword ;
+KTrue					= MIXED("TRUE")  keyword;
+KFalse					= MIXED("FALSE") keyword;
+F_MIXED					= MIXED("MIXED") keyword;
 
 BlockComment			= "/*" ( {Non Asterisk}* [*]+ {Non SlashAst} )* {Non Asterisk}* [*]+ "/" ignore;
 LineComment				= "//" {Non Linebreak}* ([\r] [\n] | [\r] | [\n]) ignore;

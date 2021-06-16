@@ -13,37 +13,28 @@
 //
 //    Boolean		%COMMENTMATCH [True] +
 //					%COMMENTNESTED [True] +
-//					%FASTLEXER [True] *
-//					%FASTPARSER [True] *
+//					%COMMENTTOKENISE [True] +
+//					%GENERATEINDENTS [False] +
 //					
 //	  String		%AUTHOR
+//					%COMMENTBLOCK +#
 //					%COMMENTLINE +
-//					%CODEPREFIX
 //					%COPYRIGHT
 //					%LICENSE
 //					%LICENSEURL +
 //					%TITLE
-//					%UNITLEXER *
-//					%UNITPARSER *
 //					%VERSION
-//
-//    String x 2	%COMMENTBLOCK +
-//
-//    Integer		%LEXERBUFFER [4096]
-//					%LEXERTAB [4]
-//					%PARSERBUFER [1024]
 //
 //    Non-Terminal  %START
 //
 //  + Items new to version 1.0
-//  * Deprecated items, no longer used
+//  # has two string arguments, e.g. %COMMENTBLOCK "/*" "*/"
 //
 // -----------------------------------------------------------------------------------
   
 %title          = "LaCoGen Grammar";
-%version        = "0.5";
+%version        = "1.0";
 %author         = "Duncan Munro";
-%codeprefix     = "LCG";
 %start          = <Content>;
 
 
@@ -54,7 +45,7 @@
 {Alphanumeric}  = [0-9A-Za-z];
 {Letter}		= [A-Za-z];
 {Number}		= [0-9];
-{Printable}     = [ -\x7f];
+{Printable}     = [ -\xff];
 {WSChar}        = [\t\r\n ];
 
 
@@ -90,34 +81,14 @@ SetLiteral				= "[" ({Set Literal Ch} | ({Escape} {EscapedChars}) )* "]";
 SetName					= "{" {Set Name Ch}+ "}";
 StringLiteral			= ["] ({String Ch} | {Escape} {EscapedChars})* ["];
 Integer					= "-"? ({Zero} | {Nonzero Digit} {Number}*);
+ParameterName			= "%" {Terminal St} {Terminal Ch}*;
+KTrue					= ("T"|"t") ("R"|"r") ("U"|"u") ("E"|"e") keyword;
+KFalse					= ("F"|"f") ("A"|"a") ("L"|"l") ("S"|"s") ("E"|"e") keyword;
+F_MIXED					= ("M"|"m") ("I"|"i") ("X"|"x") ("E"|"e") ("D"|"d") "(" keyword ;
 
 BlockComment			= "/*" ( {Non Asterisk}* [*]+ {Non SlashAst} )* {Non Asterisk}* [*]+ "/" ignore;
 LineComment				= "//" {Non Linebreak}* ([\r] [\n] | [\r] | [\n]) ignore;
 WhiteSpace				= {WSChar}+ ignore;
-
-ParameterDefBoolean		= "%fastlexer"
-						| "%fastparser"
-						;
- 
-ParameterDefInteger		= "%lexerbuffer"
-						| "%lexertab"
-						;
- 
-ParameterDefString		= "%author"
-						| "%codeprefix"
-						| "%copyright"
-						| "%license"
-						| "%linecomment"
-						| "%title"
-						| "%unitlexer"
-						| "%unitparser"
-						| "%version"
-						;
-						
-ParameterDefString2		= "%blockcomment"
-						;
-
-ParameterDefNonTerminal	= "%start";
 
 
 // ====================================================================
@@ -142,15 +113,15 @@ ParameterDefNonTerminal	= "%start";
 
 // Rules for Parameters
 
-<ParameterDef>		: ParameterDefBoolean		"=" <BooleanTerminal>	   		# ActParameterDefBoolean
-					| ParameterDefInteger		"=" Integer			    		# ActParameterDefInteger
-					| ParameterDefString		"=" StringLiteral		    	# ActParameterDefString
-					| ParameterDefString2		"=" StringLiteral StringLiteral 	# ActParameterDefString2
-					| ParameterDefNonTerminal	"=" TNonTerminal	        		# ActParameterDefNonTerminal
+<ParameterDef>		: ParameterName "=" <BooleanTerminal>		# ActParameterDefBoolean
+					| ParameterName "=" Integer					# ActParameterDefInteger
+					| ParameterName "=" StringLiteral StringLiteral	# ActParameterDefString2
+					| ParameterName "=" StringLiteral	    	# ActParameterDefString
+					| ParameterName "=" TNonTerminal	   		# ActParameterDefNonTerminal
 					;
 
-<BooleanTerminal>	: "true"									# ActCopy
-					| "false"									# ActCopy
+<BooleanTerminal>	: KTrue 									# ActCopy
+					| KFalse									# ActCopy
 					;
  
 
@@ -193,6 +164,7 @@ ParameterDefNonTerminal	= "%start";
 					;
  
 <TerminalBracketed>	: "(" <TerminalContent> ")"					# ActTerminalBracketBracket
+					| F_MIXED StringLiteral ")"					# ActTerminalBracketMixed
 					| Terminal									# ActTerminalBracketTerminal
 					| StringLiteral								# ActTerminalStringLiteral
 					| SetName									# ActTerminalBracketSetName

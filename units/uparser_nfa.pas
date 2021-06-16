@@ -159,13 +159,14 @@ begin
 end;
 
 function TNFA.FragFromCharset(cs: TCharSet): TNFAFragment;
-var i: integer;
+var c: TChar;
 begin
   result.FriendlyName := '';
   result.First := FStateList.AllocateState();
   result.Last  := FStateList.AllocateState();
-  for i := 0 to cs.Count-1 do
-    FStateList.Items[result.First].AddAction(result.Last,atCharRange,cs.Items[i].First,cs.Items[i].Last);
+  for c in TSetOfChar do
+    if c in cs.FSet then
+      FStateList.Items[result.First].AddAction(result.Last,atCharacter,c);
   result.FriendlyName := cs.AsText([cslBrackets,cslRanges,cslTranslate]);
 end;
 
@@ -237,7 +238,7 @@ end;
 
 procedure TNFA.MinimiseCharSets;
 begin
-  StateList.MinimiseCharsets;
+//  StateList.MinimiseCharsets;
 end;
 
 end.

@@ -63,6 +63,7 @@ type
   TChar   = char;
   TCharN  = UINT8;
   TString = AnsiString;
+  TSetOfChar = set of char;
 {$ENDIF}
 
   TLCGStateIdentifier = UINT32;

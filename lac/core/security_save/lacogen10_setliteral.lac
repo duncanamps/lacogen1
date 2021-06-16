@@ -16,10 +16,13 @@
 //   [\x20]        // Space character
 //   [\x30-\x39]   // Digits done another different way
 //   [\x20ac]      // 16 bit character
+//   [\x01f7e6]	   // 21 bit character - Emoji blue square
 //   [\\]          // Backslash character
 //   [\]]          // Closing square bracket
 //   [\-]          // Hyphen character
 //   [\^]          // Caret character
+//
+// 23/04/2020 - Amended to include 5 digit hex values
 //
 // -----------------------------------------------------------------------------------
   
@@ -34,7 +37,7 @@
 // Predefined Character sets
 // ====================================================================
 
-{Printable} = [ -\x07ff];
+{Printable} = [ -\xff];
 {Number}    = [0-9];
 
 // ====================================================================
@@ -51,7 +54,7 @@
 // Terminals
 // ====================================================================
 
-CharHex			= "\x" {HexDigit} {HexDigit} {HexDigit} {HexDigit} | "\x" {HexDigit} {HexDigit};      
+CharHex			= "\x" {HexDigit} {HexDigit};      
 CharNonEscaped	= {NonEscaped};
 CharEscaped		= "\" {EscapedAll};
 

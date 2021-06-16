@@ -8,6 +8,7 @@ interface
 uses
   Classes, SysUtils, fgl, ucharset32, deployment_parser_types;
 
+{
 type
   TFragMatch = (fmExact, fmBothInRange,fmStartInRange,fmEndInRange,fmOutside);
 
@@ -27,12 +28,12 @@ type
       procedure MarkCharUsed(_char: TChar);
       procedure MarkRangeUsed(_charfrom, _charto: TChar);
       procedure MarkUnused;
-      function  MatchFragment(_me: TSplittableRange; _frag: TCharSetFragment): TFragMatch;
+//      function  MatchFragment(_me: TSplittableRange; _frag: TCharSetFragment): TFragMatch;
       procedure SplitWithChar(_char: TChar);
-      procedure SplitWithFrag(_frag: TCharSetFragment);
+//      procedure SplitWithFrag(_frag: TCharSetFragment);
       procedure SplitWithRange(_charfrom, _charto: TChar);
   end;
-
+  }
 
 
 implementation
@@ -42,14 +43,16 @@ uses
 
 { Utility code }
 
+{
 class operator TSplittableRange.= (a,b: TSplittableRange): boolean;
 begin
   Result := (a.First = b.First) and
             (a.Last  = b.Last);
 end;
-
+}
 { TSplittableSet }
 
+{
 constructor TSplittableSet.Create;
 begin
   inherited Create;
@@ -146,6 +149,7 @@ begin
     end;
 end;
 
+{
 function TSplittableSet.MatchFragment(_me: TSplittableRange; _frag: TCharSetFragment): TFragMatch;
 begin
   if (_frag.First = _me.First) and (_frag.Last = _me.Last) then
@@ -159,6 +163,7 @@ begin
   else
     Result := fmOutside;
 end;
+}
 
 procedure TSplittableSet.SplitWithChar(_char: TChar);
 var frag: TCharSetFragment;
@@ -239,6 +244,7 @@ begin
   frag.Last  := _charto;
   SplitWithFrag(frag);
 end;
+}
 
 end.
 

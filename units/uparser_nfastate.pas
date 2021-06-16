@@ -10,7 +10,7 @@ interface
 
 uses
   Classes, SysUtils, fgl, uparser_types, uparser_terminal, ucharset32,
-  usplittable_set, deployment_parser_types;
+  deployment_parser_types;
 
 type
 
@@ -33,10 +33,10 @@ type
       procedure Dump(_strm: TStream);
       function  HighestCharUsed: TChar;
       function  LowestCharUsed: TChar;
-      procedure MarkSetUsed(_split: TSplittableSet);
+//      procedure MarkSetUsed(_split: TSplittableSet);
 //      procedure RenameCharacterSet(_csfrom, _csto: TCharSet);
-      procedure SplitActions(_split: TSplittableSet);
-      procedure SplitSet(_split: TSplittableSet);
+//      procedure SplitActions(_split: TSplittableSet);
+//      procedure SplitSet(_split: TSplittableSet);
   end;
 
   TState = class(TObject)
@@ -52,14 +52,14 @@ type
       procedure Dump(_strm: TStream; _terminals: TTerminalList);
       function  HighestCharUsed: TChar;
       function  LowestCharUsed: TChar;
-      procedure MarkSetUsed(_split: TSplittableSet);
-      procedure SplitActions(_split: TSplittableSet);
-      procedure SplitSet(_split: TSplittableSet);
+//      procedure MarkSetUsed(_split: TSplittableSet);
+//      procedure SplitActions(_split: TSplittableSet);
+//      procedure SplitSet(_split: TSplittableSet);
   end;
 
   TStateList = class(specialize TFPGObjectList<TState>)
     protected
-      FSplittableSet: TSplittableSet;
+//      FSplittableSet: TSplittableSet;
     public
       constructor Create;
       destructor Destroy; override;
@@ -69,7 +69,7 @@ type
       procedure Dump(_strm: TStream; _terminals: TTerminalList);
       function  HighestCharUsed: TChar;
       function  LowestCharUsed: TChar;
-      procedure MinimiseCharsets;
+//      procedure MinimiseCharsets;
 //      procedure RenameCharacterSet(_csfrom, _csto: TCharSet);
       procedure SetStateName(_state: TStateIdentifier; _title: string);
   end;
@@ -90,25 +90,27 @@ procedure TAction.Dump(_strm: TStream);
 begin
   case ActionType of
    atCharacter: WriteLnStringToStream(_strm,Format('Char "%s" -> %d',[MakePrintable(ActionChar),NextState]));
-   atCharRange: WriteLnStringToStream(_strm,Format('Range "%s"-"%s" -> %d',[MakePrintable(ActionChar),MakePrintable(ActionCharTo),NextState]));
+//   atCharRange: WriteLnStringToStream(_strm,Format('Range "%s"-"%s" -> %d',[MakePrintable(ActionChar),MakePrintable(ActionCharTo),NextState]));
    atEpsilon:   WriteLnStringToStream(_strm,Format('Epsilon -> %d',[NextState]));
   end; // Case
 end;
 
 function TAction.HighestCharUsed: TChar;
 begin
+  Result := High(TSetOfChar);
   case ActionType of
    atCharacter: Result := ActionChar;
-   atCharRange: Result := ActionCharTo;
+//   atCharRange: Result := ActionCharTo;
    atEpsilon:   raise Exception.Create('Attempting to check highest character for an epsilon state');
   end; // Case
 end;
 
 function TAction.LowestCharUsed: TChar;
 begin
+  Result := Low(TSetOfChar);
   case ActionType of
    atCharacter: Result := ActionChar;
-   atCharRange: Result := ActionChar;
+//   atCharRange: Result := ActionChar;
    atEpsilon:   raise Exception.Create('Attempting to check lowest character for an epsilon state');
   end; // Case
 end;
@@ -170,6 +172,7 @@ begin
       end;
 end;
 
+{
 procedure TActionList.MarkSetUsed(_split: TSplittableSet);
 var a: TAction;
 begin
@@ -179,6 +182,7 @@ begin
       atCharRange: _split.MarkRangeUsed(a.ActionChar,a.ActionCharTo);
     end; // Case
 end;
+}
 
 {
 procedure TActionList.RenameCharacterSet(_csfrom, _csto: TCharSet);
@@ -190,6 +194,7 @@ begin
 end;
 }
 
+{
 procedure TActionList.SplitActions(_split: TSplittableSet);
 var a:     TAction;
     anew:  TAction; // New action
@@ -250,6 +255,7 @@ begin
       atCharRange: _split.SplitWithRange(a.ActionChar,a.ActionCharTo);
     end; // Case
 end;
+}
 
 { TState code }
 
@@ -312,10 +318,12 @@ begin
   result := Actions.LowestCharUsed;
 end;
 
+{
 procedure TState.MarkSetUsed(_split: TSplittableSet);
 begin
   Actions.MarkSetUsed(_split);
 end;
+}
 
 {
 procedure TState.RenameCharacterSet(_csfrom, _csto: TCharSet);
@@ -324,6 +332,7 @@ begin
 end;
 }
 
+{
 procedure TState.SplitActions(_split: TSplittableSet);
 begin
   Actions.SplitActions(_split);
@@ -333,18 +342,19 @@ procedure TState.SplitSet(_split: TSplittableSet);
 begin
   Actions.SplitSet(_split);
 end;
+}
 
 { TStateList code}
 
 constructor TStateList.Create;
 begin
   inherited Create;
-  FSplittableSet := TSplittableSet.Create;
+//  FSplittableSet := TSplittableSet.Create;
 end;
 
 destructor TStateList.Destroy;
 begin
-  FSplittableSet.Free;
+//  FSplittableSet.Free;
   inherited Destroy;
 end;
 
@@ -360,7 +370,7 @@ end;
 procedure TStateList.Dump(_strm: TStream; _terminals: TTerminalList);
 var i: Integer;
 begin
-  FSplittableSet.Dump(_strm);
+//  FSplittableSet.Dump(_strm);
   WriteLnStringToStreamUnderlined(_strm,'DUMP OF THE STATE LIST');
   for i := 0 to Count-1 do
     begin
@@ -400,72 +410,6 @@ begin
   Result := low;
 end;
 
-procedure TStateList.MinimiseCharSets;
-//
-// Minimises the character sets and characters into unique fragments. For
-// example the sets {Alpha}, {AlphaNumeric}, {Hex} and the letter "E" could
-// all be invoked by the letter "E" which does not allow for a deterministic
-// response.
-//
-// The objective here is to split the character sets into fragments so that
-// a unique value can selected for each one. For example, if we have the
-// letters "A", "E" and "Z" in our state list and the sets named above, the
-// {Hex} set would become
-//
-//   0..9
-//   A
-//   B..D
-//   E
-//   F
-//
-// Any states using the {Hex} set would be amended to include the characters
-// A, E, F and the {HexUnique} set would be 0..9, B..D
-//
-// This means that any single character in the DFA can trigger a unique or
-// deterministic response
-//
-var s:     TState;
-    r:     TSplittableRange;
-    i:     integer;
-begin
-  FSplittableSet.Clear;
-  r.First := LowestCharUsed;
-  r.Last  := HighestCharUsed;
-  FSplittableSet.Add(r);
-  // Split the sets
-  for i := 0 to Count-1 do
-    begin
-      s := Items[i];
-      s.SplitSet(FSplittableSet)
-    end;
-  // Mark what is used and not used
-  FSplittableSet.MarkUnused;
-  for i := 0 to Count-1 do
-    begin
-      s := Items[i];
-      s.MarkSetUsed(FSplittableSet)
-    end;
-  // Delete any unused sets
-  FSplittableSet.DeleteUnused;
-  // Split short ranges into single characters
-  FSplittableSet.Explode;
-  // Finally, go through the states and replace character sets with the
-  // individual fragments
-  for i := 0 to Count-1 do
-    begin
-      s := Items[i];
-      s.SplitActions(FSplittableSet);
-    end;
-end;
-
-{
-procedure TStateList.RenameCharacterSet(_csfrom, _csto: TCharSet);
-var s: TState;
-begin
-  for s in Self do
-    s.RenameCharacterSet(_csfrom, _csto);
-end;
-}
 
 procedure TStateList.SetStateName(_state: TStateIdentifier; _title: string);
 var st: TState;

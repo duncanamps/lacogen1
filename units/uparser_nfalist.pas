@@ -125,6 +125,7 @@ begin
                         if IndexOf(r) < 0 then
                           Add(r);
                       end;
+        {
         atCharRange:  begin
                         r.DictType    := ndtCharRange;
                         r.Character   := a.ActionChar;
@@ -132,6 +133,7 @@ begin
                         if IndexOf(r) < 0 then
                           Add(r);
                       end;
+        }
       end;
   // Finally sort the dictionary into the right order
   Sort(@DictCompareFunc);
@@ -249,7 +251,6 @@ var ci: integer;
     state: TState;
     bi: integer;
     c32: TChar;
-    t32: TChar;
 begin
   state := _nfa.Items[_statenum];
   OwnerName     := state.OwnerName;
@@ -268,12 +269,6 @@ begin
         atCharacter:  begin
                         c32 := act.ActionChar;
                         bi := _dictionary.IndexOfCharacter(c32);
-                        NextState[bi] := act.NextState;
-                      end;
-        atCharRange:  begin
-                        c32 := act.ActionChar;
-                        t32 := act.ActionCharTo;
-                        bi := _dictionary.IndexOfRange(c32,t32);
                         NextState[bi] := act.NextState;
                       end;
       end; // case

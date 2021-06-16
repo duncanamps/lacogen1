@@ -71,7 +71,7 @@ type
 
   // NFA types
 
-  TActionType      = (atCharacter,atCharRange,atEpsilon);
+  TActionType      = (atCharacter{,atCharRange},atEpsilon);
 //  TCharSet         = set of char;
   TNFAIdentifier   = uint32; // WORD=65535 NFA states, DWORD=4294967295 states
   TStateIdentifier = uint32;
