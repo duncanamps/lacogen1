@@ -49,22 +49,10 @@ type
 
   // Some data types
 
-{$IFDEF LCG32}
-  TChar   = UINT32;
-  TCharN  = UINT32;
-  TString = array of UINT32;
-{$ENDIF}
-{$IFDEF LCG16}
-  TChar   = widechar;
-  TCharN  = UINT16;
-  TString = widestring;
-{$ENDIF}
-{$IFDEF LCG8}
   TChar   = char;
   TCharN  = UINT8;
   TString = AnsiString;
   TSetOfChar = set of char;
-{$ENDIF}
 
   TLCGStateIdentifier = UINT32;
   TLCGTokenIdentifier = UINT32;

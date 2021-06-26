@@ -231,7 +231,7 @@ procedure TLaCoGen.WriteHelp;
 var s: string;
 begin
   { add your help code here }
-  writeln('Usage: lacogen inputfile[.lac] [options]');
+  writeln('Usage: lacogen11 inputfile[.lac] [options]');
   writeln('');
   writeln('Options:');
   writeln('');
