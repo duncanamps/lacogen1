@@ -181,13 +181,7 @@ type
       property TokenBufSize: integer           read FTokenBufSize write SetTokenBufSize;
   end;
 
-// function Char32ToUTF8String(const c: TChar; _translate: boolean = False): UTF8String;
 function CharAsText(c32: TChar): TString;
-//function Hex2Dec32(h: TString): UINT32;
-//function IntToStr32(ival: integer): TString;
-//function RightStr32(s32: TString; cnt: integer): TString;
-//function String32ToUTF8String(const s: TString): UTF8String;
-//function StrToInt32(const s: TString): integer;
 
 
 implementation
@@ -313,30 +307,6 @@ end;
 
 { Character and string handling routines }
 
-{
-function Char32ToUTF8String(const c: TChar; _translate: boolean): UTF8String;
-begin
-  if _translate then
-    Result := CharAsText(c)
-  else if c < $80 then
-    Result := Chr(c)              // ASCII
-  else if c < $800 then
-    Result := Chr($C0 + (c shr 6)) +
-              Chr($80 + (c and $3f))
-  else if c < $10000 then
-    Result := Chr($E0 + (c shr 12)) +
-              Chr($80 + ((c shr 6) and $3f)) +
-              Chr($80 + (c and $3f))
-  else if c < UNICODE_MAXIMUM_CHARACTER then
-    Result := Chr($F0 + (c shr 18)) +
-              Chr($80 + ((c shr 12) and $3f)) +
-              Chr($80 + ((c shr 6) and $3f)) +
-              Chr($80 + (c and $3f))
-  else
-    Result := Char32ToUTF8String(UNICODE_ERROR_CHARACTER); // Illegal character. Recursive!
-end;
-}
-
 function CharAsText(c32: TChar): TString;
 begin
   if Ord(c32) < 33 then
@@ -348,249 +318,7 @@ begin
   else
     Result := c32; // Char32ToUTF8String(c32);
 end;
-{
-function Hex2Dec32(h: TString): UINT32;
-var i: integer;
-    mask: UINT32;
-    c:    TChar;
-begin
-  Result := 0;
-  for i := 0 to Length(h)-1 do
-    begin
-      Result := Result shl 4;
-      c := h[i];
-      if (c >= $0030) and (c <= $0039) then
-        mask := c - $0030
-      else if (c >= $0041) and (c <= $0046) then
-        mask := c - $0041 + 10
-      else if (c >= $0061) and (c <= $0066) then
-        mask := c - $0061 + 10
-      else
-        raise Exception.CreateFmt('"%s" is not a hex character',[CharAsText(c)]);
-    end;
-end;
 
-function IntToStr32(ival: integer): TString;
-var s: string;
-    slen: integer;
-    i:    integer;
-begin
-  s := IntToStr(ival);
-  slen := Length(s);
-  SetLength(result,slen);
-  for i := 0 to slen-1 do
-    Result[i] := Ord(s[i+1]);
-end;
-
-function RightStr32(s32: TString; cnt: integer): TString;
-var i: integer;
-    j: integer;
-    slen: integer;
-begin
-  slen := Length(s32);
-  if cnt > slen then
-    cnt := slen;
-  SetLength(Result,cnt);
-  i := slen - cnt;
-  j := 0;
-  while i < slen do
-    begin
-      Result[j] := s32[i];
-      Inc(i);
-      Inc(j);
-    end;
-end;
-
-function String32ToUTF8String(const s: TString): UTF8String;
-var i: integer;
-begin
-  Result := '';
-  for i := 0 to Length(s)-1 do
-    if s[i] = 0 then
-      Exit
-    else
-      Result := Result + Char32ToUTF8String(s[i]);
-end;
-
-function StrToInt32(const s: TString): integer;
-var s2: string;
-begin
-  s2 := String32ToUTF8String(s);
-  Result := StrToInt(s2);
-end;
-
-function UTF8Bytes(c: char): integer;
-begin
-  Result := -1;
-  if Ord(c) < $80 then
-    Result := 1
-  else if Ord(c) < $C2 then
-    Result := -1   // Illegal value
-  else if Ord(c) < $E0 then
-    Result := 2
-  else if Ord(c) < $F0 then
-    Result := 3
-  else if Ord(c) > $F4 then
-    Result := -1  // Illegal value
-  else
-    Result := 4;
-end;
-
-function UTF8BufToChar32(p: PChar; var consumed: integer; maxlen: integer): TChar;
-const UM1 = UNICODE_MAXIMUM_CODEBYTE;   // Maximum first byte allowed for UTF-8
-      UM2 = UM1 + 1;                    // First illegal byte
-var i:         integer; // Input pointer
-    state:     integer; // State for state machine
-    uni:       TChar; // The Unicode character we build up
-    opp:       integer; // The output pointer
-    FCapacity: integer; // The capacity of the output string
-    b:         Byte;    // Input byte
-    done:      boolean; // True when it's time to quit
-//
-// Encoding:
-//
-//   1 byte = $000000-$00007F = 0aaabbbb
-//   2 byte = $000080-$0007FF = 110aaabb 10bbcccc
-//   3 byte = $000800-$00FFFF = 1110aaaa 10bbbbcc 10ccdddd
-//   4 byte = $010000-$10FFFF = 11110abb 10bbcccc 10ddddee 10eeffff
-//
-// State machine:
-//
-//   0  = Entry point
-//   1  = Single character ASCII       Valid $00-$7F
-//   2  = 1st character of 2 byte set  Valid $C2-$DF
-//   3  = 2nd character of 2 byte set
-//   4  = 1st character of 3 byte set  Valid $E0-$EF
-//   5  = 2nd character of 3 byte set
-//   6  = 3rd character of 3 byte set
-//   7  = 1st character of 4 byte set  Valid $F0-$F4
-//   8  = 2nd character of 4 byte set
-//   9  = 3rd character of 4 byte set
-//   10 = 4th character of 4 byte set
-//   11 = Error condition
-//   12 = Good result, result holds the Unicode character
-//
-// Error recovery is handled by outputting a $FFFD character. Error conditions
-// handled are:
-//
-//   A: Invalid bytes in code table
-//   B: Unexpected continuation bytes
-//   C: Non-continuation byte before end of character
-//   D: String ending before end of character sequence
-//   E: Overlong encoding
-//   F: Invalid code point
-//
-//
-begin
-  i      := 0;
-  state  := 0;
-  uni    := 0;
-  opp    := 0;
-  Result := UNICODE_ERROR_CHARACTER;
-  done   := False;
-  while not done do
-    begin
-      if i < maxlen then
-        b := Ord((p+i)^);
-      case state of
-        0:  case b of
-              $00..$7F: state := 1;   // ASCII
-              $80..$BF: state := 11;  // Error B: Unexpected continuation byte
-              $C0..$C1: state := 11;  // Error A/E: Invalid byte in code table (overlong encoding)
-              $C2..$DF: state := 2;   // Valid 1st character of 2 byte sequence
-              $E0..$EF: state := 4;   // Valid 1st character of 3 byte sequence
-              $F0..UM1: state := 7;   // Valid 1st character of 4 byte sequence
-              UM2..$FF: state := 11;  // Error A/F: Invalid byte in code table (4 byte for > $10FFFF)
-            end; // Case
-        1:  begin  // ASCII
-              uni := b;
-              Inc(i);
-              state := 12;
-            end;
-        2:  begin  // 1/2
-              uni := b and $1F;
-              Inc(i);
-              state := 3;
-            end;
-        3:  if (b and $C0) = $80 then // 2/2
-              begin
-                uni := (uni shl 6) or (b and $3F);
-                Inc(i);
-                state := 12;
-              end
-            else
-              state := 11; // Error C: Non-continuation byte before end of character
-        4:  begin  // 1/3
-              uni := b and $0F;
-              Inc(i);
-              state := 5;
-            end;
-        5:  if (b and $C0) = $80 then // 2/3
-              begin
-                uni := (uni shl 6) or (b and $3F);
-                Inc(i);
-                state := 6;
-              end
-            else
-              state := 11; // Error C: Non-continuation byte before end of character
-        6:  if (b and $C0) = $80 then // 3/3
-              begin
-                uni := (uni shl 6) or (b and $3F);
-                Inc(i);
-                state := 12;
-                if uni < $0800 then
-                  state := 11; // Error E: Overlong encoding
-                if (uni >= $D800) and (uni <= $DFFF) then
-                  state := 11; // Error F: Invalid code point
-              end
-            else
-              state := 11; // Error C: Non-continuation byte before end of character
-        7:  begin  // 1/4
-              uni := b and $07;
-              Inc(i);
-              state := 8;
-            end;
-        8:  if (b and $C0) = $80 then // 2/4
-              begin
-                uni := (uni shl 6) or (b and $3F);
-                Inc(i);
-                state := 9;
-              end
-            else
-              state := 11; // Error C: Non-continuation byte before end of character
-        9:  if (b and $C0) = $80 then // 3/4
-              begin
-                uni := (uni shl 6) or (b and $3F);
-                Inc(i);
-                state := 10;
-              end
-            else
-              state := 11; // Error C: Non-continuation byte before end of character
-        10: if (b and $C0) = $80 then // 4/4
-              begin
-                uni := (uni shl 6) or (b and $3F);
-                Inc(i);
-                state := 12;
-                if uni < $010000 then
-                  state := 11; // Error E: Overlong encoding
-                if uni > UNICODE_MAXIMUM_CHARACTER then
-                  state := 11; // Error F: Invalid code point
-              end
-            else
-              state := 11; // Error C: Non-continuation byte before end of character
-        11: begin // Error condition
-              uni := UNICODE_ERROR_CHARACTER;  // Get the universal "bad character" representation
-              state := 12;   // Process as a good character
-            end;
-        12: begin
-              Result := uni;
-              done := True;
-            end;
-      end; // case
-    end; // while
-  consumed := i;
-end;
-}
 { TLCGParameterList }
 
 procedure TLCGParameterList.LoadFromStream(Stream: TStream);
@@ -941,30 +669,13 @@ begin
   if FLexerBufRemain = 0 then
     Monitor(ltInternal,'Attempt to call LexPeek() when buffer is empty');
   // We have characters in the buffer, do the peek
-  // @@@@@ THIS IS THE POINT AT WHICH WE WOULD CONVERT FROM UTF8 TO
-  // @@@@@ 32 BIT CHARACTER
-  // Process at this point to create a 32 bit character from UTF8 if required
-
-{$IFDEF LCG8}
   FBufferIncrement := 1;
   Result := FLexerBuffer[FLexerBufIndex];
-{$ENDIF}
-{
-  FBufferIncrement := UTF8Bytes(FLexerBuffer[FLexerBufIndex]);
-  if FLexerBufRemain < FBufferIncrement then
-    Result := UNICODE_ERROR_CHARACTER
-  else
-    begin
-      maxbytes := FBufferIncrement;
-      Result := UTF8BufToChar32(@FLexerBuffer[FLexerBufIndex],FBufferIncrement,maxbytes);
-    end;
-}
 end;
 
 procedure TLCGParser.LexReadChunk;
 begin
   FLexerBufRemain := FLexerBufRemain + FStream.Read(FLexerBuffer[FLexerBufRemain],FLexBufBlock);
-//if FLexerBufRemain > 0 then
   if FStream.Position < FStream.Size then
     FLexerMode := lmOperating
   else if FLexerBufRemain > 0 then

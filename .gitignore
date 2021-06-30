@@ -73,3 +73,5 @@ backup/
 *.docx
 lib/
 *.xlsx
+*.lacobj
+*.txt
