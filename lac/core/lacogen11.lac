@@ -60,7 +60,7 @@ Integer					= "-"? ({Zero} | {Nonzero Digit} {Number}*);
 ParameterName			= "%" {Terminal St} {Terminal Ch}*;
 KTrue					= MIXED("TRUE")  keyword;
 KFalse					= MIXED("FALSE") keyword;
-F_MIXED					= MIXED("MIXED") keyword;
+F_MIXED					= MIXED("MIXED(") keyword;
 
 BlockComment			= "/*" ( {Non Asterisk}* [*]+ {Non SlashAst} )* {Non Asterisk}* [*]+ "/" ignore;
 LineComment				= "//" {Non Linebreak}* ([\r] [\n] | [\r] | [\n]) ignore;

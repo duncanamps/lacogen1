@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="11"/>
+    <Version Value="12"/>
     <PathDelim Value="\"/>
     <General>
       <Flags>
         <MainUnitHasCreateFormStatements Value="False"/>
         <MainUnitHasScaledStatement Value="False"/>
+        <CompatibilityMode Value="True"/>
       </Flags>
       <SessionStorage Value="InProjectDir"/>
-      <MainUnit Value="0"/>
       <Title Value="LaCoGen11 Command Line"/>
       <UseAppBundle Value="False"/>
       <ResourceType Value="res"/>
@@ -23,7 +23,7 @@
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
       <MinorVersionNr Value="1"/>
-      <BuildNr Value="44"/>
+      <BuildNr Value="45"/>
       <Language Value="0809"/>
       <StringTable FileDescription="LaCoGen - Lazarus Compiler Generator" InternalName="LaCoGen" LegalCopyright="Copyright (C)2020-2021 Duncan Munro"/>
     </VersionInfo>
@@ -73,7 +73,6 @@
     </PublishOptions>
     <RunParams>
       <FormatVersion Value="2"/>
-      <Modes Count="0"/>
     </RunParams>
     <Units Count="23">
       <Unit0>

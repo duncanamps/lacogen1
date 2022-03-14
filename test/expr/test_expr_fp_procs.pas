@@ -264,7 +264,6 @@ begin
   Parser.Monitor(ltInfo,'');
   Parser.Monitor(ltInfo,'  + addition');
   Parser.Monitor(ltInfo,'  - subtraction');
-  Parser.Monitor(ltInfo,'  + addition');
   Parser.Monitor(ltInfo,'');
   // Calculate longest function name
   prefixlen := 0;

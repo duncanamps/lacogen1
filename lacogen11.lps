@@ -2,7 +2,7 @@
 <CONFIG>
   <ProjectSession>
     <PathDelim Value="\"/>
-    <Version Value="11"/>
+    <Version Value="12"/>
     <BuildModes Active="Release"/>
     <Units Count="53">
       <Unit0>
@@ -536,18 +536,18 @@
     </RunParams>
   </ProjectSession>
   <Debugging>
-    <Watches Count="3">
-      <Item1>
+    <Watches>
+      <Item>
         <Expression Value="b"/>
         <DisplayStyle Value="wdfHex"/>
-      </Item1>
-      <Item2>
+      </Item>
+      <Item>
         <Expression Value="uni"/>
         <DisplayStyle Value="wdfHex"/>
-      </Item2>
-      <Item3>
+      </Item>
+      <Item>
         <Expression Value="i"/>
-      </Item3>
+      </Item>
     </Watches>
   </Debugging>
 </CONFIG>
