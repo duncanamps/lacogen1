@@ -11,7 +11,7 @@ object Form1: TForm1
   Font.Name = 'Lucida Sans Typewriter'
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  LCLVersion = '2.0.10.0'
+  LCLVersion = '2.2.0.4'
   object edtInstruction: TEdit
     Left = 152
     Height = 29
@@ -31,7 +31,6 @@ object Form1: TForm1
     Caption = 'Instruction'
     Font.Height = -18
     Font.Name = 'Lucida Sans Typewriter'
-    ParentColor = False
     ParentFont = False
   end
   object btnGo: TButton

@@ -193,6 +193,7 @@ begin
   strm := TStringStream.Create(edtInstruction.Text);
   try
     try
+      LCGParser.InitRun;
       LCGParser.LexBufBlock := 512;
       LCGParser.Parse(strm);
   //    FP_parser(strm,@FP_lexer_init,@FP_lexer,@DisplayUpdate);
