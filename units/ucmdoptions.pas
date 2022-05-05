@@ -84,7 +84,7 @@ procedure ShowOptions;
 implementation
 
 uses
-  strutils, uparser_exception, deployment_parser_types;
+  strutils, uparser_exception, deployment_parser_types_12;
 
 var
   tmp_sl: TStringList;

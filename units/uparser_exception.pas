@@ -9,7 +9,7 @@ unit uparser_exception;
 interface
 
 uses
-  Classes, SysUtils, {uparser_deployment,} deployment_parser_types;
+  Classes, SysUtils, {uparser_deployment,} deployment_parser_types_12;
 
 type
 

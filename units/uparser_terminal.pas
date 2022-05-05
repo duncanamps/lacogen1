@@ -5,8 +5,8 @@ unit uparser_terminal;
 interface
 
 uses
-  Classes, SysUtils, fgl, uparser_types, deployment_parser_types,
-  deployment_parser_module;
+  Classes, SysUtils, fgl, uparser_types, deployment_parser_types_12,
+  deployment_parser_module_12;
 
 type
   TTerminalStyle = (tsSpecial,tsTerminal,tsTerminalIgnored,tsKeyword,tsSymbol,tsVirtual,tsNonTerminal, tsAccept);

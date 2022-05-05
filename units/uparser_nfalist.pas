@@ -7,8 +7,8 @@ interface
 
 uses
   Classes, SysUtils, uparser_nfastate, uparser_nfaset, uparser_nfa, fgl,
-  uparser_types, uparser_terminal, ucharset32, deployment_parser_types,
-  deployment_parser_module;
+  uparser_types, uparser_terminal, ucharset32, deployment_parser_types_12,
+  deployment_parser_module_12;
 
 type
 

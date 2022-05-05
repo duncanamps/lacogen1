@@ -2,151 +2,150 @@
 <CONFIG>
   <ProjectSession>
     <PathDelim Value="\"/>
-    <Version Value="11"/>
+    <Version Value="12"/>
     <BuildModes Active="Release"/>
-    <Units Count="53">
+    <Units Count="55">
       <Unit0>
-        <Filename Value="lacogen10.lpr"/>
+        <Filename Value="lacogen12.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
-        <TopLine Value="163"/>
-        <CursorPos X="36" Y="174"/>
+        <CursorPos X="102" Y="10"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="units\uparser_exception.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <CursorPos X="102" Y="20"/>
+        <EditorIndex Value="17"/>
+        <TopLine Value="7"/>
+        <CursorPos X="70" Y="12"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="units\ucmdoptions.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="2"/>
-        <TopLine Value="49"/>
-        <CursorPos Y="52"/>
+        <EditorIndex Value="18"/>
+        <TopLine Value="75"/>
+        <CursorPos X="58" Y="87"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="units\uparser_types.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <CursorPos X="20" Y="8"/>
+        <EditorIndex Value="5"/>
+        <TopLine Value="37"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
       </Unit3>
       <Unit4>
         <Filename Value="units\uparser_utility.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="8"/>
-        <TopLine Value="309"/>
-        <CursorPos Y="327"/>
+        <EditorIndex Value="1"/>
+        <CursorPos X="63" Y="8"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit4>
       <Unit5>
         <Filename Value="units\uparser.pas"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="117"/>
-        <CursorPos X="41" Y="133"/>
+        <TopLine Value="161"/>
+        <CursorPos X="30" Y="172"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit5>
       <Unit6>
         <Filename Value="units\uparameters.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="4"/>
-        <TopLine Value="259"/>
-        <CursorPos X="95" Y="280"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="77"/>
+        <CursorPos X="29" Y="89"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
         <Filename Value="units\uparser_nfa.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="7"/>
-        <TopLine Value="191"/>
-        <CursorPos X="73" Y="209"/>
+        <EditorIndex Value="4"/>
+        <CursorPos X="47" Y="13"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit7>
       <Unit8>
         <Filename Value="units\uparser_nfalist.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="60"/>
-        <CursorPos X="19" Y="71"/>
+        <EditorIndex Value="6"/>
+        <CursorPos X="30" Y="11"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
       </Unit8>
       <Unit9>
         <Filename Value="units\uparser_nfaset.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="34"/>
         <CursorPos X="20" Y="45"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
       </Unit9>
       <Unit10>
         <Filename Value="units\uparser_nfastate.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="13"/>
-        <TopLine Value="61"/>
-        <CursorPos X="20" Y="80"/>
+        <EditorIndex Value="7"/>
+        <TopLine Value="68"/>
+        <CursorPos X="66" Y="80"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit10>
       <Unit11>
         <Filename Value="units\uparser_terminal.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="15"/>
-        <TopLine Value="38"/>
-        <CursorPos X="32" Y="49"/>
+        <EditorIndex Value="8"/>
+        <CursorPos X="30" Y="9"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit11>
       <Unit12>
         <Filename Value="units\uparser_rule.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
+        <EditorIndex Value="9"/>
         <TopLine Value="54"/>
-        <CursorPos X="3" Y="65"/>
+        <CursorPos X="30" Y="65"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
       </Unit12>
       <Unit13>
         <Filename Value="units\uparser_lalrsets.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="72"/>
-        <CursorPos X="41" Y="83"/>
+        <EditorIndex Value="10"/>
+        <TopLine Value="31"/>
+        <CursorPos X="61" Y="43"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
       </Unit13>
       <Unit14>
         <Filename Value="units\uparser_expanded.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
+        <EditorIndex Value="11"/>
         <TopLine Value="36"/>
-        <CursorPos X="3" Y="47"/>
+        <CursorPos X="30" Y="47"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
       </Unit14>
       <Unit15>
         <Filename Value="units\uparser_canonical.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="185"/>
         <CursorPos Y="203"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
       </Unit15>
       <Unit16>
         <Filename Value="units\uparser_output.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="1"/>
-        <TopLine Value="99"/>
-        <CursorPos X="75" Y="105"/>
+        <EditorIndex Value="12"/>
+        <CursorPos X="80" Y="9"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit16>
@@ -160,12 +159,12 @@
         <UsageCount Value="200"/>
       </Unit17>
       <Unit18>
-        <Filename Value="units\lacogen10_setliteral_procs.pas"/>
+        <Filename Value="units\lacogen12_setliteral_procs.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="11"/>
-        <TopLine Value="25"/>
-        <CursorPos X="13" Y="36"/>
-        <UsageCount Value="158"/>
+        <EditorIndex Value="13"/>
+        <TopLine Value="26"/>
+        <CursorPos X="121" Y="34"/>
+        <UsageCount Value="160"/>
         <Loaded Value="True"/>
       </Unit18>
       <Unit19>
@@ -173,385 +172,381 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="14"/>
         <TopLine Value="46"/>
-        <CursorPos X="3" Y="57"/>
-        <UsageCount Value="134"/>
+        <CursorPos X="55" Y="58"/>
+        <UsageCount Value="136"/>
         <Loaded Value="True"/>
       </Unit19>
       <Unit20>
         <Filename Value="units\ucharset32.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="10"/>
-        <CursorPos X="27" Y="9"/>
-        <UsageCount Value="124"/>
+        <EditorIndex Value="15"/>
+        <CursorPos X="57" Y="10"/>
+        <UsageCount Value="126"/>
         <Bookmarks Count="1">
-          <Item0 X="17" Y="48"/>
+          <Item0 X="17" Y="51"/>
         </Bookmarks>
         <Loaded Value="True"/>
       </Unit20>
       <Unit21>
-        <Filename Value="units\usplittable_set.pas"/>
+        <Filename Value="lac\core\deployment_parser_module_12.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="12"/>
-        <CursorPos X="22" Y="9"/>
-        <UsageCount Value="102"/>
+        <EditorIndex Value="16"/>
+        <CursorPos X="35" Y="10"/>
+        <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit21>
       <Unit22>
-        <Filename Value="lac\core\deployment_parser_module.pas"/>
+        <Filename Value="lac\core\deployment_parser_types_12.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="16"/>
-        <TopLine Value="88"/>
-        <CursorPos X="3" Y="101"/>
-        <UsageCount Value="87"/>
-        <Loaded Value="True"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="20"/>
       </Unit22>
       <Unit23>
-        <Filename Value="lac\core\deployment_parser_types.pas"/>
-        <IsPartOfProject Value="True"/>
-        <EditorIndex Value="17"/>
-        <TopLine Value="32"/>
-        <CursorPos X="37" Y="43"/>
-        <UsageCount Value="87"/>
-        <Loaded Value="True"/>
+        <Filename Value="lac\core\deployment_parser_module.pas"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="3" Y="101"/>
+        <UsageCount Value="89"/>
       </Unit23>
       <Unit24>
+        <Filename Value="lac\core\deployment_parser_types.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="19"/>
+        <CursorPos X="3" Y="46"/>
+        <UsageCount Value="89"/>
+      </Unit24>
+      <Unit25>
+        <Filename Value="units\usplittable_set.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="140"/>
+        <CursorPos Y="152"/>
+        <UsageCount Value="103"/>
+      </Unit25>
+      <Unit26>
         <Filename Value="units\uchar32.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="99"/>
         <CursorPos Y="108"/>
         <UsageCount Value="140"/>
-      </Unit24>
-      <Unit25>
+      </Unit26>
+      <Unit27>
         <Filename Value="units\lacogen10_procs.pas"/>
         <EditorIndex Value="-1"/>
         <UsageCount Value="98"/>
-      </Unit25>
-      <Unit26>
+      </Unit27>
+      <Unit28>
         <Filename Value="lac\core\uparser_deployment.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="25" Y="17"/>
         <UsageCount Value="142"/>
-      </Unit26>
-      <Unit27>
+      </Unit28>
+      <Unit29>
         <Filename Value="lac\core\lacogen10_lexer.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="615"/>
         <CursorPos Y="629"/>
         <UsageCount Value="92"/>
-      </Unit27>
-      <Unit28>
+      </Unit29>
+      <Unit30>
         <Filename Value="lac\core\lacogen10_parser.pas"/>
         <EditorIndex Value="-1"/>
         <UsageCount Value="94"/>
-      </Unit28>
-      <Unit29>
+      </Unit30>
+      <Unit31>
         <Filename Value="lac\core\lacogen10_setliteral_lexer.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="55" Y="15"/>
         <UsageCount Value="89"/>
-      </Unit29>
-      <Unit30>
+      </Unit31>
+      <Unit32>
         <Filename Value="lac\core\lacogen10_setliteral_parser.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="55" Y="14"/>
         <UsageCount Value="89"/>
-      </Unit30>
-      <Unit31>
+      </Unit32>
+      <Unit33>
         <Filename Value="units\old_uparser_dfalist.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="54" Y="20"/>
         <UsageCount Value="97"/>
-      </Unit31>
-      <Unit32>
+      </Unit33>
+      <Unit34>
         <Filename Value="units\uset32.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="546"/>
         <CursorPos X="79" Y="557"/>
         <UsageCount Value="37"/>
-      </Unit32>
-      <Unit33>
+      </Unit34>
+      <Unit35>
         <Filename Value="units\ucharset.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="19"/>
         <UsageCount Value="77"/>
-      </Unit33>
-      <Unit34>
+      </Unit35>
+      <Unit36>
         <Filename Value="units\uset.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="28"/>
         <CursorPos X="8"/>
         <UsageCount Value="70"/>
-      </Unit34>
-      <Unit35>
+      </Unit36>
+      <Unit37>
         <Filename Value="lac\core\lacogen5_lexer.pas"/>
         <EditorIndex Value="-1"/>
         <UsageCount Value="62"/>
-      </Unit35>
-      <Unit36>
+      </Unit37>
+      <Unit38>
         <Filename Value="lac\core\lacogen5_parser.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="1261"/>
         <CursorPos X="60" Y="1278"/>
         <UsageCount Value="62"/>
-      </Unit36>
-      <Unit37>
+      </Unit38>
+      <Unit39>
         <Filename Value="units\lacogen5_procs.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="515"/>
         <CursorPos X="13" Y="534"/>
         <UsageCount Value="61"/>
-      </Unit37>
-      <Unit38>
+      </Unit39>
+      <Unit40>
         <Filename Value="lac\core\lacogen5_setliteral_lexer.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="60"/>
         <CursorPos X="40" Y="66"/>
         <UsageCount Value="51"/>
-      </Unit38>
-      <Unit39>
+      </Unit40>
+      <Unit41>
         <Filename Value="lac\core\lacogen5_setliteral_parser.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="172"/>
         <CursorPos X="137" Y="185"/>
         <UsageCount Value="55"/>
-      </Unit39>
-      <Unit40>
+      </Unit41>
+      <Unit42>
         <Filename Value="units\lacogen5_setliteral_procs.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="42" Y="12"/>
         <UsageCount Value="45"/>
-      </Unit40>
-      <Unit41>
+      </Unit42>
+      <Unit43>
         <Filename Value="units\ucharset_literal.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="20"/>
         <CursorPos X="26" Y="547"/>
         <UsageCount Value="34"/>
-      </Unit41>
-      <Unit42>
+      </Unit43>
+      <Unit44>
         <Filename Value="gold\parser.pas"/>
         <UnitName Value="Parser"/>
         <UsageCount Value="11"/>
-      </Unit42>
-      <Unit43>
+      </Unit44>
+      <Unit45>
         <Filename Value="gold\token.pas"/>
         <UnitName Value="Token"/>
         <UsageCount Value="11"/>
-      </Unit43>
-      <Unit44>
+      </Unit45>
+      <Unit46>
         <Filename Value="..\0.0\units\uoptions.pas"/>
         <EditorIndex Value="-1"/>
         <UsageCount Value="1"/>
-      </Unit44>
-      <Unit45>
+      </Unit46>
+      <Unit47>
         <Filename Value="units\uparser_deployment.pas"/>
         <EditorIndex Value="-1"/>
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
         <UsageCount Value="11"/>
-      </Unit45>
-      <Unit46>
+      </Unit47>
+      <Unit48>
         <Filename Value="Profinl.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="156"/>
         <CursorPos X="3" Y="168"/>
         <UsageCount Value="15"/>
-      </Unit46>
-      <Unit47>
+      </Unit48>
+      <Unit49>
         <Filename Value="C:\lazarus\fpc\3.0.4\source\packages\rtl-objpas\src\inc\strutils.pp"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="181"/>
         <CursorPos X="10" Y="192"/>
         <UsageCount Value="2"/>
-      </Unit47>
-      <Unit48>
+      </Unit49>
+      <Unit50>
         <Filename Value="C:\lazarus\fpc\3.0.4\source\rtl\objpas\fgl.pp"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="164"/>
         <CursorPos X="17" Y="175"/>
         <UsageCount Value="10"/>
-      </Unit48>
-      <Unit49>
+      </Unit50>
+      <Unit51>
         <Filename Value="C:\lazarus\fpc\3.0.4\source\rtl\inc\objpash.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="183"/>
         <CursorPos X="23" Y="194"/>
         <UsageCount Value="8"/>
-      </Unit49>
-      <Unit50>
+      </Unit51>
+      <Unit52>
         <Filename Value="C:\lazarus\fpc\3.0.4\source\packages\fcl-xml\src\htmlelements.pp"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="120"/>
         <CursorPos X="10" Y="131"/>
         <UsageCount Value="10"/>
-      </Unit50>
-      <Unit51>
+      </Unit52>
+      <Unit53>
         <Filename Value="C:\lazarus\fpc\3.2.0\source\rtl\objpas\classes\streams.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="918"/>
         <CursorPos X="24" Y="930"/>
         <UsageCount Value="10"/>
-      </Unit51>
-      <Unit52>
+      </Unit53>
+      <Unit54>
         <Filename Value="C:\lazarus\fpc\3.2.0\source\rtl\objpas\classes\classesh.inc"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="1099"/>
         <CursorPos X="14" Y="1110"/>
         <UsageCount Value="12"/>
-        <Loaded Value="True"/>
-      </Unit52>
+      </Unit54>
     </Units>
     <OtherDefines Count="2">
       <Define0 Value="PROFILE"/>
       <Define1 Value="LCG8"/>
     </OtherDefines>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="27" HistoryIndex="26">
       <Position1>
-        <Filename Value="units\uparser_output.pas"/>
-        <Caret Line="114" TopLine="100"/>
+        <Filename Value="units\uparser_nfa.pas"/>
+        <Caret Line="61" Column="47" TopLine="49"/>
       </Position1>
       <Position2>
-        <Filename Value="units\uparser_output.pas"/>
-        <Caret Line="123" TopLine="112"/>
+        <Filename Value="units\uparser_nfalist.pas"/>
+        <Caret Line="11" Column="30"/>
       </Position2>
       <Position3>
-        <Filename Value="units\uparser_output.pas"/>
-        <Caret Line="124" TopLine="112"/>
+        <Filename Value="units\uparser_nfastate.pas"/>
+        <Caret Line="80" Column="66" TopLine="68"/>
       </Position3>
       <Position4>
-        <Filename Value="units\uparser_output.pas"/>
-        <Caret Line="111" TopLine="100"/>
+        <Filename Value="units\uparser_terminal.pas"/>
+        <Caret Line="9" Column="30"/>
       </Position4>
       <Position5>
-        <Filename Value="units\uparser_output.pas"/>
-        <Caret Line="98" TopLine="87"/>
+        <Filename Value="units\uparser_rule.pas"/>
+        <Caret Line="65" Column="30" TopLine="54"/>
       </Position5>
       <Position6>
-        <Filename Value="units\uparser_output.pas"/>
-        <Caret Line="100" TopLine="90"/>
+        <Filename Value="units\uparser_lalrsets.pas"/>
+        <Caret Line="43" Column="61" TopLine="31"/>
       </Position6>
       <Position7>
-        <Filename Value="units\uparser_output.pas"/>
-        <Caret Line="104" TopLine="90"/>
+        <Filename Value="units\uparser_expanded.pas"/>
+        <Caret Line="47" Column="30" TopLine="36"/>
       </Position7>
       <Position8>
         <Filename Value="units\uparser_output.pas"/>
-        <Caret Line="105" TopLine="90"/>
+        <Caret Line="9" Column="80"/>
       </Position8>
       <Position9>
-        <Filename Value="units\uparser_output.pas"/>
-        <Caret Line="106" TopLine="90"/>
+        <Filename Value="units\uparser_dfalist.pas"/>
+        <Caret Line="58" Column="55" TopLine="46"/>
       </Position9>
       <Position10>
-        <Filename Value="units\uparser_output.pas"/>
-        <Caret Line="108" TopLine="90"/>
+        <Filename Value="units\ucharset32.pas"/>
+        <Caret Line="10" Column="57"/>
       </Position10>
       <Position11>
-        <Filename Value="units\uparser_output.pas"/>
-        <Caret Line="109" TopLine="91"/>
+        <Filename Value="lac\core\deployment_parser_module_12.pas"/>
+        <Caret Column="6"/>
       </Position11>
       <Position12>
-        <Filename Value="units\uparser_output.pas"/>
-        <Caret Line="110" TopLine="92"/>
+        <Filename Value="units\uparser_exception.pas"/>
+        <Caret Line="12" Column="70" TopLine="7"/>
       </Position12>
       <Position13>
-        <Filename Value="units\uparser_output.pas"/>
-        <Caret Line="111" TopLine="93"/>
+        <Filename Value="units\ucmdoptions.pas"/>
+        <Caret Line="87" Column="58" TopLine="75"/>
       </Position13>
       <Position14>
-        <Filename Value="units\uparser_output.pas"/>
-        <Caret Line="113" TopLine="95"/>
+        <Filename Value="units\uparser_utility.pas"/>
+        <Caret Line="8" Column="63"/>
       </Position14>
       <Position15>
-        <Filename Value="units\uparser_output.pas"/>
-        <Caret Line="114" TopLine="96"/>
+        <Filename Value="units\uparameters.pas"/>
+        <Caret Line="89" Column="29" TopLine="77"/>
       </Position15>
       <Position16>
-        <Filename Value="units\uparser_output.pas"/>
-        <Caret Line="116" TopLine="98"/>
+        <Filename Value="units\uparser_nfa.pas"/>
+        <Caret Line="13" Column="47"/>
       </Position16>
       <Position17>
-        <Filename Value="units\uparser_output.pas"/>
-        <Caret Line="117" TopLine="99"/>
+        <Filename Value="units\uparser_types.pas"/>
       </Position17>
       <Position18>
-        <Filename Value="units\uparser_output.pas"/>
-        <Caret Line="105" Column="75" TopLine="99"/>
+        <Filename Value="lacogen12.lpr"/>
+        <Caret Line="14" Column="58" TopLine="3"/>
       </Position18>
       <Position19>
-        <Filename Value="units\uparser.pas"/>
-        <Caret Line="15" Column="53"/>
+        <Filename Value="lacogen12.lpr"/>
+        <Caret Line="36" Column="42" TopLine="7"/>
       </Position19>
       <Position20>
-        <Filename Value="units\uparser.pas"/>
-        <Caret Line="376" Column="14" TopLine="230"/>
+        <Filename Value="lacogen12.lpr"/>
+        <Caret Line="33" Column="32" TopLine="2"/>
       </Position20>
       <Position21>
         <Filename Value="units\uparser.pas"/>
-        <Caret Line="138" Column="13" TopLine="122"/>
+        <Caret Line="14" Column="58" TopLine="2"/>
       </Position21>
       <Position22>
-        <Filename Value="units\uparser.pas"/>
-        <Caret Line="133" Column="41" TopLine="117"/>
+        <Filename Value="lac\core\deployment_parser_module_12.pas"/>
       </Position22>
       <Position23>
-        <Filename Value="units\uparameters.pas"/>
-        <Caret Line="147" Column="36" TopLine="135"/>
+        <Filename Value="lacogen12.lpr"/>
+        <Caret Line="48" Column="17" TopLine="38"/>
       </Position23>
       <Position24>
-        <Filename Value="units\uparameters.pas"/>
-        <Caret Line="230" Column="19" TopLine="218"/>
+        <Filename Value="lacogen12.lpr"/>
+        <Caret Line="33" Column="32"/>
       </Position24>
       <Position25>
-        <Filename Value="units\uparser_canonical.pas"/>
-        <Caret Line="203" TopLine="185"/>
+        <Filename Value="lacogen12.lpr"/>
+        <Caret Line="81" Column="37" TopLine="69"/>
       </Position25>
       <Position26>
-        <Filename Value="units\uparameters.pas"/>
-        <Caret Line="230" Column="19" TopLine="218"/>
+        <Filename Value="lacogen12.lpr"/>
+        <Caret Line="10" Column="102"/>
       </Position26>
       <Position27>
-        <Filename Value="C:\lazarus\fpc\3.2.0\source\rtl\objpas\classes\classesh.inc"/>
-        <Caret Line="1110" Column="14" TopLine="1099"/>
+        <Filename Value="units\lacogen12_setliteral_procs.pas"/>
+        <Caret Line="34" Column="121" TopLine="26"/>
       </Position27>
-      <Position28>
-        <Filename Value="units\uparameters.pas"/>
-        <Caret Line="224" Column="35" TopLine="218"/>
-      </Position28>
-      <Position29>
-        <Filename Value="lacogen10.lpr"/>
-        <Caret Line="103" Column="17" TopLine="85"/>
-      </Position29>
-      <Position30>
-        <Filename Value="lacogen10.lpr"/>
-        <Caret Line="35" Column="15" TopLine="24"/>
-      </Position30>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
       <Modes Count="1" ActiveMode="default">
         <Mode0 Name="default">
           <local>
-            <CommandLineParams Value="test\errors\test_rr2.lac --compile --dump --warandpeace"/>
+            <CommandLineParams Value="lac\core\lacogen10.lac --compile --dump --warandpeace"/>
           </local>
         </Mode0>
       </Modes>
     </RunParams>
   </ProjectSession>
   <Debugging>
-    <Watches Count="3">
-      <Item1>
+    <Watches>
+      <Item>
         <Expression Value="b"/>
         <DisplayStyle Value="wdfHex"/>
-      </Item1>
-      <Item2>
+      </Item>
+      <Item>
         <Expression Value="uni"/>
         <DisplayStyle Value="wdfHex"/>
-      </Item2>
-      <Item3>
+      </Item>
+      <Item>
         <Expression Value="i"/>
-      </Item3>
+      </Item>
     </Watches>
   </Debugging>
 </CONFIG>

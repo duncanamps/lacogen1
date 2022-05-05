@@ -5,7 +5,7 @@ unit test_expr_fp_procs;
 interface
 
 uses
-  Classes, SysUtils, deployment_parser_types, deployment_parser_module;
+  Classes, SysUtils, deployment_parser_types_12, deployment_parser_module_12;
 
 procedure lexer_debug(const _msg: string);
 procedure parser_debug(const _msg: string);

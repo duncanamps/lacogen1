@@ -44,7 +44,7 @@ implementation
 
 uses
   uparser_utility, htmlelements, uparser_exception,
-  deployment_parser_module;
+  deployment_parser_module_12;
 
 { TExpandedEntry code }
 

@@ -11,7 +11,7 @@ uses
   uparser_exception, uparser_terminal,
   uparser_nfalist, uparser_rule, uparser_lalrsets, uparser_expanded,
   uparser_canonical, uparser_output, uparser_dfalist, ucharset32,
-  deployment_parser_module, deployment_parser_types;
+  deployment_parser_module_12, deployment_parser_types_12;
 
 
 type
@@ -169,7 +169,7 @@ begin
   ExpandedList := TExpandedList.Create;
   CanonicalTable   := TCanonicalTable.Create;
   ParserOutput  := TParserOutput.Create;
-  LoadFromResource('LACOGEN11');
+  LoadFromResource('LACOGEN12');
   RegisterFuncs;
   OnReduce := @MyReduce;
 end;

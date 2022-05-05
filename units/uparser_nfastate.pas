@@ -10,7 +10,7 @@ interface
 
 uses
   Classes, SysUtils, fgl, uparser_types, uparser_terminal, ucharset32,
-  deployment_parser_types;
+  deployment_parser_types_12;
 
 type
 
@@ -77,7 +77,7 @@ type
 implementation
 
 uses
-  uparser_utility, uparser_exception, deployment_parser_module;
+  uparser_utility, uparser_exception, deployment_parser_module_12;
 
 { TAction code }
 

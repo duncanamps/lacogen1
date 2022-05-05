@@ -1,12 +1,12 @@
-unit lacogen10_setliteral_procs;
+unit lacogen12_setliteral_procs;
 
 {$mode objfpc}{$H+}
 
 interface
 
 uses
-  Classes, SysUtils, deployment_parser_module,
-  deployment_parser_types;
+  Classes, SysUtils, deployment_parser_module_12,
+  deployment_parser_types_12;
 
 type
   TSLParser = class(TLCGParser)
@@ -43,7 +43,7 @@ var
 constructor TSLParser.Create;
 begin
   inherited Create;
-  LoadFromResource('LACOGEN10_SETLITERAL');
+  LoadFromResource('LACOGEN12_SETLITERAL');
   RegisterFuncs;
   OnReduce := @MyReduce;
 end;

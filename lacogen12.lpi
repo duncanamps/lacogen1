@@ -6,16 +6,17 @@
     <General>
       <Flags>
         <MainUnitHasCreateFormStatements Value="False"/>
+        <MainUnitHasTitleStatement Value="False"/>
         <MainUnitHasScaledStatement Value="False"/>
         <CompatibilityMode Value="True"/>
       </Flags>
       <SessionStorage Value="InProjectDir"/>
-      <Title Value="LaCoGen11 Command Line"/>
+      <Title Value="LaCoGen12 Command Line"/>
       <UseAppBundle Value="False"/>
       <ResourceType Value="res"/>
       <Resources Count="2">
-        <Resource_0 FileName="lac\core\lacogen10_setliteral.lacobj" Type="RCDATA" ResourceName="LACOGEN10_SETLITERAL"/>
-        <Resource_1 FileName="lac\core\lacogen11.lacobj" Type="RCDATA" ResourceName="LACOGEN11"/>
+        <Resource_0 FileName="lac\core\lacogen12.lacobj" Type="RCDATA" ResourceName="LACOGEN12"/>
+        <Resource_1 FileName="lac\core\lacogen12_setliteral.lacobj" Type="RCDATA" ResourceName="LACOGEN12_SETLITERAL"/>
       </Resources>
     </General>
     <VersionInfo>
@@ -25,7 +26,7 @@
       <MinorVersionNr Value="1"/>
       <BuildNr Value="45"/>
       <Language Value="0809"/>
-      <StringTable FileDescription="LaCoGen - Lazarus Compiler Generator" InternalName="LaCoGen" LegalCopyright="Copyright (C)2020-2021 Duncan Munro"/>
+      <StringTable FileDescription="LaCoGen - Lazarus Compiler Generator" InternalName="LaCoGen" LegalCopyright="Copyright (C)2020-2022 Duncan Munro"/>
     </VersionInfo>
     <BuildModes Count="2">
       <Item1 Name="Debug" Default="True"/>
@@ -34,7 +35,7 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="lacogen11"/>
+            <Filename Value="lacogen12"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
@@ -76,7 +77,7 @@
     </RunParams>
     <Units Count="23">
       <Unit0>
-        <Filename Value="lacogen11.lpr"/>
+        <Filename Value="lacogen12.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
       <Unit1>
@@ -148,7 +149,7 @@
         <IsPartOfProject Value="True"/>
       </Unit17>
       <Unit18>
-        <Filename Value="units\lacogen10_setliteral_procs.pas"/>
+        <Filename Value="units\lacogen12_setliteral_procs.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit18>
       <Unit19>
@@ -160,11 +161,11 @@
         <IsPartOfProject Value="True"/>
       </Unit20>
       <Unit21>
-        <Filename Value="lac\core\deployment_parser_module.pas"/>
+        <Filename Value="lac\core\deployment_parser_module_12.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit21>
       <Unit22>
-        <Filename Value="lac\core\deployment_parser_types.pas"/>
+        <Filename Value="lac\core\deployment_parser_types_12.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit22>
     </Units>
@@ -173,7 +174,7 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="lacogen11"/>
+      <Filename Value="lacogen12"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>

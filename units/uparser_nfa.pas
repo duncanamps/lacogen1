@@ -10,7 +10,7 @@ interface
 
 uses
   Classes, SysUtils, uparser_nfastate, uparser_types, ucharset32,
-  uparser_terminal, deployment_parser_types;
+  uparser_terminal, deployment_parser_types_12;
 
 type
 
@@ -58,7 +58,7 @@ var
 implementation
 
 uses
-  uparser_utility, deployment_parser_module;
+  uparser_utility, deployment_parser_module_12;
 
 { Utility code }
 

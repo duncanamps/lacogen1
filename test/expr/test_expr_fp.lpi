@@ -91,11 +91,11 @@
         <IsPartOfProject Value="True"/>
       </Unit2>
       <Unit3>
-        <Filename Value="..\..\lac\core\deployment_parser_module.pas"/>
+        <Filename Value="..\..\lac\core\deployment_parser_module_12.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit3>
       <Unit4>
-        <Filename Value="..\..\lac\core\deployment_parser_types.pas"/>
+        <Filename Value="..\..\lac\core\deployment_parser_types_12.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit4>
     </Units>

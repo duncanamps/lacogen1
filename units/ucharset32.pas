@@ -6,8 +6,8 @@ unit ucharset32;
 interface
 
 uses
-  Classes, SysUtils, fgl, deployment_parser_module,
-  lacogen10_setliteral_procs, deployment_parser_types;
+  Classes, SysUtils, fgl, deployment_parser_module_12,
+  lacogen12_setliteral_procs, deployment_parser_types_12;
 
 type
   // Character set list flags, default is [cslBrackets,cslRanges,cslTranslate]

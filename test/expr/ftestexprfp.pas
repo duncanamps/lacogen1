@@ -7,7 +7,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, Grids, fgl,
-  deployment_parser_module, deployment_parser_types;
+  deployment_parser_module_12, deployment_parser_types_12;
 
 type
 

@@ -86,7 +86,7 @@ implementation
 
 uses
   uparser_exception, strutils, uparser_rule, htmlelements,
-  deployment_parser_types;
+  deployment_parser_types_12;
 
 // TParameter code
 

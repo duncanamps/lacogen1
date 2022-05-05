@@ -7,8 +7,7 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, ftestexprfp, deployment_parser_module, deployment_parser_types
-  { you can add units after this };
+  Forms, deployment_parser_module_12, deployment_parser_types_12, ftestexprfp;
 
 {$R *.res}
 

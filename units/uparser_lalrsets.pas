@@ -40,7 +40,7 @@ type
 implementation
 
 uses
-  uparser_utility, htmlelements, deployment_parser_module;
+  uparser_utility, htmlelements, deployment_parser_module_12;
 
 { TParserSet code }
 

@@ -1,4 +1,4 @@
-program lacogen11;
+program lacogen12;
 
 {$mode objfpc}{$H+}
 
@@ -11,8 +11,8 @@ uses
   uparser_canonical, uparser_expanded, uparser_lalrsets,
   uparser_nfa, uparser_nfalist, uparser_nfaset, uparser_nfastate,
   uparser_output, uparser_rule, uparser_terminal,
-  uparser_dfalist, ucharset32,
-  deployment_parser_types, deployment_parser_module;
+  uparser_dfalist, ucharset32, deployment_parser_types_12,
+  deployment_parser_module_12;
 
 
 type
@@ -167,7 +167,7 @@ var stamp: TDateTime;
     year,month,day: word;
 begin
   WriteLn('');
-  WriteLn('LaCoGen V1.1');
+  WriteLn('LaCoGen V1.2');
   stamp := Now;
   DecodeDate(stamp,year,month,day);
   if year = START_YEAR then

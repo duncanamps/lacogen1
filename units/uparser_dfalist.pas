@@ -55,7 +55,7 @@ implementation
 
 uses
   uparser_utility, strutils, uparameters, uparser_exception,
-  deployment_parser_types, deployment_parser_module;
+  deployment_parser_types_12, deployment_parser_module_12;
 
 { TDFAListRow }
 

@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, fgl, uparser_types, uparser_terminal, uparser_canonical,
-  uparser_expanded, uparser_lalrsets, uparser_rule, deployment_parser_module;
+  uparser_expanded, uparser_lalrsets, uparser_rule, deployment_parser_module_12;
 
 type
   TParserOutputType = (potUndefined,potError,potShift,potGoto,potReduce,potAccept);
@@ -37,7 +37,7 @@ implementation
 
 uses
   uparser_utility, strutils, uparameters, htmlelements,
-  uparser_exception, deployment_parser_types;
+  uparser_exception, deployment_parser_types_12;
 
 { TParserOutput }
 

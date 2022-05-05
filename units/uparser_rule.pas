@@ -62,7 +62,7 @@ implementation
 
 uses
   uparser_utility, strutils, htmlelements, uparser_exception,
-  deployment_parser_module;
+  deployment_parser_module_12;
 
 { TRule code }
 

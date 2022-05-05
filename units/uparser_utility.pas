@@ -5,7 +5,7 @@ unit uparser_utility;
 interface
 
 uses
-  Classes, SysUtils, uparser_types, deployment_parser_types;
+  Classes, SysUtils, uparser_types, deployment_parser_types_12;
 
 function BoolToString(_b: boolean): string;
 function BytesInANumber(_n: uint64): integer;
@@ -35,7 +35,7 @@ procedure WriteLnStringToStreamUnderlined(_strm: TStream; const s: string);
 implementation
 
 uses
-  uparser_exception, deployment_parser_module, htmlelements;
+  uparser_exception, deployment_parser_module_12, htmlelements;
 
 function BoolToString(_b: boolean): string;
 begin

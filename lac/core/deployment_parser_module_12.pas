@@ -1,4 +1,4 @@
-unit deployment_parser_module;
+unit deployment_parser_module_12;
 
 {$mode objfpc}{$H+}
 {$modeswitch advancedrecords}
@@ -10,7 +10,7 @@ unit deployment_parser_module;
 interface
 
 uses
-  Classes, SysUtils, fgl, deployment_parser_types;
+  Classes, SysUtils, fgl, deployment_parser_types_12;
 
 type
 
