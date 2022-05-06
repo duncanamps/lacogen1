@@ -10,7 +10,7 @@
 %title		= "6502 Macro Assembler Grammar";
 %version	= "0.1";
 %author		= "Duncan Munro";  
-%start		= <assembler line>;
+%start		= <assembler_line>;
            
 
 //
@@ -166,6 +166,7 @@ K_BYTE				= MIXED(".BYTE")		keyword;
 K_DB				= MIXED(".DB")			keyword;
 K_DD				= MIXED(".DD")			keyword;
 K_DEFINE			= MIXED(".DEFINE")		keyword;
+K_DEFINES			= MIXED(".DEFINES")		keyword;
 K_DEFMACRO			= MIXED(".DEFMACRO")	keyword;
 K_DS				= MIXED(".DS")			keyword;
 K_DSH				= MIXED(".DSH")			keyword;
@@ -211,44 +212,45 @@ InternalComment1	= "{" {NonCurlyChar}* "}" ignore;
 // Productions
 //
 
-<assembler line>	: <label> <directive line>						# ActIgnore
-					| <directive line>								# ActIgnore
+<assembler_line>	: <label> <directive_line>						# ActIgnore
+					| <directive_line>								# ActIgnore
 					| <label> <instruction>							# ActIgnore
 					| <instruction>									# ActIgnore
 					| <label>										# ActIgnore
 					|												# ActIgnore
 					;
                    
-<directive line>	: K_BYTE	 <expression> "," <expression>		# ActDirByte
-					| K_DB       <expression list>					# ActDirDB
-					| K_DD       <expression list>					# ActDirDD
-					| K_DEFINE   SymbolDef							# ActDirDefine
-					| K_DEFINE   SymbolDef Assignment <expression>	# ActDirDefineExpr
+<directive_line>	: K_BYTE	 <expression> "," <expression>		# ActDirByte
+					| K_DB		 <expression_list>					# ActDirDB
+					| K_DD		 <expression_list>					# ActDirDD
+					| K_DEFINE	 SymbolDef							# ActDirDefine
+					| K_DEFINE	 SymbolDef Assignment <expression>	# ActDirDefineExpr
+					| K_DEFINES  SymbolDef Assignment <string_expr> # ActDirDefineString
 					| K_DEFMACRO SymbolDef							# ActDirDefmacro
-					| K_DS       <string expr>						# ActDirDS
-					| K_DSH		 <string expr>						# ActDirDSH
-					| K_DSZ      <string expr>						# ActDirDSZ
-					| K_DW       <expression list>					# ActDirDW
+					| K_DS		 <string_expr>						# ActDirDS
+					| K_DSH		 <string_expr>						# ActDirDSH
+					| K_DSZ		 <string_expr>						# ActDirDSZ
+					| K_DW		 <expression_list>					# ActDirDW
 					| K_ELSE										# ActDirElse
 					| K_ENDIF										# ActDirEndif
 					| K_ENDM										# ActDirEndm
-					| 			 SymbolDef K_EQ <expression>		# ActDirDefineExpr
-					| 			 SymbolDef K_EQU <expression>		# ActDirDefineExpr
-					| K_ERROR    <string expr>						# ActDirError
+					| SymbolDef	 K_EQ <expression>					# ActDirDefineExpr
+					| SymbolDef	 K_EQU <expression>					# ActDirDefineExpr
+					| K_ERROR	 <string_expr>						# ActDirError
 					| K_IF		 <expression>						# ActDirIf
-					| K_IFDEF    SymbolDef							# ActDirIfdef
-					| K_IFNDEF   SymbolDef							# ActDirIfndef
-					| K_INCLUDE  Force <string expr>				# ActDirIncludeList
-					| K_INCLUDE  <string expr>						# ActDirInclude
+					| K_IFDEF	 SymbolDef							# ActDirIfdef
+					| K_IFNDEF	 SymbolDef							# ActDirIfndef
+					| K_INCLUDE	 Force <string_expr>				# ActDirIncludeList
+					| K_INCLUDE	 <string_expr>						# ActDirInclude
 					| K_LIST										# ActDirList
-					| K_MACRO	 SymbolDef <expression list>		# ActDirMacro
-					| K_MACRO    SymbolDef							# ActDirMacroNoexpr
-					| K_MESSAGE  <string expr>						# ActDirMessage
+					| K_MACRO	 SymbolDef <expression_list>		# ActDirMacro
+					| K_MACRO	 SymbolDef							# ActDirMacroNoexpr
+					| K_MESSAGE	 <string_expr>						# ActDirMessage
 					| K_NOLIST 										# ActDirNolist
-					| K_ORG      <expression>						# ActDirOrg
-					| K_SET      SymbolDef Assignment <expression>	# ActDirSet
+					| K_ORG		 <expression>						# ActDirOrg
+					| K_SET		 SymbolDef Assignment <expression>	# ActDirSet
 					| K_UNDEFINE SymbolDef							# ActDirUndefine
-					| K_WARNING  <string expr>						# ActDirWarning
+					| K_WARNING	 <string_expr>						# ActDirWarning
 					;
 
 <label>	: LocalAddress												# ActLabelLocal
@@ -271,59 +273,59 @@ InternalComment1	= "{" {NonCurlyChar}* "}" ignore;
             |														# ActSetOpImpl 
 			;
 
-<expression list>	: <expression list> "," <expression>			# ActExprList
+<expression_list>	: <expression_list> "," <expression>			# ActExprList
 					| <expression>									# ActCopy1
 					;
                                
-<expression>		: <expression> LogicalOr <and expr>				# ActLogOr
-					| <and expr>									# ActCopy1
+<expression>		: <expression> LogicalOr <and_expr>				# ActLogOr
+					| <and_expr>									# ActCopy1
 					;
                
-<and expr>			: <and expr> LogicalAnd <binor expr>			# ActLogAnd
-					| <binor expr>									# ActCopy1
+<and_expr>			: <and_expr> LogicalAnd <binor_expr>			# ActLogAnd
+					| <binor_expr>									# ActCopy1
 					;
              
-<binor expr>		: <binor expr> BinOr <binxor expr>				# ActExprOr
-					| <binxor expr>									# ActCopy1
+<binor_expr>		: <binor_expr> BinOr <binxor_expr>				# ActExprOr
+					| <binxor_expr>									# ActCopy1
 					;
                
-<binxor expr>		: <binxor expr> BinXor <binand expr>			# ActExprXor
-					| <binand expr>									# ActCopy1
+<binxor_expr>		: <binxor_expr> BinXor <binand_expr>			# ActExprXor
+					| <binand_expr>									# ActCopy1
 					;
                 
-<binand expr>		: <binand expr> BinAnd <equate expr>			# ActExprAnd
-					| <equate expr>									# ActCopy1
+<binand_expr>		: <binand_expr> BinAnd <equate_expr>			# ActExprAnd
+					| <equate_expr>									# ActCopy1
 					;
                 
-<equate expr>		: <equate expr> Equal <compare expr>			# ActCompEQ
-					| <equate expr> NotEqual <compare expr>			# ActCompNE
-					| <compare expr>								# ActCopy1
+<equate_expr>		: <equate_expr> Equal <compare_expr>			# ActCompEQ
+					| <equate_expr> NotEqual <compare_expr>			# ActCompNE
+					| <compare_expr>								# ActCopy1
 					;
                 
-<compare expr>		: <compare expr> LessThan <shift expr>			# ActCompLT
-					| <compare expr> GreaterThan <shift expr>		# ActCompGT
-					| <compare expr> LessEqual <shift expr>			# ActCompLE
-					| <compare expr> GreaterEqual <shift expr>		# ActCompGE
-					| <shift expr>									# ActCopy1
+<compare_expr>		: <compare_expr> LessThan <shift_expr>			# ActCompLT
+					| <compare_expr> GreaterThan <shift_expr>		# ActCompGT
+					| <compare_expr> LessEqual <shift_expr>			# ActCompLE
+					| <compare_expr> GreaterEqual <shift_expr>		# ActCompGE
+					| <shift_expr>									# ActCopy1
 					;
                  
-<shift expr>		: <shift expr> LeftShift <add expr>				# ActExprShl
-					| <shift expr> RightShift <add expr>			# ActExprShr
-					| <add expr>									# ActCopy1
+<shift_expr>		: <shift_expr> LeftShift <add_expr>				# ActExprShl
+					| <shift_expr> RightShift <add_expr>			# ActExprShr
+					| <add_expr>									# ActCopy1
 					;
                  
-<add expr>			: <add expr> "+" <mult expr>					# ActExprAdd
-					| <add expr> "-" <mult expr>					# ActExprSub
-					| <mult expr>									# ActCopy1
+<add_expr>			: <add_expr> "+" <mult_expr>					# ActExprAdd
+					| <add_expr> "-" <mult_expr>					# ActExprSub
+					| <mult_expr>									# ActCopy1
 					;
                  
-<mult expr>			: <mult expr> "*" <unary expr>					# ActExprMul
-					| <mult expr> "/" <unary expr>					# ActExprDiv
-					| <mult expr> Modulo <unary expr>				# ActExprMod
-					| <unary expr>									# ActCopy1
+<mult_expr>			: <mult_expr> "*" <unary_expr>					# ActExprMul
+					| <mult_expr> "/" <unary_expr>					# ActExprDiv
+					| <mult_expr> Modulo <unary_expr>				# ActExprMod
+					| <unary_expr>									# ActCopy1
 					;
                  
-<unary expr>		: "-" <value>									# ActExprMinus
+<unary_expr>		: "-" <value>									# ActExprMinus
 					| LogicalNot <value>							# ActLogNot
 					| BinNot <value>								# ActExprNot
 					| <value>										# ActCopy1
@@ -334,33 +336,34 @@ InternalComment1	= "{" {NonCurlyChar}* "}" ignore;
 					| DecLiteral									# ActDecLiteral
 					| OctLiteral									# ActOctLiteral
 					| BinLiteral									# ActBinLiteral
-					| F_ASC <string expr> ")"						# ActFuncAsc
+					| F_ASC <string_expr> ")"						# ActFuncAsc
 					| F_HIGH <expression> ")"						# ActFuncHigh
 					| F_IIF <expression> "," <expression> "," <expression> ")" # ActFuncIif
 					| F_LOW <expression> ")"						# ActFuncLow
-					| F_POS <string expr> "," <string expr> ")"		# ActFuncPos
-					| F_VALUE <string expr> ")"						# ActFuncValue
+					| F_POS <string_expr> "," <string_expr> ")"		# ActFuncPos
+					| F_VALUE <string_expr> ")"						# ActFuncValue
 					| "(" <expression> ")"							# ActExprBracket
 					| SymbolDef										# ActValueSymbol
 					| LocalAddress									# ActValueLocal
 					| MacroPlaceholder								# ActMacroPlaceholder
 					;
 
-<string expr>		: <string expr> "+" <string result>				# ActStrCat
-					| <string result>								# ActCopy1
+<string_expr>		: <string_expr> "+" <string_result>				# ActStrCat
+					| <string_result>								# ActCopy1
 					;
                 
-<string result>		: StringConstant								# ActStringConstant
+<string_result>		: StringConstant								# ActStringConstant
 					| F_BUILD										# ActStrBuild
 					| F_CHR <expression> ")"						# ActStrChr
 					| F_DATE										# ActStrDate
 					| F_HEX <expression> ")"						# ActStrHex1
 					| F_HEX <expression> "," <expression> ")"		# ActStrHex2
-					| F_LEFT <string expr> "," <expression> ")"		# ActStrLeft
-					| F_LOWER <string expr> ")"						# ActStrLower
-					| F_MID <string expr> "," <expression> "," <expression> ")"	# ActStrMid
-					| F_RIGHT <string expr> "," <expression> ")"	# ActStrRight
+					| F_LEFT <string_expr> "," <expression> ")"		# ActStrLeft
+					| F_LOWER <string_expr> ")"						# ActStrLower
+					| F_MID <string_expr> "," <expression> "," <expression> ")"	# ActStrMid
+					| F_RIGHT <string_expr> "," <expression> ")"	# ActStrRight
 					| F_STRING <expression> ")"						# ActStrString
 					| F_TIME										# ActStrTime
-					| F_UPPER <string expr> ")"						# ActStrUpper
+					| F_UPPER <string_expr> ")"						# ActStrUpper
+					| SymbolDef										# ActStringSymbol
 					;  

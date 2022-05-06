@@ -10,8 +10,6 @@
 %version        = "0.5";
 %author         = "Duncan Munro";
 %codeprefix     = "LCG";
-%unit_lexer     = "ur_lexgen";
-%unit_parser    = "ur_parser";
 %start          = <Content>;
 
 
@@ -31,7 +29,7 @@
 // ====================================================================
 
 {Backslash}         = [\x5c];
-{EscapedChars}      = [tnrx\\\-\^\[\]]; 
+{EscapedChars}      = [tnrx\\\-\[\]]; 
 {NonTerminal Ch}    = {Alphanumeric} + [_-.] + [ ];
 {Set Literal Ch}    = {Printable} - [\]];
 {Set Name Ch}       = {Printable} - [{}];
