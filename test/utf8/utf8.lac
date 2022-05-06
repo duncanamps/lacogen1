@@ -41,7 +41,7 @@ Quarter		= "¼"  keyword;
 //Zorro		= "Ƶ" ;
 //Delta		= "Д" ;
 //AE			= "ᴁ" ;
-Cyrillic 	= {CyrillicCSzZ}+ ;
+Cyrillic 	= {CyrillicCS}+ ;
 whitespace 	= {WS Char}+	ignore;
 Pound		= "pound" keyword;
 

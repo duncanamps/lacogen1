@@ -22,6 +22,7 @@ function MyInt(param: double): double;
 function MyLn(param: double): double;
 function MyRadToDeg(param: double): double;
 function MySin(param: double): double;
+function MySqrt(param: double): double;
 function MyTan(param: double): double;
 
 function MyPower(x,y: double): double;
@@ -71,7 +72,7 @@ type
   end;
 
 const
-  FuncArray1: array[0..12] of TFuncEntry1 = (
+  FuncArray1: array[0..13] of TFuncEntry1 = (
     (FuncName: 'ABS';     FuncProc: @MyAbs;        FuncHelp: 'Absolute value of x, if x < 0 then it is converted into a positive number'),
     (FuncName: 'ACOS';    FuncProc: @MyArcCos;     FuncHelp: 'Arc (inverse) cosine of x with result in radians'),
     (FuncName: 'ASIN';    FuncProc: @MyArcSin;     FuncHelp: 'Arc (inverse) sine of x with result in radians'),
@@ -84,6 +85,7 @@ const
     (FuncName: 'LOG';     FuncProc: @MyLn;         FuncHelp: 'Natural log of x'),
     (FuncName: 'RAD2DEG'; FuncProc: @MyRadToDeg;   FuncHelp: 'Convert radians to degrees'),
     (FuncName: 'SIN';     FuncProc: @MySin;        FuncHelp: 'Sine of x where x is in radians'),
+    (FuncName: 'SQRT';    FuncProc: @MySqrt;       FuncHelp: 'Square root of x'),
     (FuncName: 'TAN';     FuncProc: @MyTan;        FuncHelp: 'Tangent of x where x is in radians')
     );
 
@@ -168,6 +170,11 @@ end;
 function MySin(param: double): double;
 begin
   Result := Sin(param);
+end;
+
+function MySqrt(param: double): double;
+begin
+  Result := Sqrt(param);
 end;
 
 function MyTan(param: double): double;
