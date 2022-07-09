@@ -1,5 +1,23 @@
 unit deployment_parser_module_12;
 
+{
+    LaCoGen - LAzarus COmpiler GENerator
+    Copyright (C)2020-2022 Duncan Munro
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+}
+
 {$mode objfpc}{$H+}
 {$modeswitch advancedrecords}
 
@@ -10,7 +28,7 @@ unit deployment_parser_module_12;
 interface
 
 uses
-  Classes, SysUtils, fgl, deployment_parser_types_12;
+  Classes, SysUtils, Generics.Collections, deployment_parser_types_12;
 
 type
 
@@ -27,7 +45,7 @@ type
     class operator = (a,b: TLCGParameter): boolean;
   end;
 
-  TLCGParameterList = class(specialize TFPGList<TLCGParameter>)
+  TLCGParameterList = class(specialize TList<TLCGParameter>)
     public
       procedure LoadFromStream(Stream: TStream);
   end;
@@ -38,7 +56,7 @@ type
       class operator = (a,b: TLCGDictionaryItem): boolean;
     end;
 
-  TLCGDictionary = class(specialize TFPGList<TLCGDictionaryItem>)
+  TLCGDictionary = class(specialize TList<TLCGDictionaryItem>)
     private
       FIndices: array[char] of TLCGStateIdentifier;
     public
@@ -61,7 +79,7 @@ type
       class operator = (a,b: TLCGDFARow): boolean;
   end;
 
-  TLCGDFA = class(specialize TFPGList<TLCGDFARow>)
+  TLCGDFA = class(specialize TList<TLCGDFARow>)
     private
       FDictCount: integer;
     public
@@ -78,7 +96,7 @@ type
       class operator = (a,b: TLCGRule): boolean;
   end;
 
-  TLCGRules = class(specialize TFPGList<TLCGRule>)
+  TLCGRules = class(specialize TList<TLCGRule>)
     public
       procedure LoadFromStream(Stream: TStream);
   end;
@@ -90,7 +108,7 @@ type
 
   TLCGLALRRow = array of TLCGLALREntry;
 
-  TLCGLALR = class(specialize TFPGList<TLCGLALRRow>)
+  TLCGLALR = class(specialize TList<TLCGLALRRow>)
     private
       FTokenCount: integer;
     public
@@ -179,6 +197,7 @@ type
       property Rules:        integer           read GetRules;
       property StartTime:    TDateTime         read FStartTime;
       property TokenBufSize: integer           read FTokenBufSize write SetTokenBufSize;
+      property Tokens:       TLCGTokenItems    read FTokens;
   end;
 
 function CharAsText(c32: TChar): TString;
@@ -282,7 +301,7 @@ begin
       Result := StringOfChar('?',slen);
       Stream.Read(Result[1],slen);
     end;
-  slen := ReadUINT8(Stream); // Get ride of the zero byte at the end
+  slen := ReadUINT8(Stream); // Get rid of the zero byte at the end
 end;
 
 procedure ExpectUINT8(Stream: TStream; _u: UINT8);
@@ -570,6 +589,10 @@ var pk:        TChar;             // Peek character
     tokendone: boolean;
     bptr:      integer;
   	valid: 	   boolean;
+{$IFDEF DEBUG_PARSER}
+       s:         string;
+        i:         integer;
+{$ENDIF}
 begin
   valid := False;
   while not valid do
@@ -611,8 +634,22 @@ begin
   		    tokendone := True;
   	    end;
       // End of token loop
+{$IFDEF DEBUG_PARSER}
+      i := 0;
+      s := '';
+      while i < bptr do
+        begin
+          s := s + FTokenBuf[i];
+          Inc(i);
+        end;
+      WriteLn('Lexer accept token for state ',FLexerState,' = ',FDFA.Items[FLexerState].AcceptToken,' token is ',s);
+{$ENDIF}
       if FDFA.Items[FLexerState].AcceptToken <> PREDEFINED_EMPTY_TOKEN then
-  	    Result := FDFA.Items[FLexerState].AcceptToken
+        begin
+  	  Result := FDFA.Items[FLexerState].AcceptToken;
+          if Assigned(FOnToken) then
+            FOnToken(Self,Result);
+        end
   	  else
   	    begin
           FTokenBuf[bptr] := #0;
@@ -785,12 +822,23 @@ begin
   SetLength(empty,0);
   Push(0,FTokenCount-1,empty);    // TERMINAL_COUNT-1 will always be the <$accept> token
   // Main parsing routine
+{$IFDEF DEBUG_PARSER}
+  WriteLn('------------------------------------------------------------------------');
+  WriteLn('P A R S E R   E N T R Y');
+  WriteLn('------------------------------------------------------------------------');
+{$ENDIF}
   done := false;
   while not done do
     begin
-	  pk := ParserPeek;
+      pk := ParserPeek;
+{$IFDEF DEBUG_PARSER}
+      WriteLn('Parser TosState = ', TosState, ' peek = ',pk);
+{$ENDIF}
       if pk = PREDEFINED_TOKEN_ERROR then
         Monitor(ltError,'Unexpected character %s in input',[CharAsText(FWrongCharacter)]);
+{$IFDEF DEBUG_PARSER}
+      WriteLn('OutputType = ',FLALR.Items[TosState][pk].OutputType);
+{$ENDIF}
       case FLALR.Items[TosState][pk].OutputType of
         potUndefined: begin
     					Monitor(ltError,'Undefined parser table action for state %d and token %s',[TosState,FTokens[pk].Name]);
@@ -836,6 +884,9 @@ end;
 
 procedure TLCGParser.Push(_entry: TLCGParserStackEntry);
 begin
+{$IFDEF DEBUG_PARSER}
+  WriteLn('  Shifting Buf = ',_entry.Buf, ' State = ',_entry.State, ' Token = ',FTokens[_entry.Token].Name);
+{$ENDIF}
   if FParserSP >= PARSER_STACK_SIZE_MAX then
     Monitor(ltError,'PARSER_STACK_SIZE_MAX (%d) exceeded',[PARSER_STACK_SIZE_MAX]);
   CheckStackSize;
@@ -860,6 +911,9 @@ var reduction: TLCGParserStackEntry;
 begin
   rcount := FRules.Items[ruleindex].RuleCount;
   try
+{$IFDEF DEBUG_PARSER}
+  WriteLn('Reducing Rule #',ruleindex,' ',FRules.Items[ruleindex].RuleText,' to routine ',FRules.Items[ruleindex].ProcName);
+{$ENDIF}
     if Assigned(FOnReduce) then
       reduction := FOnReduce(Self,ruleindex);
   except
@@ -873,7 +927,7 @@ begin
   // Now work out the next state
   headrule := FRules.Items[ruleindex].HeadToken;
   if FLALR.Items[TosState][headrule].OutputType <> potGoto then
-	Monitor(ltError,'Goto expected but not found in table');
+	Monitor(ltError,'Goto expected for rule index #%d but not found in table',[ruleindex]);
   reduction.State := FLALR.Items[TosState][headrule].Destination;
   reduction.Token := FRules.Items[ruleindex].HeadToken;
   // And push the reduction onto the stack

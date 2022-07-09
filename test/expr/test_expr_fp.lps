@@ -20,8 +20,8 @@
         <ComponentName Value="Form1"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <TopLine Value="154"/>
-        <CursorPos Y="173"/>
+        <TopLine Value="147"/>
+        <CursorPos Y="147"/>
         <UsageCount Value="62"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -31,7 +31,8 @@
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <CursorPos X="33" Y="18"/>
+        <TopLine Value="305"/>
+        <CursorPos Y="309"/>
         <UsageCount Value="62"/>
         <Loaded Value="True"/>
       </Unit2>
@@ -170,7 +171,7 @@
       <Define1 Value="PARSER_DEBUG"/>
       <Define2 Value="LCG8"/>
     </OtherDefines>
-    <JumpHistory Count="15" HistoryIndex="14">
+    <JumpHistory Count="17" HistoryIndex="16">
       <Position1>
         <Filename Value="ftestexprfp.pas"/>
         <Caret Line="160" Column="25" TopLine="149"/>
@@ -230,6 +231,14 @@
         <Filename Value="test_expr_fp_procs.pas"/>
         <Caret Line="24" Column="16" TopLine="4"/>
       </Position15>
+      <Position16>
+        <Filename Value="ftestexprfp.pas"/>
+        <Caret Line="147" TopLine="147"/>
+      </Position16>
+      <Position17>
+        <Filename Value="test_expr_fp_procs.pas"/>
+        <Caret Line="38" Column="10" TopLine="23"/>
+      </Position17>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
