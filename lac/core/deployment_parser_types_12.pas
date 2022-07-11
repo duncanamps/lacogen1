@@ -16,6 +16,8 @@ unit deployment_parser_types_12;
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+    
+    Contact: Duncan Munro  duncan@duncanamps.com
 }
 
 {$mode objfpc}{$H+}

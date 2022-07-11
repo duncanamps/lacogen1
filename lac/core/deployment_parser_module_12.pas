@@ -16,6 +16,8 @@ unit deployment_parser_module_12;
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+    Contact: Duncan Munro  duncan@duncanamps.com
 }
 
 {$mode objfpc}{$H+}
@@ -814,6 +816,7 @@ procedure TLCGParser.Parse(Stream: TStream);
 var done: boolean;
     pk:   TLCGTokenIdentifier;
     empty: array of char;
+    toss:  TLCGStateIdentifier;
 begin
   if not FLoaded then
     Monitor(ltInternal,'Parser tables not loaded');
@@ -839,6 +842,7 @@ begin
 {$IFDEF DEBUG_PARSER}
       WriteLn('OutputType = ',FLALR.Items[TosState][pk].OutputType);
 {$ENDIF}
+      toss := TosState;
       case FLALR.Items[TosState][pk].OutputType of
         potUndefined: begin
     					Monitor(ltError,'Undefined parser table action for state %d and token %s',[TosState,FTokens[pk].Name]);
