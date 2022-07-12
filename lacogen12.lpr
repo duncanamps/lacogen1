@@ -199,10 +199,11 @@ begin
     WriteLn(Format('Copyright (C)%d Duncan Munro <duncan@duncanamps.com>',[START_YEAR]))
   else
     WriteLn(Format('Copyright (C)%d-%d Duncan Munro <duncan@duncanamps.com>',[START_YEAR,year]));
-  WriteLn('This program comes with ABSOLUTELY NO WARRANTY; for details' + #13 + #10 +
-          'type ''' + exestr + ' -i''' + #13 + #10 +
-          'This is free software, and you are welcome to redistribute it' + #13 + #10 +
-          'under certain conditions; type ''' + exestr + ' -r'' for details.');
+  if ParamCount = 0 then
+    WriteLn('This program comes with ABSOLUTELY NO WARRANTY; for details' + #13 + #10 +
+            'type ''' + exestr + ' -i''' + #13 + #10 +
+            'This is free software, and you are welcome to redistribute it' + #13 + #10 +
+            'under certain conditions; type ''' + exestr + ' -r'' for details.');
   WriteLn('');
 end;
 
