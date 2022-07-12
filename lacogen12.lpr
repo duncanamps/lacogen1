@@ -1,5 +1,25 @@
 program lacogen12;
 
+{
+    LaCoGen - LAzarus COmpiler GENerator
+    Copyright (C)2020-2022 Duncan Munro
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+    Contact: Duncan Munro  duncan@duncanamps.com
+}
+
 {$mode objfpc}{$H+}
 
 uses
@@ -165,7 +185,12 @@ procedure TLaCoGen.OutputTitle;
 const START_YEAR = 2020;
 var stamp: TDateTime;
     year,month,day: word;
+    exestr: string;
 begin
+  exestr := ExtractFileName(ParamStr(0));
+{$IFDEF Windows}
+  exestr := StringReplace(exestr,'.exe','',[rfReplaceAll,rfIgnoreCase]);
+{$ENDIF}
   WriteLn('');
   WriteLn('LaCoGen V1.2');
   stamp := Now;
@@ -174,6 +199,10 @@ begin
     WriteLn(Format('Copyright (C)%d Duncan Munro <duncan@duncanamps.com>',[START_YEAR]))
   else
     WriteLn(Format('Copyright (C)%d-%d Duncan Munro <duncan@duncanamps.com>',[START_YEAR,year]));
+  WriteLn('This program comes with ABSOLUTELY NO WARRANTY; for details' + #13 + #10 +
+          'type ''' + exestr + ' -i''' + #13 + #10 +
+          'This is free software, and you are welcome to redistribute it' + #13 + #10 +
+          'under certain conditions; type ''' + exestr + ' -r'' for details.');
   WriteLn('');
 end;
 
@@ -192,6 +221,38 @@ begin
     Terminate;
     Exit;
   end;
+  // Info
+  if HasOption('i','info') then
+    begin
+      WriteLn('Disclaimer of Warranty');
+      WriteLn;
+      WriteLn('THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY' + #13 + #10 +
+              'APPLICABLE LAW.  EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT' + #13 + #10 +
+              'HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM "AS IS" WITHOUT WARRANTY' + #13 + #10 +
+              'OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO,' + #13 + #10 +
+              'THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR' + #13 + #10 +
+              'PURPOSE.  THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM' + #13 + #10 +
+              'IS WITH YOU.  SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF' + #13 + #10 +
+              'ALL NECESSARY SERVICING, REPAIR OR CORRECTION.' + #13 + #10);
+      Terminate;
+      Exit;
+    end;
+  // Redistribution
+  if HasOption('r','redistribution') then
+    begin
+      WriteLn('This program is free software: you can redistribute it and/or modify' + #13 + #10 +
+              'it under the terms of the GNU General Public License as published by' + #13 + #10 +
+              'the Free Software Foundation, either version 3 of the License, or' + #13 + #10 +
+              '(at your option) any later version.' + #13 + #10 + #13 + #10 +
+              'This program is distributed in the hope that it will be useful,'  + #13 + #10 +
+              'but WITHOUT ANY WARRANTY; without even the implied warranty of'  + #13 + #10 +
+              'MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the' + #13 + #10 +
+              'GNU General Public License for more details.' + #13 + #10 + #13 + #10 +
+              'You should have received a copy of the GNU General Public License' + #13 + #10 +
+              'along with this program.  If not, see <https://www.gnu.org/licenses/>.' + #13 + #10);
+      Terminate;
+      Exit;
+    end;
   // Process the filename parameters
   NonOptions := GetNonOptions(gShortOptions,gLongOptionsArray);
   if Length(NonOptions) <> 1 then

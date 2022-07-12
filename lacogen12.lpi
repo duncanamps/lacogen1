@@ -24,7 +24,7 @@
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
       <MinorVersionNr Value="1"/>
-      <BuildNr Value="45"/>
+      <BuildNr Value="46"/>
       <Language Value="0809"/>
       <StringTable FileDescription="LaCoGen - Lazarus Compiler Generator" InternalName="LaCoGen" LegalCopyright="Copyright (C)2020-2022 Duncan Munro"/>
     </VersionInfo>

@@ -1,5 +1,25 @@
 unit uparser;
 
+{
+    LaCoGen - LAzarus COmpiler GENerator
+    Copyright (C)2020-2022 Duncan Munro
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+    Contact: Duncan Munro  duncan@duncanamps.com
+}
+
 {$mode objfpc}{$H+}
 interface
 
@@ -782,8 +802,10 @@ var literal: TString;
     frag: TNFAFragment;
     oindex: integer;
     obj:  TTerminalDefObject;
+    quoted: boolean;
 begin
-  literal := StripQuotes(ParserStack[ParserSP-1].Buf);
+  literal := ParserStack[ParserSP-1].Buf;
+  literal := StripQuotes(literal);
   if Length(literal) = 0 then
     Monitor(ltError,'Attempt to create blank terminal');
   // Check if in the terminal table, add if not
@@ -827,6 +849,11 @@ begin
     obj := TerminalList.Items[oindex]
   else
     begin
+      // Create the terminal as it doesn't exist already. Display a warning
+      // if an unquoted terminal is being created. This is because it's *easy*
+      // to define a terminal T_MY_TERMINAL then refer to T_MYTERMINAL which
+      // creates "T_MYTERMINAL" as a piece of text to match
+      Monitor(ltWarning,'Creating unquoted terminal "%s" within a rule',[literal]);
       obj := TTerminalDefObject.Create;
       frag := NFA.FragFromString(literal);
       NFA.FragAttach(0,frag);

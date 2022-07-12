@@ -1,11 +1,31 @@
 unit uparser_expanded;
 
+{
+    LaCoGen - LAzarus COmpiler GENerator
+    Copyright (C)2020-2022 Duncan Munro
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+    Contact: Duncan Munro  duncan@duncanamps.com
+}
+
 {$mode objfpc}{$H+}
 
 interface
 
 uses
-  Classes, SysUtils, uparser_rule, uparser_terminal, uparser_types, fgl;
+  Classes, SysUtils, uparser_rule, uparser_terminal, uparser_types, Generics.Collections;
 
 type
 
@@ -26,7 +46,7 @@ type
       function RuleText: string;
   end;
 
-  TExpandedList = class(specialize TFPGObjectList<TExpandedEntry>)
+  TExpandedList = class(specialize TObjectList<TExpandedEntry>)
     public
       procedure AddRule(_ruleno: integer; _rule: TRule; _terminals: TTerminalList; _accept: boolean);
       function  AsText(_ruleno: integer): string;
