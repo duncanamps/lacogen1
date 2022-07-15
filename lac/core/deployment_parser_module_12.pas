@@ -39,7 +39,7 @@ type
   TLCGMonitorProc = procedure (Parser: TLCGParser; LogType: TLCGLogType; const Message: string) of object;
   TLCGReduceProc = function (Parser: TLCGParser; RuleIndex: UINT32): TLCGParserStackEntry of object;
   TLCGParserProc = function (Parser: TLCGParser): TLCGParserStackEntry of object;
-  TLCGTokenProc = procedure (Parser: TLCGParser; TokenIndex: UINT32) of object;
+  TLCGTokenProc = procedure (Parser: TLCGParser; Token: TToken) of object;
 
   TLCGParameter = record
     Name:  string;
@@ -141,7 +141,7 @@ type
       FStartTime:       TDateTime;
       FStream:          TStream;
       FTabSize:         integer;
-      FToken:           UINT32;
+      FToken:           TToken;
       FTokenBuf:        array of char;
       FTokenBufSize:    integer;
       FTokenCount:      integer;
@@ -151,15 +151,15 @@ type
       procedure InitStart;
       function  GetRuleProcs: TStringArray;
       function  GetRules: integer;
-      function  Lexer:   TLCGTokenIdentifier;
+      function  Lexer:   TToken;
       function  LexGet:  TChar;
       function  LexPeek: TChar;
       procedure LexReadChunk;
       procedure LexShiftBuffer;
-      function  ParserPeek: TLCGTokenIdentifier;
+      function  ParserPeek: TToken;
       procedure Pop;
       procedure Push(_entry: TLCGParserStackEntry);
-      procedure Push(_state: TLCGStateIdentifier; _token: TLCGTokenIdentifier; _buf: array of char);
+      procedure Push(_state: TLCGStateIdentifier; _token: TToken; _buf: array of char);
       procedure Reduce(ruleindex: TLCGStateIdentifier);
       procedure SetLexBufBlock(_size: integer);
       procedure SetTokenBufSize(_size: integer);
@@ -562,7 +562,10 @@ begin
   FLexerBufRemain  := 0;
   // Set up parser variables
   FParserSP := 0;
-  FToken := 0 {Error};
+  FToken.Buf := '';
+  FToken.Col := 0;
+  FToken.ID  := PREDEFINED_TOKEN_ERROR; {Error}
+  FToken.Row := 0;
   // Other stuff
   FStartTime := Now;
 end;
@@ -584,7 +587,7 @@ begin
   FTabSize := 4;
 end;
 
-function TLCGParser.Lexer: TLCGTokenIdentifier;
+function TLCGParser.Lexer: TToken;
 var pk:        TChar;             // Peek character
     pki:       TLCGStateIdentifier; // Peek character turned into a dictionary index
     newstate:  TLCGStateIdentifier; // New state that we will move to
@@ -600,41 +603,47 @@ begin
   while not valid do
     begin
       FBufferOverflow := False;
-      Result := 0;
+      Result.ID  := 0;
+      Result.Col := FInputColumn;
+      Result.Row := FInputLine;
+      Result.Buf := '';
       bptr := 0;
       FTokenBuf[bptr] := #0;
       tokendone := False;
-  	  if FLexerMode = lmEOF then
-  	    Exit(PREDEFINED_TOKEN_EOF);
+      if FLexerMode = lmEOF then
+        begin
+          Result.ID := PREDEFINED_TOKEN_EOF;
+          Exit(Result);
+        end;
       // Token loop
-  	  while not tokendone do
-  	    begin
-  		  pk := LexPeek;
+      while not tokendone do
+  	begin
+ 	  pk := LexPeek;
           pki := FDictionary.CharToDictIndex(pk);
           if pki = PREDEFINED_EMPTY_STATE then
             newstate := pki
           else
             newstate := FDFA.Items[FLexerState].Transitions[pki];
-  		  if newstate = PREDEFINED_EMPTY_STATE then
-  		    tokendone := True
-  		  else
-  		    begin
-  			  pk := LexGet;
-  			  if bptr < (FTokenBufSize - 2) then
-  			    begin
-  				  FTokenBuf[bptr] := pk;
-  				  Inc(bptr);
-  			    end
-  			  else
-  			    begin
-  				  FBufferOverflow := True;
-  			    end;
-  		    end;
-  		  if not tokendone then
-  		    FLexerState := newstate;
-  		  if FLexerMode = lmEOF then
-  		    tokendone := True;
+  	  if newstate = PREDEFINED_EMPTY_STATE then
+  	    tokendone := True
+  	  else
+  	    begin
+  	      pk := LexGet;
+  	      if bptr < (FTokenBufSize - 2) then
+  		begin
+  		  FTokenBuf[bptr] := pk;
+  		  Inc(bptr);
+  		end
+  	      else
+  		begin
+  		  FBufferOverflow := True;
+  		end;
   	    end;
+  	  if not tokendone then
+  	    FLexerState := newstate;
+  	  if FLexerMode = lmEOF then
+  	    tokendone := True;
+        end;
       // End of token loop
 {$IFDEF DEBUG_PARSER}
       i := 0;
@@ -648,21 +657,22 @@ begin
 {$ENDIF}
       if FDFA.Items[FLexerState].AcceptToken <> PREDEFINED_EMPTY_TOKEN then
         begin
-  	  Result := FDFA.Items[FLexerState].AcceptToken;
+  	  Result.ID := FDFA.Items[FLexerState].AcceptToken;
           if Assigned(FOnToken) then
             FOnToken(Self,Result);
         end
-  	  else
-  	    begin
+      else
+  	begin
           FTokenBuf[bptr] := #0;
-  		  Result := PREDEFINED_TOKEN_ERROR;
-  		  if FLexerMode <> lmEOF then
-  		    LexGet; // Bin the broken character
+  	  Result.ID := PREDEFINED_TOKEN_ERROR;
+  	  if FLexerMode <> lmEOF then
+  	    LexGet; // Bin the broken character
           FWrongCharacter := pk;
-  	    end;
-  	  FLexerState := 0;
-  	  FTokenBuf[bptr] := #0;
-  	  valid := not FTokens[Result].Ignore;
+  	end;
+      FLexerState := 0;
+      Result.Buf := StrPas(@FTokenBuf[0]);
+      FTokenBuf[bptr] := #0;
+      valid := not FTokens[Result.ID].Ignore;  // Skips "ignore" tokens
     end;
 end;
 
@@ -814,7 +824,7 @@ end;
 
 procedure TLCGParser.Parse(Stream: TStream);
 var done: boolean;
-    pk:   TLCGTokenIdentifier;
+    pk:   TToken;
     empty: array of char;
     toss:  TLCGStateIdentifier;
 begin
@@ -823,7 +833,11 @@ begin
   FStream := Stream;
   InitRun;
   SetLength(empty,0);
-  Push(0,FTokenCount-1,empty);    // TERMINAL_COUNT-1 will always be the <$accept> token
+  pk.Row := 0;
+  pk.Col := 0;
+  pk.Buf := '';
+  pk.ID  := FTokenCount-1;  // TERMINAL_COUNT-1 will always be the <$accept> token
+  Push(0,pk,empty);
   // Main parsing routine
 {$IFDEF DEBUG_PARSER}
   WriteLn('------------------------------------------------------------------------');
@@ -837,45 +851,51 @@ begin
 {$IFDEF DEBUG_PARSER}
       WriteLn('Parser TosState = ', TosState, ' peek = ',pk);
 {$ENDIF}
-      if pk = PREDEFINED_TOKEN_ERROR then
+      if pk.ID = PREDEFINED_TOKEN_ERROR then
         Monitor(ltError,'Unexpected character %s in input',[CharAsText(FWrongCharacter)]);
 {$IFDEF DEBUG_PARSER}
       WriteLn('OutputType = ',FLALR.Items[TosState][pk].OutputType);
 {$ENDIF}
       toss := TosState;
-      case FLALR.Items[TosState][pk].OutputType of
-        potUndefined: begin
-    					Monitor(ltError,'Undefined parser table action for state %d and token %s',[TosState,FTokens[pk].Name]);
-  	                    done := True;
-  		              end;
-        potError:     begin
-  					    Monitor(ltError,'Unexpected token %s in input',[FTokens[pk].Name]);
-  					    done := True;
-  				      end;
-  	    potShift:     begin
-                        FFetched := False; // Clear the buffer to force a new character
-                        Push(FLALR.Items[TosState][pk].Destination,pk,FTokenbuf);
-                      end;
-        potGoto:      begin // Unexpected as this should follow a reduce
-  					    Monitor(ltError,'Unexpected goto from table');
-  					    done := True;
-  				      end;
-  	    potReduce:    Reduce(FLALR.Items[TosState][pk].Destination);
-  	    potAccept:    begin
-  					    Pop;
-  				        done := True;
-  				      end;
+      case FLALR.Items[TosState][pk.ID].OutputType of
+        potUndefined:
+          begin
+    	    Monitor(ltError,'Undefined parser table action for state %d and token %s',[TosState,FTokens[pk.ID].Name]);
+  	    done := True;
+  	  end;
+        potError:
+          begin
+  	    Monitor(ltError,'Unexpected token %s in input',[FTokens[pk.ID].Name]);
+  	    done := True;
+  	  end;
+  	potShift:
+          begin
+            FFetched := False; // Clear the buffer to force a new character
+            Push(FLALR.Items[TosState][pk.ID].Destination,pk,FTokenbuf);
+          end;
+        potGoto:
+          begin // Unexpected as this should follow a reduce
+  	    Monitor(ltError,'Unexpected goto from table');
+  	    done := True;
+  	  end;
+  	potReduce:
+          Reduce(FLALR.Items[TosState][pk.ID].Destination);
+        potAccept:
+          begin
+  	    Pop;
+  	    done := True;
+  	  end;
       end; // case LALR_actions...
   end;
 end;
 
-function TLCGParser.ParserPeek: TLCGTokenIdentifier;
+function TLCGParser.ParserPeek: TToken;
 begin
-  if (not FFetched) and (FToken <> PREDEFINED_TOKEN_EOF) then
+  if (not FFetched) and (FToken.ID <> PREDEFINED_TOKEN_EOF) then
     begin
       FToken := Lexer;
-	  FFetched := True;
-	end;
+      FFetched := True;
+    end;
   Result := FToken;
 end;
 
@@ -898,7 +918,7 @@ begin
   Inc(FParserSP);
 end;
 
-procedure TLCGParser.Push(_state: TLCGStateIdentifier; _token: TLCGTokenIdentifier; _buf: array of char);
+procedure TLCGParser.Push(_state: TLCGStateIdentifier; _token: TToken; _buf: array of char);
 var _entry: TLCGParserStackEntry;
 begin
   _entry.State  := _state;
@@ -931,9 +951,9 @@ begin
   // Now work out the next state
   headrule := FRules.Items[ruleindex].HeadToken;
   if FLALR.Items[TosState][headrule].OutputType <> potGoto then
-	Monitor(ltError,'Goto expected for rule index #%d but not found in table',[ruleindex]);
+    Monitor(ltError,'Goto expected for rule index #%d but not found in table',[ruleindex]);
   reduction.State := FLALR.Items[TosState][headrule].Destination;
-  reduction.Token := FRules.Items[ruleindex].HeadToken;
+  reduction.Token.ID := FRules.Items[ruleindex].HeadToken;
   // And push the reduction onto the stack
   Push(reduction);
 end;

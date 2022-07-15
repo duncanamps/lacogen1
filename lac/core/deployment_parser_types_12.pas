@@ -85,19 +85,26 @@ type
 
   // Lexer info record, use this to pass stuff back
 
-  TLCGLexerInfo = record
+  TToken = record
     Row:      integer;
     Col:      integer;
+    Buf:      TString;
+    ID:       TLCGTokenIdentifier;
+  end;
+
+  { @@@@@ DOES TLCGLexerInfo ACTUALLY GET USED? @@@@@ }
+
+  TLCGLexerInfo = record
     Overflow: boolean;
     Next:     char;     // Next character in the queue
-    Buf:      TString;   // Buffer which caused error
+    Token:    TToken;
   end;
 
   // Stack items
 
   TLCGParserStackEntry = record
       State:     TLCGStateIdentifier;
-      Token:	 TLCGTokenIdentifier;
+      Token:	 TToken;
       Buf:       TString;
     end;
 
