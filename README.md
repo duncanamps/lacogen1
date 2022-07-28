@@ -26,7 +26,8 @@ The docs/ folder contains a user guide and a description of the file format for 
 #### Folder Structure
 Folders are organised as follows:
 
-* <root> the Lazarus project files, licence and .gitignore
+* root the Lazarus project files, licence and .gitignore
+  * binaries - The main executable file
   * lac/core/ LaCoGen core files (LaCoGen is built with LaCoGen!)
     * deployment_parser_module.pas - A utility parser and lexer that can load .lacobj files from file, resource or stream. Include this code with your application that uses LaCoGen
     * deployment_parser_types.pas - Some types defined for you to reference in your own application
@@ -48,8 +49,7 @@ Folders are organised as follows:
   * units/ - The PASCAL units which make up the core of the software. Most give a description in the header
 
 #### Known Issues 
-* LaCoGen dabbled back and forth between 8 bit and 32 bit characters during its early life. It has now settled on 8 bit characters as UTF8 is handled correctly so multi-byte sequences are OK. There may be parts of the code that are battle damaged by the continual changes, for example large chunks of commented out code
-* ~~As part of the 32bit or 8bit journey, the software generates character ranges as DFA records. So instead of 0,1,2,3,4,... it could be 0-5,6,7... Not sure if this is needed now but it's in there anyway~~ Have removed this code
+* None known
 
 #### Author
 Duncan Munro

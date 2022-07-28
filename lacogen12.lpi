@@ -35,7 +35,7 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="lacogen12"/>
+            <Filename Value="binaries\$(TargetOS)-$(TargetCPU)\lacogen12"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
@@ -174,7 +174,7 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="lacogen12"/>
+      <Filename Value="binaries\$(TargetOS)-$(TargetCPU)\lacogen12"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
