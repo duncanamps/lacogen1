@@ -78,3 +78,5 @@ lib/
 $archived/
 *.pdf
 lac/core/security_save/
+*.log
+*.bak

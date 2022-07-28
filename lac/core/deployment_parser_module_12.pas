@@ -119,7 +119,7 @@ type
   end;
 
   TLCGParser = class(TObject)
-    private
+    protected
       FBufferIncrement: integer;
       FBufferOverflow:  boolean;
       FDFA:             TLCGDFA;

@@ -102,15 +102,24 @@ type
 
   // Stack items
 
+  TLCGParserStackType = (pstINT32,pstString);
+
   TLCGParserStackEntry = record
       State:     TLCGStateIdentifier;
       Token:	 TToken;
+      BufType:   TLCGParserStackType;
       Buf:       TString;
+      BufInt:    int32;
     end;
 
   TLCGParserStack = array of TLCGParserStackEntry;
 
-  // Calling routine
+const
+  EmptyStackEntry: TLCGParserStackEntry = (State:   0;
+                                           Token:   (Row: 0; Col: 0; Buf: ''; ID: 0);
+                                           BufType: pstString;
+                                           Buf:     '';
+                                           BufInt:  0);
 
 implementation
 
