@@ -1,8 +1,8 @@
 # lacogen1
-LaCoGen - Lazarus Compiler Generator - Version 1
+LaCoGen - Lazarus Compiler Generator - Version 1.2
 
 #### Synopsis
-LaCoGen is a command line tool in the style of the LEX and YACC programs used in the world of C development. It takes a set of grammar rules in a .lac file and creates the following optional items:
+LaCoGen is a command line driven lexical analyser and [LALR(1)](https://en.wikipedia.org/wiki/LALR_parser) parser table generator in the style of the LEX and YACC programs used in the world of C development. It takes a set of grammar rules in a .lac file and creates the following optional items:
 
 * .lacobj file which contains the DFA and LALR(1) tables. These can be used to control your parser and lexer
 * .txt dump file which contains detailed descriptions of the DFA and LALR(1) items and how they were arrived at
@@ -16,7 +16,7 @@ Please don't use this for anything serious that you would object to losing. Whil
 working examples, there is no guarantee that it will work correctly with all grammars.
 
 #### Development Requirements
-To compile this software, you will need Lazarus 2.10 or later. It has been tested on Windows. As it is
+To compile this software, you will need Lazarus 2.2.0 or later. It has been tested on Windows. As it is
 only a simple text and file based application, it should be relatively easy to recompile on other hosts which are
 supported by the Lazarus ecosystem.
 
@@ -26,8 +26,9 @@ The docs/ folder contains a user guide and a description of the file format for 
 #### Folder Structure
 Folders are organised as follows:
 
-* root the Lazarus project files, licence and .gitignore
-  * binaries - The main executable file
+* root/ - The Lazarus project files, licence and .gitignore
+  * binaries/ - The main executable file
+  * docs/ The documentation folder
   * lac/core/ LaCoGen core files (LaCoGen is built with LaCoGen!)
     * deployment_parser_module.pas - A utility parser and lexer that can load .lacobj files from file, resource or stream. Include this code with your application that uses LaCoGen
     * deployment_parser_types.pas - Some types defined for you to reference in your own application
