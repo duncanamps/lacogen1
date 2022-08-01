@@ -69,13 +69,11 @@ modules/
 *.bat
 *.dbg
 backup/
-*.docx
 lib/
 *.xlsx
 *.lacobj
 *.txt
 $archived/
-*.pdf
 lac/core/security_save/
 *.log
 *.bak

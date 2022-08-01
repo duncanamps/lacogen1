@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="12"/>
+    <BuildModes Active="Debug"/>
+    <Units>
+      <Unit>
+        <Filename Value="preproc.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="23"/>
+      </Unit>
+      <Unit>
+        <Filename Value="fpreproc.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Form1"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <TopLine Value="33"/>
+        <CursorPos X="19" Y="47"/>
+        <UsageCount Value="23"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\units\upreproc.pas"/>
+        <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="56"/>
+        <CursorPos X="3" Y="197"/>
+        <UsageCount Value="23"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\lac\core\deployment_parser_module_13.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="5"/>
+        <TopLine Value="758"/>
+        <CursorPos X="4" Y="816"/>
+        <UsageCount Value="23"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\lac\core\deployment_parser_types_13.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="23"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\units\udefines.pas"/>
+        <UnitName Value="uDefines"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="78"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\units\uparser_exception.pas"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="17"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\units\upreproc_ifstack.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="38"/>
+        <CursorPos X="16" Y="22"/>
+        <UsageCount Value="23"/>
+        <Loaded Value="True"/>
+      </Unit>
+    </Units>
+    <JumpHistory HistoryIndex="29">
+      <Position>
+        <Filename Value="..\..\units\upreproc.pas"/>
+        <Caret Line="133" TopLine="109"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\units\upreproc.pas"/>
+        <Caret Line="131" TopLine="109"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\units\upreproc.pas"/>
+        <Caret Line="132" TopLine="109"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\units\upreproc.pas"/>
+        <Caret Line="119" TopLine="109"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\units\upreproc_ifstack.pas"/>
+        <Caret Line="46" TopLine="26"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\units\upreproc_ifstack.pas"/>
+        <Caret Line="47" TopLine="26"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\units\upreproc_ifstack.pas"/>
+        <Caret Line="49" TopLine="26"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\units\upreproc_ifstack.pas"/>
+        <Caret Line="50" TopLine="26"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\units\upreproc.pas"/>
+        <Caret Line="120" TopLine="109"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\units\upreproc.pas"/>
+        <Caret Line="131" TopLine="109"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\units\upreproc.pas"/>
+        <Caret Line="132" TopLine="109"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\units\upreproc.pas"/>
+        <Caret Line="131" TopLine="109"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\units\upreproc.pas"/>
+        <Caret Line="132" TopLine="109"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\units\upreproc.pas"/>
+        <Caret Line="131" TopLine="109"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\units\upreproc.pas"/>
+        <Caret Line="132" TopLine="109"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\units\upreproc.pas"/>
+        <Caret Line="119" TopLine="109"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\units\upreproc.pas"/>
+        <Caret Line="131" TopLine="109"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\units\upreproc.pas"/>
+        <Caret Line="132" TopLine="109"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\units\upreproc.pas"/>
+        <Caret Line="133" TopLine="109"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\units\upreproc.pas"/>
+        <Caret Line="119" TopLine="109"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\lac\core\deployment_parser_module_13.pas"/>
+        <Caret Line="816" Column="4" TopLine="758"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\units\upreproc.pas"/>
+        <Caret Line="119" Column="22" TopLine="167"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\units\upreproc.pas"/>
+        <Caret Line="131" TopLine="116"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\units\upreproc.pas"/>
+        <Caret Line="143" Column="31" TopLine="116"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\units\upreproc.pas"/>
+        <Caret Line="229" TopLine="199"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\units\upreproc.pas"/>
+        <Caret Line="40" Column="16" TopLine="25"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\units\upreproc.pas"/>
+        <Caret Line="229" Column="65" TopLine="207"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\units\upreproc.pas"/>
+        <Caret Line="202" Column="35" TopLine="177"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\units\upreproc.pas"/>
+        <Caret Line="191" TopLine="184"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\units\upreproc.pas"/>
+        <Caret Line="204" TopLine="188"/>
+      </Position>
+    </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode=""/>
+    </RunParams>
+  </ProjectSession>
+</CONFIG>
