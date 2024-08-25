@@ -1,5 +1,3 @@
-unit deployment_parser_module_12;
-
 {
     LaCoGen - LAzarus COmpiler GENerator
     Copyright (C)2020-2022 Duncan Munro
@@ -19,6 +17,8 @@ unit deployment_parser_module_12;
 
     Contact: Duncan Munro  duncan@duncanamps.com
 }
+
+unit deployment_parser_module_12;
 
 {$mode objfpc}{$H+}
 {$modeswitch advancedrecords}

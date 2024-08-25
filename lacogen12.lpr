@@ -185,12 +185,7 @@ procedure TLaCoGen.OutputTitle;
 const START_YEAR = 2020;
 var stamp: TDateTime;
     year,month,day: word;
-    exestr: string;
 begin
-  exestr := ExtractFileName(ParamStr(0));
-{$IFDEF Windows}
-  exestr := StringReplace(exestr,'.exe','',[rfReplaceAll,rfIgnoreCase]);
-{$ENDIF}
   WriteLn('');
   WriteLn('LaCoGen V1.2');
   stamp := Now;
@@ -201,9 +196,10 @@ begin
     WriteLn(Format('Copyright (C)%d-%d Duncan Munro <duncan@duncanamps.com>',[START_YEAR,year]));
   if ParamCount = 0 then
     WriteLn('This program comes with ABSOLUTELY NO WARRANTY; for details' + #13 + #10 +
-            'type ''' + exestr + ' -i''' + #13 + #10 +
+            'type ''' + MyExeName + ' -i''' + #13 + #10 +
             'This is free software, and you are welcome to redistribute it' + #13 + #10 +
-            'under certain conditions; type ''' + exestr + ' -r'' for details.');
+            'under certain conditions; type ''' + MyExeName + ' -r'' for details.' + #13 + #10 +
+            'For more options, type: ''' + MyExeName + ' --help''' + #13 + #10);
   WriteLn('');
 end;
 
@@ -292,8 +288,7 @@ end;
 procedure TLaCoGen.WriteHelp;
 var s: string;
 begin
-  { add your help code here }
-  writeln('Usage: lacogen11 inputfile[.lac] [options]');
+  writeln('Usage: ' + MyExeName + ' inputfile[.lac] [options]');
   writeln('');
   writeln('Options:');
   writeln('');
@@ -313,7 +308,7 @@ var
 
 begin
   Application:=TLaCoGen.Create(nil);
-  Application.Title:='LaCoGen11 Command Line';
+  Application.Title:='LaCoGen12 Command Line';
   Application.Run;
   Application.Free;
 end.

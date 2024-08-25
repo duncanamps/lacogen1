@@ -41,6 +41,7 @@ function MakeFriendlyChar(c: TChar): TString;
 function MakePrintable(const s: TString): string;
 function MakePrintable(c: TChar): string;
 function MakeXMLHeading(const s: string): string;
+function MyExeName: string;
 function NonTerminalNameToToken(const s: string): string;
 function OppositeCase(ch: char): char;
 function Pull(var s: string): string;
@@ -329,6 +330,17 @@ begin
   for i := 1 to Length(s) do
     Result := Result + CharAsText(s[i]);
 end;
+
+function MyExeName: string;
+var exestr: string;
+begin
+  exestr := ExtractFileName(ParamStr(0));
+  {$IFDEF Windows}
+    exestr := StringReplace(exestr,'.exe','',[rfReplaceAll,rfIgnoreCase]);
+  {$ENDIF}
+  MyExeName := exestr;
+end;
+
 
 function NonTerminalNameToToken(const s: string): string;
 begin

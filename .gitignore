@@ -65,15 +65,18 @@ __recovery/
 *.stat
 
 # Boss dependency manager vendor folder https://github.com/HashLoad/boss
-modules/
+$archived/
+*.bak
 *.bat
 *.dbg
-backup/
-lib/
-*.xlsx
 *.lacobj
-*.txt
-$archived/
-lac/core/security_save/
 *.log
-*.bak
+*.txt
+*.xlsx
+backup/
+binaries/debug/
+docs/research/
+lac/core/security_save/
+lib/
+modules/
+test/expr/test_expr_fp.exe
