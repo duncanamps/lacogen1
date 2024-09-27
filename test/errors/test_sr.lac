@@ -1,10 +1,17 @@
 //-----------------------------------------------------------------------------------
 //
-// LaCoGen - Test epsilons
+// LaCoGen - Test SR conflict
 //
 // 31/03/2020
 //
 // Test Shift/Reduce conflict
+//
+// A shift / reduce conlict occurs when the parser does not know whether to shift
+// or reduce based on the input. For example if the input is <E> + <E> and another
+// plus sign is see, is it shifted in, or is the first <E> + <E> reduced?
+//
+// There's the conflict. Aside from the warning, LaCoGen will deal with this
+// situation by shifting.
 //
 // -----------------------------------------------------------------------------------
   
@@ -34,7 +41,5 @@ n = {nset}+;
 
 <E> : n
     | <E> "+" <E>
-    | <E> "*" <E>
-    | "(" <E> ")"
     ;
     

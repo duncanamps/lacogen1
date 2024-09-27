@@ -6,6 +6,18 @@
 //
 // Test Reduce/Reduce conflict
 //
+// A reduce/reduce conflict occurs when more than one rule could be executed for
+// the same input stream.
+//
+// The the example below, an input of b could reduce in two different ways:
+//
+//   b -> <A> -> <E>
+//   b -> <B> -> <E>
+//
+// LaCoGen will not know which rule chain should apply and will issue a warning
+// message. In reality it will use the first rule that is present in the table but
+// there is no guarantee which of the two rules it will be.
+//
 // -----------------------------------------------------------------------------------
   
 %title        = "LaCoGen TEST RR Conflict";

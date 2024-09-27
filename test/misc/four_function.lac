@@ -1,0 +1,56 @@
+//-----------------------------------------------------------------------------------
+//
+// LaCoGen - Four function calculator
+//
+// 26/09/2024
+//
+// -----------------------------------------------------------------------------------
+  
+%title          = "LaCoGen Four Function Calculator Test";
+%version        = "0.1";
+%author         = "Duncan Munro";
+%codeprefix     = "CALC";
+%start          = <Result>;
+
+
+// ====================================================================
+// Character Sets
+// ====================================================================
+
+{Digit}			= [0-9];
+{NonZeroDigit}  = [1-9];
+{Zero}			= [0];
+{WS Char}   	= [\t\n\r] + [ ];
+
+
+// ====================================================================
+// Terminals
+// ====================================================================
+
+integer		= {Zero} | {NonZeroDigit} {Digit}* ;
+op_plus		= "+" symbol ;
+op_minus	= "-" symbol ;
+op_multiply	= "*" symbol ;
+op_divide	= "/" symbol ;
+whitespace 	= {WS Char}+	ignore;
+
+
+// ====================================================================
+// Rules
+// ====================================================================
+
+// High level rules
+
+<Result>    	: <Expression> ;
+
+<Expression>	: <Expression> op_plus <MultExpr>
+				| <Expression> op_minus <MultExpr>
+				| <MultExpr>
+				;
+				
+<MultExpr>		: <MultExpr> op_multiply integer
+				| <MultExpr> op_divide integer
+				| integer
+				;
+
+				
